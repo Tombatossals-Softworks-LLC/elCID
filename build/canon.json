@@ -1,0 +1,1656 @@
+{
+ "title": "EL CID CAMPEADOR",
+ "intro": "CASTILLA, ANNO DE GRACIA 1081.\n\nEl rey Alfonso, prestando oido a malsines y envidiosos, ha desterrado de sus tierras a Rodrigo Diaz de Vivar, a quien llaman el Cid. De los sos ojos tan fuertemente llorando, dejas casa, haberes y honra, mas no el corazon ni la espada.\n\n\"Dios, que buen vassallo, si oviesse buen sennor!\"\n\nDe infanzon proscrito has de alzarte a sennor de Valencia, casar con bien a tus hijas y, cuando la traicion te afrente, recobrar tu honra en las Cortes de Toledo. Conquista, juzga y vence.\n\nEscribe ordenes de DOS palabras: VERBO + NOMBRE (COGE ESPADA, MIRA ARCAS, HABLA REY, VE NORTE, ABRE PUERTA). Teclea AYUDA si te pierdes, o I para tu inventario.\n\nCabalga, Campeador. La historia aguarda.",
+ "rooms": [
+  {
+   "id": 1,
+   "name": "Vivar, solar del Cid",
+   "desc": "Tu casa solariega, vacia ya. Puertas abiertas de par en par, alcandaras sin halcones, el hogar frio. Una corneja grazna a la diestra: mal aguero. Comienza el destierro.",
+   "scene": "a deserted Castilian manor at dawn, open doors, bare falcon-perches, cold hearth, a lone crow on the wall right of frame",
+   "exits": {
+    "e": 2,
+    "d": 3
+   },
+   "items": [
+    "manto",
+    "carta_destierro"
+   ],
+   "npcs": [],
+   "notes": "Tutorial. LEE CARTA da el bando del rey. MIRA CORNEJA imprime el aguero canonico. Este a Burgos, ABAJO a los establos por Babieca."
+  },
+  {
+   "id": 2,
+   "name": "Camino de Burgos",
+   "desc": "Polvoriento camino hacia el este. Las gentes salen a las ventanas llorando: 'Dios, que buen vassallo!'. Mas nadie osa hablarte: el rey lo veda so pena de muerte. Sesenta lanzas te siguen.",
+   "scene": "a dusty road winding east, villagers weeping at windows, sixty lances behind, the brown walls of Burgos rising ahead",
+   "exits": {
+    "o": 1,
+    "e": 4
+   },
+   "items": [],
+   "npcs": [
+    "mesnada"
+   ],
+   "notes": "Transito. HABLA MESNADA da color y recuerda que sin pan la hueste se deshace, empujando al ardid de las arcas."
+  },
+  {
+   "id": 3,
+   "name": "Establos de Vivar",
+   "desc": "Cuadra umbria que huele a paja y cuero. En el ultimo pesebre, inmovil como estatua de guerra, aguarda un caballo bayo de ojos de fuego: Babieca, tu sombra en mil batallas.",
+   "scene": "a shadowy stable, straw and leather, a powerful bay warhorse with fiery eyes waiting in the last stall",
+   "exits": {
+    "u": 1
+   },
+   "items": [
+    "babieca",
+    "silla"
+   ],
+   "npcs": [],
+   "notes": "MONTA BABIECA / COGE SILLA. Babieca es OBLIGATORIO para cruzar el Duero (sala 11) y para las batallas de Fariz/Galve y Bucar."
+  },
+  {
+   "id": 4,
+   "name": "Puerta de Burgos",
+   "desc": "Las puertas de Burgos, cerradas a cal y canto. El rey mando, so pena de perder haberes y ojos, que nadie te aposente ni venda pan. Tu ensena verde ondea a la izquierda. Una nina sale al raso.",
+   "scene": "the shut iron-barred gates of Burgos under a grey sky, the Cid's green banner left of frame, a small girl of nine stepping out, weeping town behind grilles",
+   "exits": {
+    "o": 2,
+    "e": 5,
+    "s": 6
+   },
+   "items": [
+    "ensena"
+   ],
+   "npcs": [
+    "nina"
+   ],
+   "notes": "HABLA NINA dispara el discurso de la nina de nueve anos. COGE ENSENA: el pendon, REQUERIDO para cruzar el Duero. FORZAR PUERTA = lose de honra. Este a la plaza, Sur a los prestamistas."
+  },
+  {
+   "id": 5,
+   "name": "Plaza de Burgos",
+   "desc": "La plaza del mercado, hoy hostil. Los tenderos bajan los toldos a tu paso por miedo al rey. Solo Martin Antolinez, burgales de pro, se atreve a acercarse con pan, vino y un plan astuto.",
+   "scene": "a tense medieval market square, merchants lowering awnings in fear, one loyal burgher stepping forward with bread and wine",
+   "exits": {
+    "o": 4,
+    "s": 7
+   },
+   "items": [
+    "pan",
+    "vino"
+   ],
+   "npcs": [
+    "antolinez"
+   ],
+   "notes": "HABLA ANTOLINEZ ensena el ardid de las arcas de arena (requisito para tratar con Raquel e Vidas). Sur baja a la glera/ribera del Arlanzon."
+  },
+  {
+   "id": 6,
+   "name": "Casa de Raquel e Vidas",
+   "desc": "Tras una puerta tachonada moran los prestamistas Raquel e Vidas, contando oro a la luz de un candil. Olor a cera, a moneda y a codicia. Dos arcas de roble, vacias, esperan en un rincon.",
+   "scene": "a moneylenders' dim chamber, two lenders counting coins by lamplight, scales and tapestries, two empty oak chests in the corner",
+   "exits": {
+    "n": 4,
+    "e": 7
+   },
+   "items": [
+    "arcas"
+   ],
+   "npcs": [
+    "raquel_vidas"
+   ],
+   "notes": "PUZZLE 1. LLENA ARCAS con arena (de la glera, sala 7), SELLA ARCAS, EMPENA ARCAS / DA ARCAS a Raquel e Vidas -> cofre_oro (600 marcos). Requiere haber hablado con Antolinez. ABRIR las arcas ante ellos descubre el ardid (final amargo / lose)."
+  },
+  {
+   "id": 7,
+   "name": "Glera del Arlanzon",
+   "desc": "El arenal junto al rio Arlanzon, donde plantas tu tienda pues en la villa no hay posada para ti. Arena fina y humeda a montones, guijarros, sauces inclinados al agua. Buen lugar para un ardid.",
+   "scene": "a sandy riverbank with a campaign tent, willows over the Arlanzon, the city walls behind, fine wet sand heaped on the shore",
+   "exits": {
+    "n": 5,
+    "o": 6,
+    "e": 8
+   },
+   "items": [
+    "arena",
+    "tienda"
+   ],
+   "npcs": [],
+   "notes": "COGE ARENA: insumo del puzzle de las arcas. SECRETO: CAVA ARENA / MIRA SAUCE desentierra una moneda visigoda (moneda_goda). Este a Cardena."
+  },
+  {
+   "id": 8,
+   "name": "San Pedro de Cardena",
+   "desc": "El monasterio. Campanas a maitines. El abad don Sancho te recibe en el claustro. Aqui dejas a dona Jimena y a tus dos hijas, ninas aun, en la despedida que parte el corazon como la una de la carne.",
+   "scene": "a Romanesque monastery cloister at dawn, bells, an abbot greeting the Cid, his wife and two small girls waiting to be embraced",
+   "exits": {
+    "o": 7,
+    "e": 9,
+    "d": 10,
+    "s": 11
+   },
+   "items": [],
+   "npcs": [
+    "abad_sancho",
+    "jimena",
+    "elvira_sol"
+   ],
+   "notes": "DA ORO ABAD endota el monasterio y deja a salvo a la familia (flag familia_segura, mejora el reencuentro). HABLA JIMENA: oracion y despedida. Este a la capilla, ABAJO a la bodega, Sur al vado del Duero."
+  },
+  {
+   "id": 9,
+   "name": "Capilla de Cardena",
+   "desc": "Capilla en penumbra. Jimena ora de hinojos ante un Cristo de marfil por tu vida y la de tus hijas. Cirios, exvotos de cera, un silencio que pesa como una loza.",
+   "scene": "a dim monastery chapel, a kneeling noblewoman praying before an ivory Christ, votive candles and wax offerings",
+   "exits": {
+    "o": 8
+   },
+   "items": [
+    "reliquia"
+   ],
+   "npcs": [],
+   "notes": "SECRETO/util. REZA da bendicion (moral). MIRA ALTAR revela la reliquia oculta, que puede purgar el pozo emponzonado (sala 19) y afirma la mano en Toledo. Sala sin salida salvo regreso."
+  },
+  {
+   "id": 10,
+   "name": "Bodega de Cardena",
+   "desc": "Bodega abovedada bajo el monasterio. Tinajas de vino, sacos de grano, herramientas, frescor de piedra. Los monjes guardan aqui la provision para la mesnada que parte al exilio.",
+   "scene": "a vaulted monastery cellar, wine jars, grain sacks, tools, cool stone walls",
+   "exits": {
+    "u": 8
+   },
+   "items": [
+    "vianda",
+    "cuerda"
+   ],
+   "npcs": [],
+   "notes": "COGE VIANDA (aprovisiona la hueste) y CUERDA (REQUERIDA para escalar Castejon, sala 13, y descender en Corpes). Item facil de pasar por alto pero clave."
+  },
+  {
+   "id": 11,
+   "name": "Vado del Duero",
+   "desc": "El ancho Duero, raya del reino. Aguas pardas. Mas alla, tierra de moros y guerra. En sueno la noche pasada, el angel Gabriel: 'Cabalga, Cid, que todo te ira bien'. Cruza, y no mires atras.",
+   "scene": "a wide brown river ford at dusk, the frontier beyond, the Cid on horseback about to cross, a faint angelic glow over the camp",
+   "exits": {
+    "n": 8,
+    "e": 12
+   },
+   "items": [],
+   "npcs": [],
+   "notes": "UMBRAL. Cruzar al ESTE EXIGE babieca Y ensena (si no, LOSE: la hueste se dispersa). DUERME / REZA evoca el sueno de Gabriel (buff moral, secreto). Frontera entre Castilla y la marca."
+  },
+  {
+   "id": 12,
+   "name": "Tierras de frontera",
+   "desc": "Paramo aspero de la Extremadura del Duero. Encinas raquiticas, atalayas moras en los cerros, polvo y sol. Aqui se gana el pan con la lanza. Caminos al norte, al este y al sur.",
+   "scene": "a harsh frontier plateau, stunted holm-oaks, Moorish watchtowers on the hills, dust and hard sun, the Cid's host fanning out",
+   "exits": {
+    "o": 11,
+    "n": 13,
+    "e": 15,
+    "s": 17
+   },
+   "items": [],
+   "npcs": [],
+   "notes": "HUB de campana del Cantar 1. Norte a Castejon, Este a Alcocer, Sur al pinar de Tevar (Berenguer/Colada)."
+  },
+  {
+   "id": 13,
+   "name": "Castejon de Henares",
+   "desc": "La villa de Castejon, sobre el Henares, duerme confiada al alba. Sus puertas se abriran pronto para el mercado. Minaya Alvar Fanez aguarda tu senal para la celada: tomarla por sorpresa.",
+   "scene": "a sleeping Moorish hill-town at dawn above a river, gates about to open for market, knights hidden in ambush",
+   "exits": {
+    "s": 12,
+    "e": 14
+   },
+   "items": [],
+   "npcs": [
+    "minaya"
+   ],
+   "notes": "PUZZLE: la celada. ESPERA al alba a que abran las puertas, luego ASALTA CASTEJON con la CUERDA mientras Minaya corre el campo. HABLA MINAYA introduce a tu brazo derecho. Este al botin."
+  },
+  {
+   "id": 14,
+   "name": "Botin de Castejon",
+   "desc": "Las arcas de Castejon: oro, plata, panos, ganados. La quinta del Cid se aparta, escrupulosa, para el rey que aun te tiene desterrado. Aqui empieza la fama del Campeador en tierra de nadie.",
+   "scene": "a captured treasure-room, gold and silver, fine cloth, herds outside, knights dividing spoils into shares",
+   "exits": {
+    "o": 13
+   },
+   "items": [
+    "botin",
+    "corcel_moro"
+   ],
+   "npcs": [],
+   "notes": "COGE BOTIN y CORCEL_MORO: parte del presente (parias) que Minaya llevara al rey. Engrosa el caudal para la gran campana."
+  },
+  {
+   "id": 15,
+   "name": "Alcocer, ribera del Jalon",
+   "desc": "El cerro de Alcocer sobre el rio Jalon, villa fuerte que codicias. No cae por asalto: carece de agua corriente, mas sus muros son recios. El Cid manda plantar tiendas y fingir que levanta el cerco.",
+   "scene": "a strong Moorish town on a river bluff, the Cid's siege tents below, a clever feigned retreat being staged",
+   "exits": {
+    "o": 12,
+    "e": 16
+   },
+   "items": [
+    "tienda_finta"
+   ],
+   "npcs": [],
+   "notes": "PUZZLE del ardid. PLANTA TIENDA, luego FINGE HUIDA (retirada con tienda senuelo); los moros salen a saquear el real y VUELVES y ASALTA ALCOCER por las puertas abiertas. Asalto frontal fracasa."
+  },
+  {
+   "id": 16,
+   "name": "Campo de Fariz y Galve",
+   "desc": "Llanura sembrada de pendones moros. Los reyes Fariz y Galve traen tres mil moros a cobrar Alcocer. Pero Bermuez ya aguija con tu ensena: 'Ferid los, caballeros, por amor del Criador!'.",
+   "scene": "a great pitched battle, three thousand Moorish banners, the standard-bearer Pero Bermuez charging ahead with the green ensign",
+   "exits": {
+    "o": 15
+   },
+   "items": [
+    "espada_botin",
+    "parias"
+   ],
+   "npcs": [
+    "fariz_galve",
+    "bermuez"
+   ],
+   "notes": "BATALLA. DA ENSENA PERO (Bermuez la clava en la mayor priesa), MONTA BABIECA y ATACA. Fariz herido, Galve huye. Gran botin -> parias. LOSE: lidiar a pie o desarmado = muerte."
+  },
+  {
+   "id": 17,
+   "name": "Pinar de Tevar",
+   "desc": "Espesos pinares en la marca de Zaragoza. Aqui reto y prendiste al soberbio conde Ramon Berenguer de Barcelona. De pura verguenza no quiere comer. En su tienda relumbra una espada sin par: COLADA.",
+   "scene": "a dense dark pine forest, the captured Count of Barcelona sulking by a tent, a magnificent sword gleaming on a table",
+   "exits": {
+    "n": 12,
+    "e": 18
+   },
+   "items": [
+    "colada",
+    "rescate"
+   ],
+   "npcs": [
+    "berenguer"
+   ],
+   "notes": "ORIGEN DE COLADA (fiel a la historia). CONVIDA CONDE / HABLA BERENGUER lo aplaca; lo sueltas con cortesia (sube honra). COGE COLADA: REQUERIDA para los duelos de Toledo (sala 31). Este a Levante."
+  },
+  {
+   "id": 18,
+   "name": "Senda a Levante",
+   "desc": "El largo camino hacia el este, hacia el mar y el reino de Valencia. Tres anos de cabalgadas se resumen en este paso: el Cid, ya sennor de muchas villas, pone sus ojos en la gran ciudad del Turia.",
+   "scene": "a long eastward road toward the sea, a victorious host marching, a distant green coastal plain and white city ahead",
+   "exits": {
+    "o": 17,
+    "e": 19
+   },
+   "items": [],
+   "npcs": [],
+   "notes": "Transicion Cantar 1 -> Cantar 2. MIRA HORIZONTE: primer atisbo del mar. Requiere parias ya despachadas (Minaya enviado) para que la hueste avance legitima."
+  },
+  {
+   "id": 19,
+   "name": "Huerta de Valencia",
+   "desc": "La huerta de Valencia: vergeles, acequias, naranjos y palmeras bajo cielo de esmalte. Tan hermosa que juras ganarla. Mas un pozo cercano hiede: los moros lo han emponzonado. Beber de el es morir.",
+   "scene": "the lush huerta of Valencia, orange groves, palms, irrigation channels, the white walled city beyond, a sinister stone well",
+   "exits": {
+    "o": 18,
+    "e": 20,
+    "n": 21
+   },
+   "items": [
+    "pozo",
+    "cidra"
+   ],
+   "npcs": [],
+   "notes": "PUZZLE + TRAMPA LOSE. BEBE POZO sin purgar = muerte por calenturas. PURGA POZO con ECHA RELIQUIA POZO o ECHA CIDRA POZO para aprovisionar el cerco. Norte al real, Este a las murallas."
+  },
+  {
+   "id": 20,
+   "name": "Murallas de Valencia",
+   "desc": "Las altas murallas blancas de Valencia, coronadas de almenas y banderas verdes del Islam. El Cid cierra el cerco. Dentro, el hambre; fuera, la paciencia del Campeador. La gran ciudad va a caer.",
+   "scene": "the high white walls of Valencia crowned with battlements and green Islamic banners, a besieging camp at their foot",
+   "exits": {
+    "o": 19,
+    "e": 22
+   },
+   "items": [],
+   "npcs": [],
+   "notes": "PUZZLE SIEGE. Requiere el pozo purgado y la hueste. ASEDIA / CERCA, espera el hambre, luego ASALTA: Pero Bermuez clava la ensena en la torre. Este al alcazar conquistado."
+  },
+  {
+   "id": 21,
+   "name": "Real del Cid",
+   "desc": "El campamento ante Valencia: tiendas, fraguas, el pendon verde clavado en tierra. Aqui se cuentan las mesnadas y se reparte el botin. Minaya vuelve del rey con buenas nuevas y un salvoconducto.",
+   "scene": "the Cid's war camp before Valencia, tents, forges, the green standard planted, knights mustering, a messenger returning",
+   "exits": {
+    "s": 19
+   },
+   "items": [
+    "salvoconducto"
+   ],
+   "npcs": [
+    "minaya"
+   ],
+   "notes": "HABLA MINAYA: tras las parias enviadas, trae el SALVOCONDUCTO real para que Jimena y las hijas vengan a Valencia (REQUERIDO para reunir a la familia y las bodas). El rey ablanda su corazon."
+  },
+  {
+   "id": 22,
+   "name": "Alcazar de Valencia",
+   "desc": "El alcazar, ya tuyo. Salones de azulejos, arcos de herradura, un mirador sobre el mar. Eres sennor de Valencia, tu, el de Vivar. Manda llamar a Jimena y a sus hijas a ver la maravilla ganada.",
+   "scene": "a Moorish palace interior, tiled halls, horseshoe arches, a balcony over the sea, the Cid as the new lord of Valencia",
+   "exits": {
+    "o": 20,
+    "e": 23,
+    "n": 24,
+    "d": 25
+   },
+   "items": [
+    "mirador"
+   ],
+   "npcs": [
+    "jimena",
+    "jeronimo"
+   ],
+   "notes": "HUB de Valencia. SUBE MIRADOR: con el salvoconducto llegan Jimena y las hijas y ven el mar y la ciudad (flag familia_en_valencia). Aparece el obispo guerrero don Jeronimo. Norte camara hijas, Este playa, ABAJO tesoro."
+  },
+  {
+   "id": 23,
+   "name": "Playa de Valencia",
+   "desc": "La playa ante Valencia. El mar, que Jimena nunca habia visto, rompe en espuma. Mas en el horizonte negrean velas: es el rey Bucar de Marruecos con cincuenta mil moros, venido a recobrar la ciudad.",
+   "scene": "a Mediterranean beach before Valencia, white surf, and on the horizon a black fleet of fifty thousand Almoravids massing",
+   "exits": {
+    "o": 22,
+    "e": 26
+   },
+   "items": [],
+   "npcs": [],
+   "notes": "MIRA MAR: Jimena ve el mar por vez primera. La flota de Bucar dispara la gran batalla (Este, sala 26). Cenir TIZONA antes de lidiar con Bucar."
+  },
+  {
+   "id": 24,
+   "name": "Camara de las hijas",
+   "desc": "La camara de dona Elvira y dona Sol en el alcazar. Telares, un arca de panos, una ventana al jardin. Tus hijas, ya mozas, cosen y rien, ajenas a los Infantes de Carrion que las pretenden.",
+   "scene": "a bright palace bower, two young noblewomen at a loom, a window onto a garden, chests of fine cloth and silk",
+   "exits": {
+    "s": 22
+   },
+   "items": [
+    "manto_bodas",
+    "arca_panos"
+   ],
+   "npcs": [
+    "elvira_sol"
+   ],
+   "notes": "COGE MANTO_BODAS (para las bodas, sala 27). CRUCIAL: ese manto, roto en Corpes, sera la PRUEBA (manto_roto) en las Cortes. MIRA ARCA_PANOS: prenda de amor (easter egg)."
+  },
+  {
+   "id": 25,
+   "name": "Tesoro del alcazar",
+   "desc": "Boveda secreta bajo el alcazar. Cofres, panos de seda, y en un atril de cedro una espada sin par recien ganada en Valencia: TIZONA, que vale mas de mil marcos de oro y reluce como espejo de guerra.",
+   "scene": "a secret vault under the palace, chests of silk, and a peerless sword Tizona on a cedar rack, glinting in lamplight",
+   "exits": {
+    "u": 22
+   },
+   "items": [
+    "tizona",
+    "cofre_seda"
+   ],
+   "npcs": [],
+   "notes": "COGE TIZONA: REQUERIDA para vencer a Bucar (sala 26) y, recobrada, para los duelos. SECRETO: MUEVE ATRIL revela una corona votiva visigoda (corona_goda)."
+  },
+  {
+   "id": 26,
+   "name": "Batalla contra Bucar",
+   "desc": "El gran campo ante el mar. Bucar de Marruecos te reta. El Cid, sobre Babieca, ensena en alto, carga: 'Por Castilla y Valencia!'. Tizona reluce. Persigues a Bucar hasta la orilla; cae su espada.",
+   "scene": "a colossal beach-plain battle, the Cid on Babieca chasing King Bucar to the sea, Tizona flashing, Almoravid banners everywhere",
+   "exits": {
+    "o": 23,
+    "e": 27
+   },
+   "items": [
+    "espada_bucar",
+    "tienda_bucar"
+   ],
+   "npcs": [
+    "bucar",
+    "jeronimo"
+   ],
+   "notes": "CLIMAX Cantar 2. HABLA JERONIMO (pide las feridas primeras), MONTA BABIECA, VENCE BUCAR (LOSE si sin Tizona o sin Babieca). Ganas espada_bucar + tienda_bucar para enviar al rey y lograr el perdon. Este a la vega del Tajo."
+  },
+  {
+   "id": 27,
+   "name": "Vega del Tajo y bodas",
+   "desc": "A orillas del Tajo, el rey Alfonso, movido por los dones de Valencia, te perdona y te besa. Mas pide para sus primos, los Infantes de Carrion, las manos de tus hijas. Receloso, accedes por servir al rey.",
+   "scene": "a riverside royal pavilion on the Tagus, King Alfonso pardoning the kneeling Cid, the haughty Infantes and a wedding feast nearby",
+   "exits": {
+    "o": 26,
+    "e": 28
+   },
+   "items": [
+    "anillo_real"
+   ],
+   "npcs": [
+    "rey_alfonso",
+    "infantes"
+   ],
+   "notes": "PERDON + BODAS. Requiere Bucar vencido + dones. DA DONES REY / BESA MANO sella el perdon; CASA HIJAS celebra las bodas con los Infantes (con manto_bodas). Aqui se gesta, tras el leon, la afrenta. Este a Corpes."
+  },
+  {
+   "id": 28,
+   "name": "Robledo de Corpes",
+   "desc": "Robledal negro, alto, sin senda. Aqui los Infantes, por vengar la verguenza del leon, han azotado con cinchas y dejado por muertas a dona Elvira y dona Sol. El manto de bodas yace roto entre las raices.",
+   "scene": "a dark dense oak grove at dusk, two noblewomen beaten and abandoned among the roots, a torn bloodied wedding mantle on the ground",
+   "exits": {
+    "o": 27,
+    "e": 29,
+    "d": 30
+   },
+   "items": [
+    "manto_roto",
+    "cinchas"
+   ],
+   "npcs": [
+    "felez_munoz"
+   ],
+   "notes": "AFRENTA DE CORPES (corazon del Cantar 3). Llegas con Felez Munoz. COGE MANTO_ROTO (PRUEBA clave) y CINCHAS. ABAJO a la fuente para rescatarlas. Este al camino de Toledo. La brutalidad se trata con sobriedad de epoca."
+  },
+  {
+   "id": 29,
+   "name": "Cortes de Toledo",
+   "desc": "Las Cortes en el palacio de Galiana. El rey Alfonso preside. Nobles de toda Castilla. El Cid, barba crecida y atada con cordon para que nadie se la mese, se alza a pedir DERECHO contra los de Carrion.",
+   "scene": "a grand royal court hall in Toledo, King Alfonso enthroned, nobles assembled, the long-bearded Cid rising to demand justice",
+   "exits": {
+    "o": 28,
+    "u": 31
+   },
+   "items": [
+    "cordon_barba"
+   ],
+   "npcs": [
+    "rey_alfonso",
+    "infantes",
+    "garcia_ordonez",
+    "asur"
+   ],
+   "notes": "CLIMAX Cantar 3, juicio en tres demandas. EXIGE ESPADAS (recobras Tizona y Colada de los Infantes), EXIGE AJUAR (3000 marcos), MUESTRA MANTO_ROTO + CINCHAS (prueba la afrenta), RETA INFANTES. LOSE si retas sin espadas recobradas ni prueba. ARRIBA al palenque."
+  },
+  {
+   "id": 30,
+   "name": "Fuente de Corpes",
+   "desc": "Mas alla del robledo, una fuente fria entre helechos. Felez Munoz reanima a tus hijas con agua en su sombrero. La crueldad de los Infantes clama al cielo. Aqui juras justicia.",
+   "scene": "a cold spring among ferns deep in the oaks, a young knight reviving two beaten women with water carried in his hat",
+   "exits": {
+    "u": 28
+   },
+   "items": [
+    "agua_fuente",
+    "sombrero"
+   ],
+   "npcs": [
+    "felez_munoz"
+   ],
+   "notes": "SOCORRE HIJAS / DA AGUA HIJAS las revive (con Felez). Si tardas demasiado, LOSE (mueren). REZA: voto de venganza. Sala de curacion, regreso ARRIBA a Corpes."
+  },
+  {
+   "id": 31,
+   "name": "Palenque de los duelos",
+   "desc": "El campo del palenque, cercado de varas, ante toda la corte. Tres lides: Pero Bermuez con Tizona, Martin Antolinez con Colada, y Muno Gustioz. Dios y el derecho de tu parte. Suenan las trompas del riepto.",
+   "scene": "a fenced judicial-duel field before the whole court, three of the Cid's champions facing the Infantes, heralds and the King judging",
+   "exits": {
+    "d": 29,
+    "e": 32
+   },
+   "items": [],
+   "npcs": [
+    "bermuez",
+    "antolinez",
+    "munno_gustioz",
+    "infantes",
+    "asur"
+   ],
+   "notes": "DUELOS JUDICIALES (final). Requiere Tizona + Colada recobradas. DA TIZONA PERO, DA COLADA MARTIN, arma a Muno, LIDIA: Pero vence a Fernando, Martin a Diego, Muno a Asur Gonzalez. Infantes vencidos y por traidores -> honra_restaurada. LOSE: sin espadas tus campeones flaquean."
+  },
+  {
+   "id": 32,
+   "name": "Triunfo del Campeador",
+   "desc": "Toledo en fiesta. Los Infantes huyen deshonrados. Llegan mensajeros: los infantes de Navarra y Aragon piden a Elvira y Sol por esposas; seran reinas. Valencia es tuya, tu honra entera. Dios, que ondrado!",
+   "scene": "a triumphant Toledo, the dishonored Infantes fleeing, royal envoys from Navarre and Aragon, the Cid acclaimed amid banners and bells",
+   "exits": {
+    "o": 31
+   },
+   "items": [
+    "corona_navarra"
+   ],
+   "npcs": [
+    "rey_alfonso",
+    "jimena",
+    "elvira_sol"
+   ],
+   "notes": "WIN. Solo con honra_restaurada + valencia_tomada + familia_en_valencia + duelos ganados. ACEPTA BODAS: las hijas casan con los principes de Navarra y Aragon y son reinas. Cierre: 'en este logar se acaba esta razon'. VENCISTE, Campeador."
+  }
+ ],
+ "items": [
+  {
+   "id": "manto",
+   "name": "manto",
+   "start": "1",
+   "desc": "Tu manto de sennor castellano, pesado y digno. Aun en el destierro, un Cid viste como un Cid.",
+   "syn": [
+    "capa",
+    "manton"
+   ],
+   "take": true
+  },
+  {
+   "id": "carta_destierro",
+   "name": "carta de destierro",
+   "start": "1",
+   "desc": "La carta sellada del rey Alfonso: te destierra de Castilla en nueve dias. Injusta, mas firmada por el rey.",
+   "syn": [
+    "carta",
+    "edicto",
+    "sello",
+    "decreto"
+   ],
+   "take": true,
+   "notes": "LEE CARTA da la historia y el reloj del destierro."
+  },
+  {
+   "id": "babieca",
+   "name": "Babieca",
+   "start": "3",
+   "desc": "Babieca, tu caballo bayo, ganado a un moro. No hay mejor montura para un Campeador. Sus ojos son dos ascuas. Ningun rey lo aceptaria como regalo: es solo tuyo.",
+   "syn": [
+    "caballo",
+    "corcel",
+    "bayo",
+    "rocin"
+   ],
+   "take": true,
+   "notes": "MONTA. Requerido para cruzar el Duero (11), Fariz/Galve (16) y Bucar (26)."
+  },
+  {
+   "id": "silla",
+   "name": "silla de montar",
+   "start": "3",
+   "desc": "Buena silla de guerra, arzon alto, estribos de hierro. Para cabalgar como Dios manda.",
+   "syn": [
+    "montura",
+    "arzon"
+   ],
+   "take": true
+  },
+  {
+   "id": "ensena",
+   "name": "ensena",
+   "start": "4",
+   "desc": "Tu ensena, el pendon verde del Cid. Donde ondea, vencen los tuyos. Pero Bermuez la llevara por delante en cada lid.",
+   "syn": [
+    "pendon",
+    "bandera",
+    "estandarte",
+    "sena"
+   ],
+   "take": true,
+   "notes": "Requerida para cruzar el Duero y para las batallas. Simbolo de legitimidad."
+  },
+  {
+   "id": "pan",
+   "name": "pan",
+   "start": "5",
+   "desc": "Hogazas de pan candeal, dadas por Antolinez pese al bando del rey. El pan del leal sabe mejor.",
+   "syn": [
+    "hogaza"
+   ],
+   "take": true
+  },
+  {
+   "id": "vino",
+   "name": "vino",
+   "start": "5",
+   "desc": "Un pellejo de buen vino de Burgos, para el frio del destierro y el animo de la mesnada.",
+   "syn": [
+    "pellejo"
+   ],
+   "take": true
+  },
+  {
+   "id": "arcas",
+   "name": "arcas",
+   "start": "6",
+   "desc": "Dos arcas de roble cubiertas de cuero clavado con tachones de bronce. Vacias no valen nada; llenas de arena y selladas, valen un reino de credito.",
+   "syn": [
+    "arca",
+    "cofres",
+    "baul",
+    "baules"
+   ],
+   "take": true,
+   "notes": "PUZZLE 1. LLENA con arena, SELLA, EMPENA a Raquel e Vidas. Pesadas una vez llenas."
+  },
+  {
+   "id": "arena",
+   "name": "arena",
+   "start": "7",
+   "desc": "Arena fina y humeda de la orilla del Arlanzon. Llena un arca, pesara como si guardara oro acunado.",
+   "syn": [
+    "tierra",
+    "barro"
+   ],
+   "take": true,
+   "notes": "LLENA ARCAS CON ARENA. Insumo del puzzle economico."
+  },
+  {
+   "id": "tienda",
+   "name": "tienda",
+   "start": "7",
+   "desc": "Tu tienda de campana, plantada en la glera porque en Burgos no hay posada para el desterrado.",
+   "syn": [
+    "pabellon",
+    "jaima"
+   ],
+   "take": false
+  },
+  {
+   "id": "moneda_goda",
+   "name": "moneda visigoda",
+   "start": "hidden",
+   "desc": "Una vieja moneda de oro visigoda, de un rey que reino antes que los moros vinieran. Guino del destino a quien sabra ganar reinos.",
+   "syn": [
+    "moneda",
+    "triente"
+   ],
+   "take": true,
+   "notes": "SECRETO 1: CAVA ARENA en la glera (sala 7)."
+  },
+  {
+   "id": "cofre_oro",
+   "name": "cofre de oro",
+   "start": "hidden",
+   "desc": "Seiscientos marcos de oro y plata, prestados por Raquel e Vidas sobre las arcas de arena. Con esto sostienes la mesnada y honras al rey con parias.",
+   "syn": [
+    "oro",
+    "dinero",
+    "marcos",
+    "prestamo",
+    "seiscientos"
+   ],
+   "take": true,
+   "notes": "Recompensa del puzzle 1. Para endotar Cardena y las parias."
+  },
+  {
+   "id": "reliquia",
+   "name": "reliquia",
+   "start": "hidden",
+   "desc": "Una reliquia santa de San Pedro, del altar de Cardena. Quien la lleva, dicen, no le tiembla la mano en la hora del juicio.",
+   "syn": [
+    "relicario",
+    "hueso"
+   ],
+   "take": true,
+   "notes": "SECRETO 2 / util. MIRA ALTAR (sala 9). Purga el pozo (19) y afirma la mano en Toledo."
+  },
+  {
+   "id": "vianda",
+   "name": "vianda",
+   "start": "10",
+   "desc": "Sacos de grano y cecina, provision para la mesnada. Sin pan no hay guerra que se gane.",
+   "syn": [
+    "grano",
+    "provision",
+    "cecina",
+    "comida",
+    "bastimento"
+   ],
+   "take": true
+  },
+  {
+   "id": "cuerda",
+   "name": "cuerda",
+   "start": "10",
+   "desc": "Recia cuerda de canamo. Sirve para escalar muros, y ojala que no para descender a un robledo oscuro.",
+   "syn": [
+    "soga",
+    "maroma"
+   ],
+   "take": true,
+   "notes": "REQUERIDA para escalar Castejon (13)."
+  },
+  {
+   "id": "botin",
+   "name": "botin de Castejon",
+   "start": "14",
+   "desc": "Oro, plata y panos tomados en Castejon. La quinta del Cid se aparta, escrupulosa, para el rey que aun lo destierra.",
+   "syn": [
+    "quinta",
+    "despojos",
+    "presa"
+   ],
+   "take": true,
+   "notes": "Parte de las parias para Alfonso."
+  },
+  {
+   "id": "corcel_moro",
+   "name": "corcel moro",
+   "start": "14",
+   "desc": "Hermoso caballo arabe ganado en Castejon, ensillado a la morisca. Don digno para enviar al rey en sennal de vasallaje.",
+   "syn": [
+    "caballo arabe",
+    "alazan"
+   ],
+   "take": true,
+   "notes": "Regalo para el rey (parias), enviado con Minaya."
+  },
+  {
+   "id": "tienda_finta",
+   "name": "tienda senuelo",
+   "start": "15",
+   "desc": "Una tienda dejada en pie al levantar el real: el cebo del ardid para sacar a los de Alcocer de sus muros.",
+   "syn": [
+    "senuelo",
+    "cebo",
+    "finta"
+   ],
+   "take": false,
+   "notes": "Elemento del ardid de Alcocer. PLANTA TIENDA / FINGE HUIDA."
+  },
+  {
+   "id": "espada_botin",
+   "name": "espada ganada",
+   "start": "hidden",
+   "desc": "Buena espada mora ganada a Fariz y Galve. Corta bien, mas no es Tizona ni Colada.",
+   "syn": [
+    "espada mora",
+    "acero"
+   ],
+   "take": true
+  },
+  {
+   "id": "parias",
+   "name": "parias",
+   "start": "hidden",
+   "desc": "Tributos y dones ganados en frontera, dignos de enviarse a un rey para amansar su sanna. El desterrado honra a su sennor.",
+   "syn": [
+    "tributo",
+    "presente",
+    "dones"
+   ],
+   "take": true,
+   "notes": "ENVIA PARIAS por Minaya: sube el favor del rey, gate del salvoconducto."
+  },
+  {
+   "id": "colada",
+   "name": "Colada",
+   "start": "17",
+   "desc": "COLADA, espada sin par ganada al conde de Barcelona. Vale mas de mil marcos. Hermana de armas de la Tizona; frio resplandor de justicia.",
+   "syn": [
+    "espada",
+    "acero"
+   ],
+   "take": true,
+   "notes": "ICONICA. Sala 17. Se da en dote a un Infante, se RECOBRA en las Cortes y arma a Antolinez en los duelos. Requerida para la lid."
+  },
+  {
+   "id": "rescate",
+   "name": "rescate del conde",
+   "start": "hidden",
+   "desc": "El rescate del conde de Barcelona. Mas el Cid, cortes, lo suelta de balde por su buen talante: gana honra, no oro.",
+   "syn": [
+    "fianza"
+   ],
+   "take": false,
+   "notes": "CONVIDA CONDE: come y se reconcilia; el Cid lo libera. Sube honra."
+  },
+  {
+   "id": "salvoconducto",
+   "name": "salvoconducto",
+   "start": "21",
+   "desc": "Salvoconducto real traido por Minaya: permite que Jimena y tus hijas viajen seguras de Cardena a Valencia. El rey ablanda su corazon.",
+   "syn": [
+    "licencia",
+    "permiso",
+    "seguro",
+    "carta real"
+   ],
+   "take": true,
+   "notes": "REQUERIDO para traer la familia (22/24) y las bodas. HABLA MINAYA (21)."
+  },
+  {
+   "id": "mirador",
+   "name": "mirador del alcazar",
+   "start": "22",
+   "desc": "Mirador de arcos calados sobre el mar. Desde aqui Jimena vera por vez primera la ciudad y el agua que el Cid ha ganado para ella.",
+   "syn": [
+    "balcon",
+    "ajimez"
+   ],
+   "take": false,
+   "notes": "SUBE MIRADOR dispara la llegada de la familia (con salvoconducto)."
+  },
+  {
+   "id": "pozo",
+   "name": "pozo",
+   "start": "19",
+   "desc": "Pozo de la huerta, de brocal de piedra. El agua hiede a muerto: los moros lo emponzonaron para que el cerco enferme. Beber de el es morir.",
+   "syn": [
+    "fuente",
+    "brocal"
+   ],
+   "take": false,
+   "notes": "LOSE: BEBE POZO sin purgar = muerte. PURGA con reliquia o cidra."
+  },
+  {
+   "id": "cidra",
+   "name": "rama de cidra",
+   "start": "19",
+   "desc": "Rama de cidro de la huerta. Las viejas dicen que echada en agua corrompida la limpia. Sabiduria de la tierra valenciana.",
+   "syn": [
+    "rama",
+    "cidro"
+   ],
+   "take": true,
+   "notes": "ECHA CIDRA POZO purga el pozo (19)."
+  },
+  {
+   "id": "tizona",
+   "name": "Tizona",
+   "start": "25",
+   "desc": "TIZONA, espada sin igual ganada en Valencia. Vale mas de mil marcos de oro. En la mano del Cid ningun moro le aguanta el filo. Reluce como espejo de guerra.",
+   "syn": [
+    "espada",
+    "tizon"
+   ],
+   "take": true,
+   "notes": "ICONICA. Sala 25. Requerida contra Bucar (26). Se da en dote, se RECOBRA en las Cortes y arma a Pero Bermuez en los duelos."
+  },
+  {
+   "id": "cofre_seda",
+   "name": "cofre de seda",
+   "start": "25",
+   "desc": "Cofre de sedas, brocados y joyas de Valencia. La riqueza del Cid, ganada lid a lid, no robada.",
+   "syn": [
+    "joyas",
+    "sedas"
+   ],
+   "take": true
+  },
+  {
+   "id": "corona_goda",
+   "name": "corona visigoda",
+   "start": "hidden",
+   "desc": "Corona votiva visigoda de oro y esmeraldas, oculta en un atril del tesoro. Reliquia de los reyes godos de los que Castilla se dice heredera.",
+   "syn": [
+    "corona",
+    "diadema"
+   ],
+   "take": true,
+   "notes": "SECRETO 3: MUEVE ATRIL (sala 25)."
+  },
+  {
+   "id": "manto_bodas",
+   "name": "manto de bodas",
+   "start": "24",
+   "desc": "Riquisimo manto de seda y armino para las bodas de tus hijas. Brilla como nieve al sol. Ojala nunca lo veas roto entre las raices de un robledal.",
+   "syn": [
+    "brial",
+    "vestido"
+   ],
+   "take": true,
+   "notes": "Usado en las bodas (27). CRUCIAL: se torna manto_roto en Corpes, la prueba clave."
+  },
+  {
+   "id": "arca_panos",
+   "name": "arca de panos",
+   "start": "24",
+   "desc": "Arca de panos de tus hijas: sedas, brocados, un pano bordado con un halcon. Dentro, escondida, una prenda de amor.",
+   "syn": [
+    "panos",
+    "ropa"
+   ],
+   "take": false,
+   "notes": "MIRA revela una prenda de amor (easter egg)."
+  },
+  {
+   "id": "espada_bucar",
+   "name": "espada de Bucar",
+   "start": "26",
+   "desc": "La espada del rey Bucar, ganada cuando el Cid lo derribo en la playa. Trofeo regio digno de enviar al rey Alfonso.",
+   "syn": [
+    "alfanje",
+    "cimitarra",
+    "espada mora"
+   ],
+   "take": true,
+   "notes": "Don para el rey (27)."
+  },
+  {
+   "id": "tienda_bucar",
+   "name": "tienda de Bucar",
+   "start": "26",
+   "desc": "La riquisima tienda del rey de Marruecos, de panos de oro y palos de marfil. El Cid la enviara, con caballos, al rey Alfonso por mano de Minaya.",
+   "syn": [
+    "tienda mora"
+   ],
+   "take": true,
+   "notes": "El tributo famoso que ablanda a Alfonso (27)."
+  },
+  {
+   "id": "anillo_real",
+   "name": "anillo del rey",
+   "start": "27",
+   "desc": "El rey Alfonso te tiende la mano y el anillo en sennal de perdon y de paz. El destierro ha terminado.",
+   "syn": [
+    "sortija",
+    "perdon"
+   ],
+   "take": false,
+   "notes": "Simbolo del perdon. BESA MANO."
+  },
+  {
+   "id": "manto_roto",
+   "name": "manto roto",
+   "start": "28",
+   "desc": "El manto de bodas, ahora roto, ensangrentado y pisoteado entre las raices de Corpes. Prueba viva de la afrenta. En las Cortes hablara mas alto que mil testigos.",
+   "syn": [
+    "trapo",
+    "prueba",
+    "manto"
+   ],
+   "take": true,
+   "notes": "PRUEBA CLAVE. MUESTRA MANTO en las Cortes (29) es requerido para ganar. LOSE si acusas sin el."
+  },
+  {
+   "id": "cinchas",
+   "name": "cinchas",
+   "start": "28",
+   "desc": "Las cinchas y espuelas con que los Infantes azotaron a dona Elvira y dona Sol hasta dejarlas por muertas. Crueldad que clama al cielo.",
+   "syn": [
+    "correas",
+    "azotes",
+    "espuelas"
+   ],
+   "take": true,
+   "notes": "Prueba de apoyo en las Cortes (29)."
+  },
+  {
+   "id": "agua_fuente",
+   "name": "agua de la fuente",
+   "start": "30",
+   "desc": "Agua fria y limpia de la fuente de Corpes, llevada en el sombrero de Felez Munoz. Con ella vuelven en si tus hijas, medio muertas de los golpes.",
+   "syn": [
+    "agua"
+   ],
+   "take": true,
+   "notes": "DA AGUA HIJAS las revive (30)."
+  },
+  {
+   "id": "sombrero",
+   "name": "sombrero",
+   "start": "30",
+   "desc": "El sombrero de Felez Munoz, con que acarrea agua para reanimar a tus hijas. Pequenno detalle de un gran corazon leal.",
+   "syn": [
+    "capelo",
+    "gorro"
+   ],
+   "take": true
+  },
+  {
+   "id": "cordon_barba",
+   "name": "cordon",
+   "start": "29",
+   "desc": "Un cordon con que el Cid se ata la luenga barba para que ningun villano se la mese en las Cortes. Su barba, intocada desde el destierro, es su honra hecha cabello.",
+   "syn": [
+    "barba",
+    "lazo"
+   ],
+   "take": true,
+   "notes": "ATA BARBA antes del juicio. Si Asur o Garcia se mofan, el caso se refuerza."
+  },
+  {
+   "id": "corona_navarra",
+   "name": "corona",
+   "start": "32",
+   "desc": "Las coronas de Navarra y Aragon: tus hijas, antes deshonradas, casan ahora con infantes que seran reyes. De la afrenta, la mayor honra. Asi vence el Cid.",
+   "syn": [
+    "coronas",
+    "diademas"
+   ],
+   "take": true,
+   "notes": "Simbolo del triunfo: las hijas, reinas."
+  }
+ ],
+ "verbs": [
+  "ve",
+  "anda",
+  "camina",
+  "cabalga",
+  "ir",
+  "norte",
+  "sur",
+  "este",
+  "oeste",
+  "sube",
+  "subir",
+  "baja",
+  "bajar",
+  "entra",
+  "entrar",
+  "sal",
+  "salir",
+  "cruza",
+  "cruzar",
+  "vuelve",
+  "volver",
+  "mira",
+  "examina",
+  "ex",
+  "observa",
+  "ver",
+  "registra",
+  "lee",
+  "leer",
+  "coge",
+  "toma",
+  "tomar",
+  "agarra",
+  "recoge",
+  "deja",
+  "suelta",
+  "soltar",
+  "da",
+  "entrega",
+  "ofrece",
+  "dar",
+  "habla",
+  "di",
+  "decir",
+  "pregunta",
+  "responde",
+  "abre",
+  "abrir",
+  "cierra",
+  "cerrar",
+  "llena",
+  "llenar",
+  "sella",
+  "sellar",
+  "cava",
+  "cavar",
+  "vacia",
+  "reza",
+  "ora",
+  "orar",
+  "besa",
+  "besar",
+  "abraza",
+  "abrazar",
+  "despidete",
+  "despedir",
+  "casa",
+  "casar",
+  "acepta",
+  "aceptar",
+  "jura",
+  "jurar",
+  "ataca",
+  "atacar",
+  "asalta",
+  "asaltar",
+  "asedia",
+  "cerca",
+  "combate",
+  "lidia",
+  "luchar",
+  "lucha",
+  "vence",
+  "vencer",
+  "reta",
+  "retar",
+  "riepta",
+  "exige",
+  "exigir",
+  "demanda",
+  "reclama",
+  "muestra",
+  "mostrar",
+  "ensena",
+  "prueba",
+  "monta",
+  "montar",
+  "desmonta",
+  "carga",
+  "cargar",
+  "clava",
+  "hinca",
+  "finge",
+  "fingir",
+  "simula",
+  "huye",
+  "huir",
+  "planta",
+  "plantar",
+  "alza",
+  "doma",
+  "domar",
+  "amansa",
+  "despierta",
+  "levanta",
+  "socorre",
+  "socorrer",
+  "ayuda",
+  "bebe",
+  "beber",
+  "echa",
+  "echar",
+  "purga",
+  "purgar",
+  "mueve",
+  "mover",
+  "envia",
+  "enviar",
+  "manda",
+  "mandar",
+  "compra",
+  "comprar",
+  "paga",
+  "pagar",
+  "ata",
+  "atar",
+  "espera",
+  "aguarda",
+  "duerme",
+  "suena",
+  "busca",
+  "escucha",
+  "huele",
+  "inventario",
+  "i",
+  "inv"
+ ],
+ "nouns": [
+  "manto",
+  "capa",
+  "carta",
+  "edicto",
+  "sello",
+  "decreto",
+  "babieca",
+  "caballo",
+  "corcel",
+  "bayo",
+  "rocin",
+  "silla",
+  "montura",
+  "arzon",
+  "ensena",
+  "pendon",
+  "bandera",
+  "estandarte",
+  "sena",
+  "pan",
+  "hogaza",
+  "vino",
+  "pellejo",
+  "arcas",
+  "arca",
+  "cofres",
+  "baul",
+  "arena",
+  "tierra",
+  "barro",
+  "tienda",
+  "pabellon",
+  "jaima",
+  "moneda",
+  "cofre",
+  "oro",
+  "dinero",
+  "marcos",
+  "prestamo",
+  "seiscientos",
+  "reliquia",
+  "relicario",
+  "hueso",
+  "vianda",
+  "grano",
+  "provision",
+  "cuerda",
+  "soga",
+  "botin",
+  "quinta",
+  "despojos",
+  "corcel moro",
+  "caballo arabe",
+  "senuelo",
+  "cebo",
+  "espada",
+  "tizona",
+  "colada",
+  "acero",
+  "tizon",
+  "parias",
+  "tributo",
+  "presente",
+  "dones",
+  "rescate",
+  "salvoconducto",
+  "licencia",
+  "permiso",
+  "mirador",
+  "balcon",
+  "pozo",
+  "fuente",
+  "brocal",
+  "cidra",
+  "rama",
+  "cidro",
+  "cofre de seda",
+  "joyas",
+  "sedas",
+  "corona",
+  "diadema",
+  "manto de bodas",
+  "brial",
+  "panos",
+  "ropa",
+  "alfanje",
+  "cimitarra",
+  "anillo",
+  "sortija",
+  "manto roto",
+  "trapo",
+  "cinchas",
+  "correas",
+  "azotes",
+  "espuelas",
+  "agua",
+  "sombrero",
+  "cordon",
+  "barba",
+  "mesnada",
+  "hueste",
+  "nina",
+  "martin",
+  "antolinez",
+  "raquel",
+  "vidas",
+  "prestamistas",
+  "abad",
+  "sancho",
+  "jimena",
+  "mujer",
+  "elvira",
+  "sol",
+  "hijas",
+  "minaya",
+  "alvar",
+  "fanez",
+  "pero",
+  "bermuez",
+  "obispo",
+  "jeronimo",
+  "conde",
+  "berenguer",
+  "barcelona",
+  "rey",
+  "alfonso",
+  "infantes",
+  "carrion",
+  "diego",
+  "fernando",
+  "bucar",
+  "felez",
+  "munoz",
+  "muno",
+  "gustioz",
+  "asur",
+  "garcia",
+  "ordonez",
+  "fariz",
+  "galve",
+  "altar",
+  "atril",
+  "sauce",
+  "mar",
+  "horizonte",
+  "corneja",
+  "cuervos",
+  "hogar",
+  "muralla",
+  "puerta",
+  "torre",
+  "pozo",
+  "norte",
+  "sur",
+  "este",
+  "oeste",
+  "arriba",
+  "abajo",
+  "gabriel",
+  "angel",
+  "duero",
+  "arlanzon",
+  "tajo",
+  "henares",
+  "jalon"
+ ],
+ "npcs": [
+  {
+   "id": "mesnada",
+   "name": "tu mesnada",
+   "room": 2,
+   "desc": "Sesenta lanzas leales que contigo salieron de Vivar al destierro. Hambrientas, mas firmes.",
+   "says": "Senor, contigo a la muerte. Mas el pan escasea: sin oro, la hueste se deshace.",
+   "notes": "Refuerza la necesidad del ardid de las arcas."
+  },
+  {
+   "id": "nina",
+   "name": "nina de nueve anos",
+   "room": 4,
+   "desc": "Una nina de apenas nueve anos sale a hablarte donde los hombres no osan. La voz temblona, los ojos llenos de pena por ti.",
+   "says": "Ya Campeador, en buen ora cinxiestes espada! El rey lo ha vedado: no osariemos abriros ni acogeros por nada, que perderiamos haberes y ojos. Idos, Cid, que el Criador con sus virtudes os valga.",
+   "notes": "Escena canonica. Cierra Burgos, empuja al puzzle de las arcas. Danarla o forzar la puerta = lose de honra."
+  },
+  {
+   "id": "antolinez",
+   "name": "Martin Antolinez",
+   "room": 5,
+   "desc": "Martin Antolinez, burgales complido, leal hasta la muerte. Sabe de tratos y de espada por igual.",
+   "says": "Cid, en Burgos no os daran ni un grano. Llenad dos arcas de arena, selladlas, y empenadlas por oro a Raquel e Vidas. Asi tendreis con que mantener la mesnada y honrar al rey. Yo lo concertare.",
+   "notes": "Da el puzzle 1 y provisiones. Despues campeon en los duelos: con Colada vence a Diego (31)."
+  },
+  {
+   "id": "raquel_vidas",
+   "name": "Raquel e Vidas",
+   "room": 6,
+   "desc": "Raquel e Vidas, prestamistas de Burgos, ojos brillantes de codicia ante el peso de las arcas.",
+   "says": "Si las arcas pesan lo que dices, Cid, y juras no abrirlas en un anno, te damos seiscientos marcos. Mas guay de ti si nos enganas.",
+   "notes": "Pagan cofre_oro tras empenar las arcas selladas. Easter egg: al fin hallan arena (escena comica)."
+  },
+  {
+   "id": "abad_sancho",
+   "name": "abad don Sancho",
+   "room": 8,
+   "desc": "Don Sancho, abad de San Pedro de Cardena, hombre santo que acoge a tu familia pese al edicto real.",
+   "says": "Quedad sin cuidado, Cid: a dona Jimena y a vuestras hijas guardare como a mis ojos. Dejad oro para su sustento e idos en paz, que la honra con la espada se gana.",
+   "notes": "DA ORO ABAD asegura a la familia (flag familia_segura)."
+  },
+  {
+   "id": "jimena",
+   "name": "dona Jimena",
+   "room": 8,
+   "desc": "Dona Jimena, tu mujer, noble y firme en la pena, con tus dos hijas asidas a sus faldas.",
+   "says": "Merced, Campeador, en buen ora fuisteis nado! Por malos mestureros de tierra sois echado. Nos partimos como la una de la carne. Rogare por vos noches y dias.",
+   "notes": "Despedida (8), reencuentro en Valencia (22), triunfo (32). Ancla emocional."
+  },
+  {
+   "id": "elvira_sol",
+   "name": "dona Elvira y dona Sol",
+   "room": 24,
+   "desc": "Tus hijas, dona Elvira y dona Sol, mozas hermosas y discretas, criadas en virtud. No merecen la traicion que el destino les guarda.",
+   "says": "Padre, vuestra bendicion; do nos quisieredes ir, alli iremos.",
+   "notes": "En 8 (despedida), 24 (Valencia), 28 (afrenta de Corpes), 30 (rescate), 32 (vindicadas, reinas de Navarra y Aragon). Centrales al win."
+  },
+  {
+   "id": "minaya",
+   "name": "Minaya Alvar Fanez",
+   "room": 13,
+   "desc": "Minaya Alvar Fanez, tu brazo derecho y sobrino, audaz y leal. Mensajero ante el rey, capitan en la lid.",
+   "says": "Cid, yo correre el campo mientras tomais la villa. Y llevare vuestro presente al rey, que aun airado lo recibira y ablandara su corazon.",
+   "notes": "En 13 (celada), 16, y vuelve a 21 con el salvoconducto tras las parias. NPC recurrente clave."
+  },
+  {
+   "id": "berenguer",
+   "name": "conde Ramon Berenguer",
+   "room": 17,
+   "desc": "El conde de Barcelona, soberbio, preso tras la batalla del pinar de Tevar. De pura verguenza no quiere comer.",
+   "says": "No comere bocado por cuanto hay en Espanna; antes perdere el cuerpo que probar vianda, vencido por tan poca gente. (Tras la mesura del Cid:) Maravilla me ha tu cortesia; me voy pagado de ti.",
+   "notes": "Episodio de Colada (17). CONVIDA CONDE: come y se reconcilia; lo sueltas con cortesia. Da COLADA y honra."
+  },
+  {
+   "id": "fariz_galve",
+   "name": "reyes Fariz y Galve",
+   "room": 16,
+   "desc": "Los reyes moros Fariz y Galve, enviados con tres mil moros a cobrar Alcocer.",
+   "says": "No hay parla sino por el hierro. Fariz cae herido de tres golpes; Galve huye con la cara hendida.",
+   "notes": "Batalla (16). Vencidos con montura + arma + ensena clavada por Pero Bermuez."
+  },
+  {
+   "id": "bermuez",
+   "name": "Pero Bermuez",
+   "room": 16,
+   "desc": "Pero Bermuez, sobrino del Cid, ardido y de pocas palabras hasta que habla con la espada. Tu portaensena.",
+   "says": "Dadme la ensena, Cid, que la metere en la mayor priesa de los moros! (En las Cortes:) Mudo, mudo, lengua sin manos! Yo lidiare por la honra de mis primas.",
+   "notes": "Clava la ensena (16); con TIZONA vence a Fernando en los duelos (31)."
+  },
+  {
+   "id": "jeronimo",
+   "name": "obispo don Jeronimo",
+   "room": 22,
+   "desc": "Don Jeronimo, clerigo letrado y de armas tomar, primer obispo de la Valencia cristiana.",
+   "says": "Cid, dadme licencia: las feridas primeras otorgadmelas a mi, que por mi alma y mi mano quiero entrar en la batalla.",
+   "notes": "En 22 (bendice a la familia) y 26 (pide las feridas primeras; su bendicion ayuda a vencer a Bucar)."
+  },
+  {
+   "id": "bucar",
+   "name": "rey Bucar",
+   "room": 26,
+   "desc": "Bucar, rey de Marruecos, senor de cincuenta mil almoravides, venido por mar a arrancarte Valencia. Gigante de turbante y alfanje.",
+   "says": "Cid de la barba luenga, vente conmigo en paz, seremos amigos! (En su alcance:) Por Mahomat, no me alcanzaras! Mas le alcanza Babieca.",
+   "notes": "Jefe enemigo (26). De su muerte ganas espada_bucar. Requiere Tizona + Babieca; si no, LOSE."
+  },
+  {
+   "id": "rey_alfonso",
+   "name": "rey Alfonso VI",
+   "room": 27,
+   "desc": "El rey Alfonso, sennor natural del Cid: severo al desterrarlo, justo al perdonarlo, recto al juzgar en las Cortes.",
+   "says": "Rodrigo: te desterre por consejo de tus enemigos; tus servicios me aplacan. Besadme la mano. Y casad vuestras hijas con los Infantes de Carrion, que asi me place.",
+   "notes": "Perdon y bodas (27); preside las Cortes (29) y el triunfo (32). El favor real se gana con las parias."
+  },
+  {
+   "id": "infantes",
+   "name": "Infantes de Carrion",
+   "room": 27,
+   "desc": "Diego y Fernando Gonzalez, Infantes de Carrion: de alta sangre y bajo corazon, codiciosos del oro del Cid y cobardes hasta la medula.",
+   "says": "Somos de la sangre de los condes de Carrion; casar con hijas de un infanzon de Vivar es poco para quien somos. (Por lo bajo:) Esta verguenza la pagaran las hijas del Cid.",
+   "notes": "Antagonistas. Bodas (27), afrenta de Corpes (28), vencidos en Cortes (29) y duelos (31). Deshonrados al fin."
+  },
+  {
+   "id": "felez_munoz",
+   "name": "Felez Munoz",
+   "room": 28,
+   "desc": "Felez Munoz, sobrino del Cid, que recelando de los Infantes volvio sobre sus pasos y hallo a tus hijas medio muertas en el robledo.",
+   "says": "Primas, despertad, por amor del Criador! Mientras me dure el dia no os dejare. Bebed agua de mi sombrero y tornad a Valencia, que el Cid hara justicia.",
+   "notes": "Rescata a las hijas (28/30), llevando agua en su sombrero. Habilita el arco de justicia."
+  },
+  {
+   "id": "garcia_ordonez",
+   "name": "conde Garcia Ordonez",
+   "room": 29,
+   "desc": "Garcia Ordonez, viejo enemigo del Cid (le meso la barba en Cabra), abogado de los Infantes en las Cortes.",
+   "says": "Dejad esa querella, Cid: los Infantes son de gran linaje. (Confundido:) Quien a ti te oye... callare, que no me cumple razon.",
+   "notes": "Antagonista de corte. El Cid lo confunde recordando la afrenta de su barba en Cabra. Easter egg de la barba."
+  },
+  {
+   "id": "asur",
+   "name": "Asur Gonzalez",
+   "room": 29,
+   "desc": "Asur Gonzalez, hermano mayor de los Infantes, fanfarron y borracho, que en las Cortes mofa de la barba y el linaje del Cid.",
+   "says": "Quien nos manda contender con el de Vivar? Mejor le fuera ir a cobrar sus molinos de Ubierna que venir a Cortes a pleitear con los de Carrion! (Vencido:) Vencido soy, no me mateis!",
+   "notes": "Insulta al Cid en las Cortes (refuerza el caso); cae ante Muno Gustioz en los duelos (31)."
+  },
+  {
+   "id": "munno_gustioz",
+   "name": "Muno Gustioz",
+   "room": 31,
+   "desc": "Muno Gustioz, criado del Cid, tercer campeon del riepto. Justo y esforzado.",
+   "says": "Asur Gonzalez, lengua sin freno: hoy responderas con el cuerpo de lo que dijiste con la boca.",
+   "notes": "Campeon en los duelos (31): vence a Asur Gonzalez."
+  }
+ ],
+ "puzzles": [
+  {
+   "name": "Las arcas de arena",
+   "blocks": "Toda la financiacion del destierro: sin oro no hay vianda, ni honra al abad, ni parias.",
+   "need": "arcas (6), arena (7), haber hablado con Antolinez (5)",
+   "solution": "HABLA ANTOLINEZ (5); COGE ARENA en la glera (7); en casa de Raquel e Vidas (6) LLENA ARCAS, SELLA ARCAS y EMPENA ARCAS.",
+   "reward": "cofre_oro (600 marcos). Si ABRES las arcas ante los prestamistas, descubres la arena: prestamo perdido (final amargo)."
+  },
+  {
+   "name": "Despedida y dote de Cardena",
+   "blocks": "Dejar a salvo a la familia (mejor reencuentro) y proveerse de cuerda y vianda para la frontera.",
+   "need": "cofre_oro",
+   "solution": "En San Pedro (8) DA ORO ABAD y HABLA JIMENA; en la bodega (10) COGE CUERDA y VIANDA; en la capilla (9) MIRA ALTAR por la reliquia.",
+   "reward": "familia_segura; cuerda + vianda + reliquia (secreto)."
+  },
+  {
+   "name": "Cruzar el Duero",
+   "blocks": "Entrada a la frontera (Cantar 1).",
+   "need": "babieca (3), ensena (4)",
+   "solution": "MONTA BABIECA (3), COGE ENSENA (4), y en el vado (11) VE ESTE / CRUZA.",
+   "reward": "Acceso a la frontera (12). LOSE si cruzas sin Babieca y sin ensena: la hueste se dispersa."
+  },
+  {
+   "name": "Celada de Castejon",
+   "blocks": "Primer botin y parias para el rey.",
+   "need": "cuerda, hueste avituallada",
+   "solution": "En Castejon (13) ESPERA al alba; ASALTA CASTEJON con la cuerda mientras Minaya corre el campo.",
+   "reward": "botin + corcel_moro (parias)."
+  },
+  {
+   "name": "El ardid de Alcocer",
+   "blocks": "Control del Jalon y enfrentamiento con Fariz y Galve.",
+   "need": "tienda_finta",
+   "solution": "En Alcocer (15) PLANTA TIENDA, FINGE HUIDA; cuando salen los moros, VUELVE y ASALTA ALCOCER.",
+   "reward": "Alcocer tomada; se abre la batalla campal (16). Asalto frontal fracasa."
+  },
+  {
+   "name": "Batalla de Fariz y Galve",
+   "blocks": "Gran botin, parias y avance a Levante.",
+   "need": "babieca, ensena, Pero Bermuez",
+   "solution": "En el campo (16) DA ENSENA PERO, MONTA BABIECA y ATACA.",
+   "reward": "espada_botin, gran botin -> parias. LOSE: a pie o desarmado = muerte."
+  },
+  {
+   "name": "La espada Colada (Berenguer)",
+   "blocks": "Disponer de COLADA, segunda espada para armar a los campeones en los duelos.",
+   "need": "hueste",
+   "solution": "En el pinar de Tevar (17) CONVIDA CONDE / HABLA BERENGUER; lo sueltas con cortesia y COGE COLADA.",
+   "reward": "colada + honra. Fiel al origen historico de Colada."
+  },
+  {
+   "name": "Las parias y el favor del rey",
+   "blocks": "El salvoconducto para traer a la familia y el clima del perdon.",
+   "need": "parias (botin de 14 y 16)",
+   "solution": "ENVIA PARIAS por Minaya (desde la frontera); en el real de Valencia (21) HABLA MINAYA para recibir el salvoconducto.",
+   "reward": "salvoconducto; favor del rey en alza."
+  },
+  {
+   "name": "El pozo emponzonado",
+   "blocks": "Aprovisionar el cerco de Valencia.",
+   "need": "reliquia (9, secreto) o cidra (19)",
+   "solution": "En la huerta (19) NO bebas: PURGA POZO con ECHA RELIQUIA POZO o ECHA CIDRA POZO.",
+   "reward": "Cerco aprovisionado. LOSE: BEBE POZO sin purgar = muerte por calenturas."
+  },
+  {
+   "name": "Cerco de Valencia",
+   "blocks": "Convertirse en sennor de Valencia (Cantar 2).",
+   "need": "pozo purgado, hueste, ensena",
+   "solution": "En las murallas (20) ASEDIA / CERCA, espera el hambre, y ASALTA; Pero Bermuez clava la ensena en la torre.",
+   "reward": "valencia_tomada; acceso al alcazar y Tizona (25)."
+  },
+  {
+   "name": "Traer a la familia",
+   "blocks": "El reencuentro, el episodio del leon (relatado) y las bodas.",
+   "need": "salvoconducto, valencia_tomada",
+   "solution": "En el alcazar (22) SUBE MIRADOR para traer a Jimena y las hijas; en la camara (24) COGE MANTO_BODAS.",
+   "reward": "familia_en_valencia; manto de bodas (futura prueba)."
+  },
+  {
+   "name": "Batalla de Bucar",
+   "blocks": "El perdon pleno del rey y los dones que lo logran.",
+   "need": "tizona (25), babieca, bendicion de Jeronimo",
+   "solution": "En la playa (26) HABLA JERONIMO, MONTA BABIECA y VENCE BUCAR.",
+   "reward": "espada_bucar + tienda_bucar (dones para el rey). LOSE: sin Tizona o sin Babieca = muerte."
+  },
+  {
+   "name": "Perdon y bodas",
+   "blocks": "Todo el Cantar 3: sin bodas no hay afrenta ni honra que restaurar.",
+   "need": "espada_bucar, tienda_bucar, valencia_tomada",
+   "solution": "En la vega del Tajo (27) DA DONES REY / BESA MANO; luego CASA HIJAS (con manto_bodas) con los Infantes.",
+   "reward": "perdon real; las bodas instalan a los Infantes (germen de Corpes)."
+  },
+  {
+   "name": "Afrenta de Corpes y rescate",
+   "blocks": "Reunir la prueba para las Cortes y salvar a las hijas.",
+   "need": "Felez Munoz",
+   "solution": "En el robledo (28) COGE MANTO_ROTO y CINCHAS; en la fuente (30) SOCORRE HIJAS / DA AGUA HIJAS.",
+   "reward": "manto_roto + cinchas (prueba); hijas a salvo. LOSE si tardas demasiado en socorrerlas (mueren)."
+  },
+  {
+   "name": "Cortes de Toledo",
+   "blocks": "La justicia contra los Infantes y la recuperacion de las espadas.",
+   "need": "manto_roto, cinchas, Tizona y Colada (en poder de los Infantes)",
+   "solution": "En las Cortes (29) ATA BARBA, EXIGE ESPADAS (recobras Tizona y Colada), EXIGE AJUAR, MUESTRA MANTO_ROTO + CINCHAS, RETA INFANTES.",
+   "reward": "Tizona y Colada recobradas, ajuar devuelto, riepto concertado. LOSE: retar sin espadas recobradas ni prueba = pleito perdido, honra mancillada."
+  },
+  {
+   "name": "Los duelos judiciales",
+   "blocks": "El final triunfal: sin ganar las tres lides los Infantes no son declarados traidores.",
+   "need": "Tizona y Colada recobradas; campeones Pero Bermuez, Antolinez, Muno Gustioz",
+   "solution": "En el palenque (31) DA TIZONA PERO, DA COLADA MARTIN, arma a Muno, y LIDIA.",
+   "reward": "honra_restaurada. LOSE: entrar sin las espadas recobradas = los campeones flaquean."
+  }
+ ],
+ "win": "VICTORIA. En el palenque de Carrion tus tres campeones vencen a los Infantes y a Asur Gonzalez: Pero Bermuez derriba a Fernando, Martin Antolinez con Colada a Diego, y Muno Gustioz a Asur, que clama vencido. Los de Carrion quedan por traidores y deshonrados para siempre, y tu honra resplandece mas limpia que la hoja de la Tizona. Llegan mensajeros de Navarra y de Aragon a pedir por mujeres a dona Elvira y dona Sol: tus hijas, antes afrentadas, casan ahora con infantes que seran reyes, y de su sangre vendran los reyes de Espanna. Sennor de Valencia, perdonado por tu rey, vengadas tus hijas y restaurada tu honra, has cumplido tu destino. Se alcanza el triunfo (sala 32) cuando se cumplen honra_restaurada + valencia_tomada + familia_en_valencia + las nuevas bodas. \"Estas son las nuevas de mio Cid el Campeador; en este logar se acaba esta razon. Quien escribio este libro, del Dios paraiso, amen.\" VENCISTE, CAMPEADOR.",
+ "lose": [
+  "CRUZAR EL DUERO sin Babieca y sin la ensena: sin guia ni montura, la mesnada se dispersa por los caminos y mueres olvidado en el yermo. FIN.",
+  "LIDIAR (Fariz y Galve, o Bucar) a pie sin MONTAR BABIECA, o DESARMADO: te cercan y te matan. 'Cayo el Cid sin caballo; no torno a Castilla.' FIN.",
+  "BEBER del POZO emponzonado de la huerta de Valencia sin purgarlo antes: mueres de calenturas antes de la boda. FIN.",
+  "ENFRENTAR a BUCAR sin cenir TIZONA: el moro te derriba y Valencia cae en manos almoravides. FIN.",
+  "En CORPES, no SOCORRER a tiempo a dona Elvira y dona Sol: desfallecidas y abandonadas, las aves del monte se ciernen sobre ellas; tu honra muere con tus hijas. FIN.",
+  "En las CORTES DE TOLEDO, retar a los Infantes SIN haber recobrado Tizona y Colada y SIN mostrar el manto roto y las cinchas: los jueces te dan por loco, pierdes el pleito y tu honra queda en el polvo. FIN.",
+  "FORZAR la puerta de Burgos o danar a la nina contra el edicto: un Campeador no hace tal; tus propios caballeros vuelven la cara. Sin honra no hay Cid. FIN.",
+  "ABRIR las arcas de arena ante Raquel e Vidas: descubres el ardid, corre la voz de tu engano y ningun prestamista fia ya de tu juramento; sin credito, el destierro te ahoga. FIN."
+ ],
+ "secrets": [
+  "MONEDA VISIGODA: CAVA ARENA / MIRA SAUCE en la glera del Arlanzon (sala 7) desentierra una moneda de oro visigoda, guino al heredero de los reyes godos.",
+  "RELIQUIA DE SAN PEDRO: MIRA ALTAR en la capilla de Cardena (sala 9) revela una reliquia oculta que purga el pozo emponzonado de Valencia y afirma la mano del Cid en el juicio de Toledo.",
+  "CORONA VISIGODA: MUEVE ATRIL en el tesoro del alcazar (sala 25) descubre una corona votiva visigoda de oro y esmeraldas.",
+  "EL SUENO DEL ANGEL: DUERME o REZA en el vado del Duero (sala 11) y se aparece el arcangel Gabriel: 'Cabalga, Cid, que todo te ira bien'. Buff de moral y beat famoso del Cantar.",
+  "LA BARBA DEL CID: ATA BARBA y, ante Garcia Ordonez o Asur en las Cortes (sala 29), defiende tu barba intocada ('Que has que ver tu, conde, en mi barba?'). Confunde al enemigo y refuerza el caso. Guino a la honra hecha cabello.",
+  "LA PRENDA DE AMOR: MIRA ARCA_PANOS en la camara de las hijas (sala 24) revela un pano bordado con un halcon, prenda escondida.",
+  "LAS ARCAS AL DESCUBIERTO: si cumples el juramento, en el epilogo Raquel e Vidas abren al fin las arcas y hallan solo arena del Arlanzon: escena comica canonica.",
+  "BABIECA INVENDIBLE: intenta DAR o VENDER a Babieca y el Cid se niega con palabras del Cantar; guino a que tras su muerte nadie volvio a montarlo. Punto de honra oculto."
+ ],
+ "criticalPath": [
+  "Sala 1 (Vivar): LEE CARTA, COGE MANTO, MIRA CORNEJA. VE ABAJO a los establos.",
+  "Sala 3 (Establos): COGE SILLA, MONTA BABIECA. VE ARRIBA, luego ESTE hacia Burgos.",
+  "Sala 4 (Puerta de Burgos): HABLA NINA (discurso canonico), COGE ENSENA. VE ESTE a la plaza.",
+  "Sala 5 (Plaza): HABLA ANTOLINEZ (aprende el ardid de las arcas). VE SUR a la glera.",
+  "Sala 7 (Glera): COGE ARENA (secreto: CAVA ARENA -> moneda_goda). VE OESTE a Raquel e Vidas.",
+  "Sala 6 (Raquel e Vidas): LLENA ARCAS, SELLA ARCAS, EMPENA ARCAS -> cofre_oro (600 marcos). Regresa via 7 al ESTE hacia Cardena.",
+  "Sala 8 (Cardena): DA ORO ABAD (familia_segura), HABLA JIMENA. VE ABAJO a la bodega.",
+  "Sala 10 (Bodega): COGE CUERDA y VIANDA. VE ARRIBA. (Opcional ESTE sala 9: MIRA ALTAR -> reliquia.) VE SUR al Duero.",
+  "Sala 11 (Vado del Duero): con Babieca + ensena, VE ESTE / CRUZA (secreto: DUERME -> angel Gabriel). Sin ambos = LOSE.",
+  "Sala 12 (Frontera): VE NORTE a Castejon.",
+  "Sala 13 (Castejon): ESPERA al alba, ASALTA CASTEJON con la cuerda y Minaya. VE ESTE al botin.",
+  "Sala 14 (Botin): COGE BOTIN y CORCEL_MORO. Regresa OESTE y SUR a la frontera (12).",
+  "Sala 12 -> ESTE a Alcocer (15): PLANTA TIENDA, FINGE HUIDA, ASALTA ALCOCER. VE ESTE al campo (16).",
+  "Sala 16 (Fariz y Galve): DA ENSENA PERO, MONTA BABIECA, ATACA -> espada_botin + parias. Regresa OESTE y a la frontera (12).",
+  "Sala 12 -> SUR al pinar de Tevar (17): CONVIDA CONDE, COGE COLADA. ENVIA PARIAS por Minaya. VE ESTE a Levante.",
+  "Sala 18 (Levante) -> ESTE a la huerta (19): PURGA POZO con reliquia o cidra (NO bebas). VE ESTE a las murallas.",
+  "Sala 20 (Murallas): ASEDIA y ASALTA -> valencia_tomada. VE ESTE al alcazar (22).",
+  "Sala 22 (Alcazar): VE SUR al real (via 19 N -> 21). En sala 21 HABLA MINAYA -> salvoconducto. Vuelve al alcazar.",
+  "Sala 22 (Alcazar): SUBE MIRADOR -> familia_en_valencia. VE NORTE a la camara (24): COGE MANTO_BODAS. Vuelve. VE ABAJO al tesoro (25): COGE TIZONA (secreto: MUEVE ATRIL -> corona_goda).",
+  "Sala 25 -> ARRIBA al alcazar (22) -> ESTE a la playa (23): MIRA MAR. VE ESTE a la batalla de Bucar (26).",
+  "Sala 26 (Bucar): HABLA JERONIMO, MONTA BABIECA, CINE TIZONA, VENCE BUCAR -> espada_bucar + tienda_bucar. VE ESTE a la vega del Tajo (27).",
+  "Sala 27 (Tajo): DA DONES REY / BESA MANO (perdon), CASA HIJAS con los Infantes. VE ESTE a Corpes (28).",
+  "Sala 28 (Corpes): tras la afrenta, COGE MANTO_ROTO y CINCHAS. VE ABAJO a la fuente (30): SOCORRE HIJAS / DA AGUA HIJAS (no tardes = LOSE). VE ARRIBA, luego ESTE a las Cortes (29).",
+  "Sala 29 (Cortes de Toledo): ATA BARBA, EXIGE ESPADAS (recobra Tizona y Colada), EXIGE AJUAR, MUESTRA MANTO_ROTO + CINCHAS, RETA INFANTES. VE ARRIBA al palenque (31).",
+  "Sala 31 (Palenque): DA TIZONA PERO, DA COLADA MARTIN, LIDIA -> los Infantes vencidos -> honra_restaurada. VE ESTE al triunfo (32).",
+  "Sala 32 (Triunfo): con honra_restaurada + valencia_tomada + familia_en_valencia + nuevas bodas, ACEPTA BODAS de Navarra y Aragon -> VICTORIA."
+ ],
+ "designNotes": "JUICIO Y RANKING DE LOS BORRADORES. Ranking: Borrador 3 > Borrador 1 > Borrador 2 (para buildability), con aportes clave de los tres. (1) Borrador 3 tiene el MEJOR mapa (conectividad reciproca verificada par a par), la mayor VARIEDAD de escenas (establos, capilla, bodega, cueva, playa, fuente) y la mejor TRAMPA-LOSE (el pozo emponzonado); ademas sitia a Babieca en los establos y separa la cadena de PRUEBAS (manto_roto + cinchas) con elegancia. (2) Borrador 1 tiene la MEJOR DOCUMENTACION de puzzles (campos blocks/need/solution/reward) y la PROSA mas fiel, con citas del Cantar incrustadas como recompensa; su debilidad es el mapa (torre compartida 21u/23u, sala 32 alcanzada 'por guion'). (3) Borrador 2 aporta el ORIGEN HISTORICAMENTE CORRECTO de COLADA (ganada al conde de Barcelona en Tevar), error en los Borradores 1 y 3 que la sacaban de Bucar; su dependency-graph con contadores (ORO/HUESTE/FAVOR_REY) es limpio, pero admite salidas inconsistentes. ESTA FUSION: esqueleto-mapa del Borrador 3, rigor de puzzles y citas del Borrador 1, episodio de Colada/Berenguer del Borrador 2.\n\nRESUMEN DEL CRITICAL PATH. Cantar 1 (salas 1-17): destierro -> ardid de las arcas (arena+Antolinez -> 600 marcos) -> dote en Cardena (cuerda/vianda/reliquia) -> cruce del Duero (Babieca+ensena) -> celada de Castejon -> ardid de Alcocer -> Fariz y Galve -> Colada de Berenguer -> parias enviadas. Cantar 2 (salas 18-27): Levante -> purgar el pozo -> cerco de Valencia -> salvoconducto -> traer la familia + manto de bodas + Tizona -> Bucar (con Tizona/Babieca/Jeronimo) -> perdon y bodas. Cantar 3 (salas 28-32): afrenta de Corpes (prueba: manto_roto+cinchas) y rescate -> Cortes de Toledo (recobrar Tizona y Colada, ajuar, riepto) -> duelos (armar campeones) -> triunfo.\n\nCHEQUEO DE CONECTIVIDAD (resultado: 0 ERRORES, 32 salas, ids contiguos 1..32). Todas las salidas apuntan a salas existentes y son RECIPROCAS, verificado por script: 1e<->2o, 1d<->3u, 2e<->4o, 4e<->5o, 4s<->6n, 5s<->7n, 6e<->7o, 7e<->8o, 8e<->9o, 8d<->10u, 8s<->11n, 11e<->12o, 12n<->13s, 13e<->14o, 12e<->15o, 15e<->16o, 12s<->17n, 17e<->18o, 18e<->19o, 19e<->20o, 19n<->21s, 20e<->22o, 22e<->23o, 22n<->24s, 22d<->25u, 23e<->26o, 26e<->27o, 27e<->28o, 28e<->29o, 28d<->30u, 29u<->31d, 31e<->32o. NO HAY salidas de un solo sentido: el mapa es totalmente bidireccional, lo que evita soft-locks de navegacion. Salas-cul-de-sac (regreso por la misma salida): 3 (establos), 9 (capilla), 10 (bodega), 14 (botin), 16 (Fariz/Galve), 21 (real), 24 (camara), 25 (tesoro), 30 (fuente). Gates por flag de trama (no geograficos, al estilo AD): el cruce del Duero (11) exige Babieca+ensena; Levante (18) exige parias despachadas; Bucar (26) exige Tizona; el riepto (31) exige Tizona+Colada recobradas; el triunfo (32) exige los cuatro flags. Estos gates bloquean la PROGRESION, no el MOVIMIENTO.\n\nORDEN DE DEPENDENCIA DE PUZZLES (verificado sin soft-locks: cada item se obtiene ESTRICTAMENTE antes de su gate). babieca(3)+ensena(4) -> cruce Duero(11). arena(7)+arcas(6)+Antolinez(5) -> cofre_oro(6) -> dote abad(8). cuerda(10) -> Castejon(13). vianda(10) -> campana. botin(14,16) -> parias -> favor_rey -> salvoconducto(21). colada(17) -> duelos(31). reliquia(9) o cidra(19) -> purgar pozo(19) -> cerco Valencia(20) -> valencia_tomada. salvoconducto(21)+valencia_tomada -> traer familia(22) -> manto_bodas(24). tizona(25) -> Bucar(26) -> espada_bucar+tienda_bucar(26) -> perdon+bodas(27). bodas -> afrenta Corpes(28) -> manto_roto+cinchas(28) [agua_fuente(30) salva a las hijas]. manto_roto+cinchas+(Tizona,Colada en poder de los Infantes) -> Cortes(29): recobrar espadas + ajuar -> duelos(31): espadas arman a los campeones -> honra_restaurada -> triunfo(32). Punto de atencion para el implementador: la arena (sala 7) debe recogerse antes de empenar en la sala 6, pero 6 y 7 son adyacentes (6e<->7o) y ambas cuelgan del eje 4-5-7, asi que el jugador recoge arena y vuelve sin riesgo de bloqueo. Colada (17) esta en el eje frontera->Levante (12s-17-18), recogida de forma natural antes de abandonar la frontera.\n\nECONOMIA C64. Descripciones de 2-4 lineas, prosa terca y evocadora con citas del Cantar como recompensa de HABLAR/MIRAR. Items con sinonimos cortos. Cada 'scene' es una sola linea en ingles para el dibujante PETSCII (bandas de bloques: cielo/tierra/muro/torre/pendon/rio/mar/interior; grises y pardos para la piedra castellana, verdes para la huerta valenciana, azul para mar y rios, verde islamico y blanco para Valencia, negro para los robles de Corpes). Parser VERBO+NOMBRE con direcciones n/s/e/o/u/d e I=inventario."
+}

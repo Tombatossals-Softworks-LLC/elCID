@@ -1,0 +1,147 @@
+EL CID CAMPEADOR - SOLUCION (CRITICAL PATH)
+============================================
+
+Ordenes de DOS palabras (verbo + nombre). Direcciones:
+norte sur este oeste arriba abajo (o n s e o, y arriba/abajo).
+
+Esta solucion logra el FINAL LEGENDARIO: gana la guerra Y
+recoge las siete gestas de honra (marcadas con *).
+GRABA guarda la partida en disco; RECUPERA la retoma.
+
+
+--- CANTAR I - EL DESTIERRO ---
+  1. lee carta
+  2. coge manto
+  3. mira corneja
+  4. baja
+  5. coge silla        (sin la silla no se monta a babieca)
+  6. monta babieca
+  7. sube
+  8. este
+  9. este
+ 10. mira nina
+ 11. coge ensena
+ 12. este
+ 13. mira antolinez
+ 14. sur
+ 15. coge arena
+ 16. cava              (* moneda visigoda, secreto)
+ 17. oeste
+ 18. llena arcas
+ 19. sella arcas
+ 20. empena arcas
+ 21. este
+ 22. este
+ 23. da oro
+ 24. mira jimena
+ 25. baja
+ 26. coge cuerda
+ 27. coge vianda
+ 28. sube
+ 29. este
+ 30. mira altar        (* reliquia de san pedro, secreto)
+ 31. oeste
+ 32. sur
+ 33. duerme            (* sueno del angel gabriel)
+
+--- CANTAR I - frontera y campanas ---
+ 34. este
+ 35. norte
+ 36. espera
+ 37. asalta
+ 38. este
+ 39. coge botin
+ 40. oeste
+ 41. sur
+ 42. este
+ 43. finge
+ 44. asalta
+ 45. este
+ 46. da ensena
+ 47. ataca
+ 48. oeste
+ 49. oeste
+ 50. envia parias
+
+--- CANTAR II - levante y valencia ---
+ 51. sur
+ 52. convida conde
+ 53. este
+ 54. convida moros     (* clemencia con los moros)
+ 55. este
+ 56. echa reliquia
+ 57. este
+ 58. asalta
+ 59. oeste
+ 60. norte
+ 61. da vianda         (* provisiones a la hueste)
+ 62. mira minaya
+ 63. sur
+ 64. este
+ 65. este
+ 66. asoma mirador
+ 67. norte
+ 68. coge gala
+ 69. sur
+ 70. abajo
+ 71. coge tizona
+ 72. mueve atril       (* corona goda, secreto)
+ 73. sube
+ 74. este
+ 75. mira flota
+ 76. este
+ 77. mira jeronimo
+ 78. cine tizona
+ 79. vence bucar
+
+--- CANTAR III - corpes, cortes y triunfo ---
+ 80. este
+ 81. da dones
+ 82. casa hijas
+ 83. oeste
+ 84. oeste
+ 85. oeste
+ 86. doma leon        * (7a gesta: el leon del alcazar suelto
+                         tras las bodas; tomalo por la melena)
+ 87. este
+ 88. este
+ 89. este
+ 90. este
+ 91. coge jirones
+ 92. coge cinchas
+ 93. abajo
+ 94. coge agua
+ 95. socorre hijas
+ 96. sube
+ 97. este
+ 98. ata barba
+ 99. exige espadas
+100. muestra jirones
+101. reta infantes
+102. sube
+103. da tizona
+104. da colada
+105. lidia
+106. este
+107. acepta
+
+Tras ACEPTA en el triunfo, con las siete gestas (*):
+*** LA LEYENDA DEL CAMPEADOR ***
+"oy los reyes de espanna sos parientes son."
+
+Con 6+ de 7 hay final legendario; con menos igual se gana, y el final muestra
+tu HONRA (de 6) y te invita a buscar lo que falta.
+
+LAS SEIS GESTAS DE HONRA (final legendario):
+108. CAVA en la glera del Arlanzon -> moneda visigoda.
+109. MIRA ALTAR en la capilla      -> reliquia de san pedro.
+110. DUERME en el vado del Duero    -> sueno del angel.
+111. MUEVE ATRIL en el tesoro       -> corona goda.
+112. DA VIANDA en el real del Cid   -> provisiones a la hueste.
+113. CONVIDA MOROS en la senda      -> clemencia (moros y
+     cristianos te bendicen).
+
+Muertes: cruzar el duero sin babieca y ensena; lidiar a pie;
+beber del pozo sin purgarlo; bucar sin tizona; forzar la
+puerta de burgos; abrir las arcas ante los prestamistas;
+retar en las cortes sin recobrar las espadas.
