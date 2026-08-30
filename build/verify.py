@@ -17,6 +17,11 @@ the single entry point that establishes them, in dependency order:
   5a textaudit   no room/item/rule text overflows or truncates on a 40x25 screen
   5b deadcheck   no rule, word or item the player can never reach
   5c walkcheck   the published WALKTHROUGH.txt is the path cidsim proves
+  6b playtest    four kinds of player actually play it: an explorer that
+                 covers every room and rule, a spoiler that tries to lock
+                 itself out of the win, a monkey typing nonsense, and
+                 golden transcripts of what the screen says -- all of them
+                 driving BOTH engines in lockstep, command by command
   6  basemu +    an independent re-implementation reads the generated DATA back
      difftest2   and is diffed against the reference across the whole critical
                  path x every verb x every noun                         -> 0 divergences
@@ -79,8 +84,10 @@ step("5a screen-fit text audit", "textaudit.py",
 step("5b dead-content audit (unreachable rules/words)", "deadcheck.py", "--strict")
 step("5c WALKTHROUGH matches the proven critical path", "walkcheck.py",
      must_contain=["matches the proven path exactly"])
-step("6  BASIC emulator vs reference: 0 divergences", "difftest2.py",
+step("6a BASIC emulator vs reference: 0 divergences", "difftest2.py",
      must_contain=["REAL mismatches (normalized): 0"])
+step("6b players: explore, spoil, monkey, transcripts", "playtest.py",
+     must_contain=["PLAYTEST: ALL CLEAR"])
 if not FAST:
     step("7a rebuild ELCID-128.PRG + elcid128.d64", "mkdisk128.py")
     step("7b rebuild elcid.d64", "mkdisk64.py")

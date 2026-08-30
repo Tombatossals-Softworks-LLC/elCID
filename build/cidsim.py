@@ -16,16 +16,17 @@ class Game:
     def __init__(s):
         s.rm = 1; s.flags = set()
         s.loc = {i: S.ITEMS[i][2] for i in S.ITEMS}
-        s.over = 0; s.last = ""
+        s.over = 0; s.last = ""; s.rule = -1
     def do(s, cmd):
         if s.over: return
+        s.rule = -1                    # index into S.R of the rule that fired
         ws = cmd.split()
         w1 = ws[0] if ws else ""; w2 = ws[1] if len(ws) > 1 else ""
         va = S.VERB.get(w1, 0); ob = NOUN.get(w2, 0)
         di = DIRW.get(w1, "")
         if va == 5 and not di: di = DIRW.get(w2, "")
         # 1) special rules
-        for r in S.R:
+        for ri, r in enumerate(S.R):
             if r["room"] != s.rm: continue
             if r["v"] != va: continue
             if r["o"] != 0 and r["o"] != ob: continue
@@ -36,7 +37,7 @@ class Game:
             if r["give"]: s.loc[r["give"]] = -1
             if r["give2"]: s.loc[r["give2"]] = -1
             if r["take"]: s.loc[r["take"]] = 0
-            s.last = r["msg"]
+            s.last = r["msg"]; s.rule = ri
             if r["kind"] == 1: s.over = -1
             if r["kind"] == 2: s.over = 1
             return

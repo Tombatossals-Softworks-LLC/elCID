@@ -1,0 +1,108 @@
+name: CI
+
+# The whole build is Python 3 plus two tools out of the `vice` package (petcat
+# tokenises the BASIC, c1541 writes the .d64s).  No pip dependencies at all, so
+# there is nothing to pin and nothing to cache.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * 0"        # Sundays: the deep playtest, which is too slow for a push
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify (14 static checks + the players)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install VICE (petcat + c1541)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends vice
+          petcat -h >/dev/null 2>&1 || true
+          c1541 -h >/dev/null 2>&1 || true
+      - name: verify
+        run: python3 build/verify.py
+
+      # verify.py rebuilds every artefact from source.  If that changed a tracked
+      # file, the committed .bas/.d64/.PRG are stale with respect to the spec --
+      # which is exactly the mistake that is invisible in review, because the
+      # diff of a .d64 is unreadable.
+      - name: the committed artefacts are the ones this source builds
+        run: |
+          if ! git diff --quiet --exit-code; then
+            echo "::error::the tracked build artefacts do not match a fresh build."
+            echo "Run 'python3 build/verify.py' locally and commit the result."
+            git diff --stat
+            exit 1
+          fi
+
+  playtest-deep:
+    name: deep playtest (nightly / manual)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Depth 3 fires all 82 rules (47 467 states, ~135 s) and the monkey runs
+      # 5 000 sessions.  Too slow to sit on every push, cheap once a week.
+      - name: play it properly
+        run: python3 build/playtest.py --deep
+
+  emulator:
+    name: run it on a real emulated C64/C128
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install VICE
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends vice xvfb
+
+      # Debian and Ubuntu ship VICE without the Commodore ROMs -- they are
+      # copyrighted, so this repository does not carry them and this workflow
+      # does not fetch them.  Point the VICE_ROMS secret at an archive you are
+      # licensed to use and the emulator run becomes real; leave it unset and
+      # this job says so and passes, rather than pretending the game was tested
+      # on hardware it never touched.
+      - name: fetch ROMs, if this repository has been given any
+        env:
+          VICE_ROMS: ${{ secrets.VICE_ROMS }}
+        run: |
+          if [ -z "$VICE_ROMS" ]; then
+            echo "::notice::no VICE_ROMS secret set -- skipping the emulator run."
+            echo "SKIP=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          mkdir -p ~/.local/share/vice
+          curl -fsSL "$VICE_ROMS" -o /tmp/roms.tar.gz
+          tar -xzf /tmp/roms.tar.gz -C ~/.local/share/vice
+          echo "SKIP=0" >> "$GITHUB_ENV"
+
+      # fullcycle.py plays all 107 critical-path commands on the emulated
+      # machine, watching for OOM and errors at every step, counting the seven
+      # gesta rewards and confirming the ending's replay loop returns to the
+      # title.  It wants the disk and a free monitor port.
+      - name: build the disks
+        if: env.SKIP == '0'
+        run: python3 build/verify.py
+      - name: play the critical path on an emulated C64
+        if: env.SKIP == '0'
+        run: xvfb-run -a python3 build/fullcycle.py elcid.d64 6510

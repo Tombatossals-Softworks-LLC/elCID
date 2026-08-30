@@ -1,0 +1,111 @@
+> mira
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  miras alrededor.
+  ves: manto carta
+
+> i
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  llevas: nada
+  ves: manto carta
+
+> coge castillo
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  coger que?
+  ves: manto carta
+
+> coge manto
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  coges manto.
+  ves: carta
+
+> coge manto
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  ya lo llevas.
+  ves: carta
+
+> deja manto
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  dejas manto.
+  ves: manto carta
+
+> deja manto
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no llevas eso.
+  ves: manto carta
+
+> norte
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no puedes ir por ahi.
+  ves: manto carta
+
+> abracadabra
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no puedo hacer eso aqui.
+  ves: manto carta
+
+> zorro
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no puedo hacer eso aqui.
+  ves: manto carta
+
+> canta
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no puedo hacer eso aqui.
+  ves: manto carta
+
+> baila
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no puedo hacer eso aqui.
+  ves: manto carta
+
+> hola
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no puedo hacer eso aqui.
+  ves: manto carta
+
+> besa babieca
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  no puedo hacer eso aqui.
+  ves: manto carta

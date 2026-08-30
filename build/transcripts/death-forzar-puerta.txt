@@ -1,0 +1,55 @@
+> baja
+[establos de vivar   honra 0/7]
+  cuadra umbria. en el pesebre,
+  babieca, tu bayo de mil batallas.
+  --
+  (vas a establos de vivar)
+  ves: babieca silla
+
+> monta babieca
+[establos de vivar   honra 0/7]
+  cuadra umbria. en el pesebre,
+  babieca, tu bayo de mil batallas.
+  --
+  a pelo no vas a la guerra. coge
+  antes la silla de montar, aqui en la
+  cuadra.
+  ves: babieca silla
+
+> sube
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  (vas a vivar, solar del cid)
+  ves: manto carta
+
+> este
+[camino de burgos   honra 0/7]
+  camino a burgos. las gentes lloran:
+  dios, que buen vassallo!
+  --
+  (vas a camino de burgos)
+
+> este
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  (vas a puerta de burgos)
+  ves: ensena
+
+> fuerza puerta
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  forzar la puerta? danar a esta
+  villa? un campeador no hace tal. tus
+  propios caballeros volverian la
+  cara. sin honra no hay cid. fin.
+  ves: ensena
+
+*** DERROTA ***

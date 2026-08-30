@@ -1,0 +1,67 @@
+> este
+[camino de burgos   honra 0/7]
+  camino a burgos. las gentes lloran:
+  dios, que buen vassallo!
+  --
+  (vas a camino de burgos)
+
+> este
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  (vas a puerta de burgos)
+  ves: ensena
+
+> coge ensena
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  coges ensena.
+
+> este
+[plaza de burgos   honra 0/7]
+  la plaza, hostil. solo antolinez
+  se acerca con pan y un ardid.
+  --
+  (vas a plaza de burgos)
+  ves: pan vino
+
+> sur
+[glera del arlanzon   honra 0/7]
+  el arenal del arlanzon. arena fina
+  en monton: buen lugar de ardid.
+  --
+  (vas a glera del arlanzon)
+  ves: arena tienda
+
+> este
+[san pedro de cardena   honra 0/7]
+  san pedro de cardena. el abad.
+  aqui dejas a jimena y a tus hijas.
+  --
+  (vas a san pedro de cardena)
+
+> sur
+[vado del duero   honra 0/7]
+  el ancho duero, raya del reino.
+  mas alla, tierra de moros.
+  sin bayo ni ensena no pases al este.
+  --
+  (vas a vado del duero)
+
+> este
+[vado del duero   honra 0/7]
+  el ancho duero, raya del reino.
+  mas alla, tierra de moros.
+  sin bayo ni ensena no pases al este.
+  --
+  cruzas el duero sin guia ni montura.
+  la mesnada se dispersa por los
+  caminos y mueres olvidado en el
+  yermo. fin.
+
+*** DERROTA ***

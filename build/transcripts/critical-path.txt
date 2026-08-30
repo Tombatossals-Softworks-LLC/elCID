@@ -1,0 +1,947 @@
+> lee carta
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  lees el bando: destierro en nueve
+  dias. la injusticia te quema, mas
+  partes con honra.
+  ves: manto carta
+
+> coge manto
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  coges manto.
+  ves: carta
+
+> mira corneja
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  la corneja grazna a tu diestra al
+  salir, a la siniestra al entrar en
+  burgos. mal aguero, dicen los
+  viejos.
+  ves: carta
+
+> baja
+[establos de vivar   honra 0/7]
+  cuadra umbria. en el pesebre,
+  babieca, tu bayo de mil batallas.
+  --
+  (vas a establos de vivar)
+  ves: babieca silla
+
+> coge silla
+[establos de vivar   honra 0/7]
+  cuadra umbria. en el pesebre,
+  babieca, tu bayo de mil batallas.
+  --
+  coges silla.
+  ves: babieca
+
+> monta babieca
+[establos de vivar   honra 0/7]
+  cuadra umbria. en el pesebre,
+  babieca, tu bayo de mil batallas.
+  --
+  ensillas y montas a babieca. el bayo
+  relincha de gozo. ahora eres el cid
+  a caballo, y nada te ataja.
+  ves: babieca
+
+> sube
+[vivar, solar del cid   honra 0/7]
+  tu casa, vacia, el hogar frio.
+  una corneja: mal aguero. partes.
+  --
+  (vas a vivar, solar del cid)
+  ves: carta
+
+> este
+[camino de burgos   honra 0/7]
+  camino a burgos. las gentes lloran:
+  dios, que buen vassallo!
+  --
+  (vas a camino de burgos)
+
+> este
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  (vas a puerta de burgos)
+  ves: ensena
+
+> mira nina
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  la nina de nueve anos te habla: cid,
+  el rey nos veda acogerte so pena de
+  los ojos. id, y dios os valga.
+  lloras y partes.
+  ves: ensena
+
+> coge ensena
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  coges ensena.
+
+> este
+[plaza de burgos   honra 0/7]
+  la plaza, hostil. solo antolinez
+  se acerca con pan y un ardid.
+  --
+  (vas a plaza de burgos)
+  ves: pan vino
+
+> mira antolinez
+[plaza de burgos   honra 0/7]
+  la plaza, hostil. solo antolinez
+  se acerca con pan y un ardid.
+  --
+  antolinez te ensena el ardid: llena
+  dos arcas de arena, sellalas como
+  oro y empenalas a raquel e vidas por
+  marcos.
+  ves: pan vino
+
+> sur
+[glera del arlanzon   honra 0/7]
+  el arenal del arlanzon. arena fina
+  en monton: buen lugar de ardid.
+  --
+  (vas a glera del arlanzon)
+  ves: arena tienda
+
+> coge arena
+[glera del arlanzon   honra 0/7]
+  el arenal del arlanzon. arena fina
+  en monton: buen lugar de ardid.
+  --
+  coges arena.
+  ves: tienda
+
+> cava
+[glera del arlanzon   honra 1/7]
+  el arenal del arlanzon. arena fina
+  en monton: buen lugar de ardid.
+  --
+  cavas en la arena y bajo el sauce
+  hallas una moneda de oro visigoda.
+  guino secreto al heredero de los
+  godos!
+  ves: tienda
+
+> oeste
+[casa de raquel e vidas   honra 1/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  (vas a casa de raquel e vidas)
+  ves: arcas
+
+> llena arcas
+[casa de raquel e vidas   honra 1/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  llenas las dos arcas de arena hasta
+  los bordes. pesan como si fueran de
+  oro macizo.
+  ves: arcas
+
+> sella arcas
+[casa de raquel e vidas   honra 1/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  sellas y clavas las arcas. nadie
+  diria que no guardan un tesoro. el
+  ardid esta listo.
+  ves: arcas
+
+> empena arcas
+[casa de raquel e vidas   honra 1/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  raquel e vidas prestan seiscientos
+  marcos sobre las arcas, y aun un
+  manto. juran no abrirlas en un anno.
+  tienes oro!
+  ves: arcas
+
+> este
+[glera del arlanzon   honra 1/7]
+  el arenal del arlanzon. arena fina
+  en monton: buen lugar de ardid.
+  --
+  (vas a glera del arlanzon)
+  ves: tienda
+
+> este
+[san pedro de cardena   honra 1/7]
+  san pedro de cardena. el abad.
+  aqui dejas a jimena y a tus hijas.
+  --
+  (vas a san pedro de cardena)
+
+> da oro
+[san pedro de cardena   honra 1/7]
+  san pedro de cardena. el abad.
+  aqui dejas a jimena y a tus hijas.
+  --
+  das los marcos al abad don sancho
+  para dotar el monasterio. jimena y
+  tus hijas quedan a salvo. dios te lo
+  pague.
+
+> mira jimena
+[san pedro de cardena   honra 1/7]
+  san pedro de cardena. el abad.
+  aqui dejas a jimena y a tus hijas.
+  --
+  jimena llora y reza: merced, cid, en
+  buen hora cinxiestes espada! te
+  abraza como la una de la carne.
+
+> baja
+[bodega de cardena   honra 1/7]
+  bodega bajo el monasterio. tinajas,
+  grano y herramientas. frescor.
+  --
+  (vas a bodega de cardena)
+  ves: vianda cuerda
+
+> coge cuerda
+[bodega de cardena   honra 1/7]
+  bodega bajo el monasterio. tinajas,
+  grano y herramientas. frescor.
+  --
+  coges cuerda.
+  ves: vianda
+
+> coge vianda
+[bodega de cardena   honra 1/7]
+  bodega bajo el monasterio. tinajas,
+  grano y herramientas. frescor.
+  --
+  coges vianda.
+
+> sube
+[san pedro de cardena   honra 1/7]
+  san pedro de cardena. el abad.
+  aqui dejas a jimena y a tus hijas.
+  --
+  (vas a san pedro de cardena)
+
+> este
+[capilla de cardena   honra 1/7]
+  capilla en penumbra. jimena ora
+  ante un cristo de marfil. cirios.
+  --
+  (vas a capilla de cardena)
+
+> mira altar
+[capilla de cardena   honra 2/7]
+  capilla en penumbra. jimena ora
+  ante un cristo de marfil. cirios.
+  --
+  tras el altar hallas una reliquia de
+  san pedro, santa y secreta. su
+  virtud purifica las aguas mas
+  danadas.
+
+> oeste
+[san pedro de cardena   honra 2/7]
+  san pedro de cardena. el abad.
+  aqui dejas a jimena y a tus hijas.
+  --
+  (vas a san pedro de cardena)
+
+> sur
+[vado del duero   honra 2/7]
+  el ancho duero, raya del reino.
+  mas alla, tierra de moros.
+  sin bayo ni ensena no pases al este.
+  --
+  (vas a vado del duero)
+
+> duerme
+[vado del duero   honra 3/7]
+  el ancho duero, raya del reino.
+  mas alla, tierra de moros.
+  sin bayo ni ensena no pases al este.
+  --
+  duermes y se te aparece el arcangel
+  gabriel: cabalga, cid, que todo te
+  ira bien. despiertas con el alma en
+  vilo.
+
+> este
+[tierras de frontera   honra 3/7]
+  paramo de frontera. atalayas moras
+  en los cerros. caminos al sol.
+  --
+  (vas a tierras de frontera)
+
+> norte
+[castejon de henares   honra 3/7]
+  castejon duerme al alba. sus puertas
+  se abriran al mercado. minaya
+  espera.
+  --
+  (vas a castejon de henares)
+
+> espera
+[castejon de henares   honra 3/7]
+  castejon duerme al alba. sus puertas
+  se abriran al mercado. minaya
+  espera.
+  --
+  esperas al alba, agazapado. las
+  puertas de castejon se abren al
+  mercado, incautas...
+
+> asalta
+[castejon de henares   honra 3/7]
+  castejon duerme al alba. sus puertas
+  se abriran al mercado. minaya
+  espera.
+  --
+  con la cuerda escalas el muro
+  mientras minaya corre la tierra.
+  castejon cae sin perder un hombre.
+  al botin!
+
+> este
+[botin de castejon   honra 3/7]
+  castejon es tuya. oro, panos, armas.
+  en el corral piafan corceles moros.
+  --
+  (vas a botin de castejon)
+  ves: botin
+
+> coge botin
+[botin de castejon   honra 3/7]
+  castejon es tuya. oro, panos, armas.
+  en el corral piafan corceles moros.
+  --
+  coges botin.
+
+> oeste
+[castejon de henares   honra 3/7]
+  castejon duerme al alba. sus puertas
+  se abriran al mercado. minaya
+  espera.
+  --
+  (vas a castejon de henares)
+
+> sur
+[tierras de frontera   honra 3/7]
+  paramo de frontera. atalayas moras
+  en los cerros. caminos al sol.
+  --
+  (vas a tierras de frontera)
+
+> este
+[alcocer, ribera del jalon   honra 3/7]
+  alcocer, fuerte villa amurallada.
+  el asalto frontal seria locura.
+  --
+  (vas a alcocer, ribera del jalon)
+
+> finge
+[alcocer, ribera del jalon   honra 3/7]
+  alcocer, fuerte villa amurallada.
+  el asalto frontal seria locura.
+  --
+  finges la huida y levantas el campo.
+  los de alcocer, codiciosos, salen
+  tras de ti dejando abierta la
+  villa...
+
+> asalta
+[alcocer, ribera del jalon   honra 3/7]
+  alcocer, fuerte villa amurallada.
+  el asalto frontal seria locura.
+  --
+  vuelves grupas de golpe y asaltas
+  alcocer por sorpresa. la villa es
+  tuya. fariz y galve acuden
+  iracundos.
+
+> este
+[campo de fariz y galve   honra 3/7]
+  campo abierto. fariz y galve forman.
+  tres mil contra tus seiscientos.
+  --
+  (vas a campo de fariz y galve)
+
+> da ensena
+[campo de fariz y galve   honra 3/7]
+  campo abierto. fariz y galve forman.
+  tres mil contra tus seiscientos.
+  --
+  das la ensena a pero bermudez:
+  tenedla, mas no la metais en lid sin
+  mi mandado. el la clava en las haces
+  moras.
+
+> ataca
+[campo de fariz y galve   honra 3/7]
+  campo abierto. fariz y galve forman.
+  tres mil contra tus seiscientos.
+  --
+  montado en babieca y con tu ensena
+  al frente, cargas. fariz y galve
+  huyen vencidos! gran botin, y parias
+  para el rey.
+
+> oeste
+[alcocer, ribera del jalon   honra 3/7]
+  alcocer, fuerte villa amurallada.
+  el asalto frontal seria locura.
+  --
+  (vas a alcocer, ribera del jalon)
+
+> oeste
+[tierras de frontera   honra 3/7]
+  paramo de frontera. atalayas moras
+  en los cerros. caminos al sol.
+  --
+  (vas a tierras de frontera)
+
+> envia parias
+[tierras de frontera   honra 3/7]
+  paramo de frontera. atalayas moras
+  en los cerros. caminos al sol.
+  --
+  envias las parias al rey alfonso por
+  mano de minaya. el favor del rey
+  empieza a tornar hacia ti.
+
+> sur
+[pinar de tevar   honra 3/7]
+  el pinar de tevar. el conde
+  berenguer
+  te cerca, soberbio. habra lid.
+  --
+  (vas a pinar de tevar)
+
+> convida conde
+[pinar de tevar   honra 3/7]
+  el pinar de tevar. el conde
+  berenguer
+  te cerca, soberbio. habra lid.
+  --
+  vences al conde berenguer mas lo
+  sueltas con cortesia y le devuelves
+  sus tierras. agradecido, te cede
+  colada!
+
+> este
+[senda a levante   honra 3/7]
+  senda a levante. huele a azahar
+  y a mar. labradores moros huyen.
+  valencia te aguarda.
+  --
+  (vas a senda a levante)
+
+> convida moros
+[senda a levante   honra 4/7]
+  senda a levante. huele a azahar
+  y a mar. labradores moros huyen.
+  valencia te aguarda.
+  --
+  labradores moros huyen de tu hueste.
+  el cid los ampara: quedad en paz,
+  que conmigo nada perdereis. moros y
+  cristianos te bendicen.
+
+> este
+[huerta de valencia   honra 4/7]
+  la huerta, vergel de palmas. un pozo
+  de marmol. dicen que el agua es
+  mala.
+  --
+  (vas a huerta de valencia)
+  ves: cidra
+
+> echa reliquia
+[huerta de valencia   honra 4/7]
+  la huerta, vergel de palmas. un pozo
+  de marmol. dicen que el agua es
+  mala.
+  --
+  echas la reliquia de san pedro al
+  pozo y el agua se aclara, dulce y
+  sana. el cerco tendra de beber.
+  ves: cidra
+
+> este
+[murallas de valencia   honra 4/7]
+  las murallas de valencia, altas
+  y blancas. un cerco las rinde.
+  --
+  (vas a murallas de valencia)
+
+> asalta
+[murallas de valencia   honra 4/7]
+  las murallas de valencia, altas
+  y blancas. un cerco las rinde.
+  --
+  asedias valencia mes tras mes hasta
+  que el hambre la rinde. pero
+  bermudez clava tu ensena en la
+  torre. valencia es tuya, cid!
+
+> oeste
+[huerta de valencia   honra 4/7]
+  la huerta, vergel de palmas. un pozo
+  de marmol. dicen que el agua es
+  mala.
+  --
+  (vas a huerta de valencia)
+  ves: cidra
+
+> norte
+[real del cid   honra 4/7]
+  el real del cid, mar de tiendas.
+  minaya vuelve con nuevas del rey.
+  la hueste aguarda vianda.
+  --
+  (vas a real del cid)
+
+> da vianda
+[real del cid   honra 5/7]
+  el real del cid, mar de tiendas.
+  minaya vuelve con nuevas del rey.
+  la hueste aguarda vianda.
+  --
+  repartes la vianda entre la hueste.
+  comen y bendicen al cid: en buen
+  hora nascio! te siguen al cerco con
+  nuevo brio.
+
+> mira minaya
+[real del cid   honra 5/7]
+  el real del cid, mar de tiendas.
+  minaya vuelve con nuevas del rey.
+  la hueste aguarda vianda.
+  --
+  minaya vuelve de castilla: el rey,
+  ablandado por las parias, concede
+  salvoconducto para traer a tu
+  familia a valencia.
+
+> sur
+[huerta de valencia   honra 5/7]
+  la huerta, vergel de palmas. un pozo
+  de marmol. dicen que el agua es
+  mala.
+  --
+  (vas a huerta de valencia)
+  ves: cidra
+
+> este
+[murallas de valencia   honra 5/7]
+  las murallas de valencia, altas
+  y blancas. un cerco las rinde.
+  --
+  (vas a murallas de valencia)
+
+> este
+[alcazar de valencia   honra 5/7]
+  el alcazar, ya tuyo.
+  del mirador se ve la mar.
+  un leon dormita en su jaula.
+  --
+  (vas a alcazar de valencia)
+
+> asoma mirador
+[alcazar de valencia   honra 5/7]
+  el alcazar, ya tuyo.
+  del mirador se ve la mar.
+  un leon dormita en su jaula.
+  --
+  desde el mirador ves llegar a jimena
+  y a tus hijas. a vos, mugier
+  ondrada, valencia por morada! lloras
+  de gozo.
+
+> norte
+[camara de las hijas   honra 5/7]
+  camara de elvira y sol. arcas y
+  un manto de bodas de oro. risas.
+  --
+  (vas a camara de las hijas)
+  ves: gala
+
+> coge gala
+[camara de las hijas   honra 5/7]
+  camara de elvira y sol. arcas y
+  un manto de bodas de oro. risas.
+  --
+  coges gala.
+
+> sur
+[alcazar de valencia   honra 5/7]
+  el alcazar, ya tuyo.
+  del mirador se ve la mar.
+  un leon dormita en su jaula.
+  --
+  (vas a alcazar de valencia)
+
+> abajo
+[tesoro del alcazar   honra 5/7]
+  el tesoro del alcazar. arcas, un
+  atril, y en la pared: tizona!
+  --
+  (vas a tesoro del alcazar)
+  ves: tizona
+
+> coge tizona
+[tesoro del alcazar   honra 5/7]
+  el tesoro del alcazar. arcas, un
+  atril, y en la pared: tizona!
+  --
+  coges tizona.
+
+> mueve atril
+[tesoro del alcazar   honra 6/7]
+  el tesoro del alcazar. arcas, un
+  atril, y en la pared: tizona!
+  --
+  mueves el atril y tras el hallas una
+  corona votiva visigoda, de oro y
+  esmeraldas. tesoro secreto!
+
+> sube
+[alcazar de valencia   honra 6/7]
+  el alcazar, ya tuyo.
+  del mirador se ve la mar.
+  un leon dormita en su jaula.
+  --
+  (vas a alcazar de valencia)
+
+> este
+[playa de valencia   honra 6/7]
+  la playa. velas en el horizonte:
+  la flota de bucar viene a vengarse.
+  --
+  (vas a playa de valencia)
+
+> mira flota
+[playa de valencia   honra 6/7]
+  la playa. velas en el horizonte:
+  la flota de bucar viene a vengarse.
+  --
+  las velas de bucar cubren la mar:
+  cincuenta mil vienen a cobrar
+  valencia. el cid no tiembla aprieta
+  el puno sobre tizona.
+
+> este
+[batalla contra bucar   honra 6/7]
+  playa erizada de tiendas moras.
+  bucar te reta. jeronimo pide lid.
+  sin espada cennida no hay victoria.
+  --
+  (vas a batalla contra bucar)
+
+> mira jeronimo
+[batalla contra bucar   honra 6/7]
+  playa erizada de tiendas moras.
+  bucar te reta. jeronimo pide lid.
+  sin espada cennida no hay victoria.
+  --
+  el obispo don jeronimo te pide la
+  primera herida: esta lid yo la
+  quiero por mi alma! y bendice a la
+  hueste.
+
+> cine tizona
+[batalla contra bucar   honra 6/7]
+  playa erizada de tiendas moras.
+  bucar te reta. jeronimo pide lid.
+  sin espada cennida no hay victoria.
+  --
+  cines tizona al cinto. su hoja
+  arroja lumbre. ahora si: que venga
+  bucar.
+
+> vence bucar
+[batalla contra bucar   honra 6/7]
+  playa erizada de tiendas moras.
+  bucar te reta. jeronimo pide lid.
+  sin espada cennida no hay victoria.
+  --
+  con tizona en mano y babieca al
+  galope: tornate, bucar! lo derribas
+  y le ganas tizon, y su pabellon de
+  oro y seda. la cimitarra sera don
+  para el rey.
+
+> este
+[vega del tajo y bodas   honra 6/7]
+  la vega del tajo. el rey alfonso
+  te perdona y pide a tus hijas.
+  --
+  (vas a vega del tajo y bodas)
+
+> da dones
+[vega del tajo y bodas   honra 6/7]
+  la vega del tajo. el rey alfonso
+  te perdona y pide a tus hijas.
+  --
+  presentas al rey la cimitarra de
+  bucar. alfonso, contento, te otorga
+  su perdon entero. eres su vassallo y
+  su amigo.
+
+> casa hijas
+[vega del tajo y bodas   honra 6/7]
+  la vega del tajo. el rey alfonso
+  te perdona y pide a tus hijas.
+  --
+  casas a elvira y a sol con los
+  infantes, y das el manto de bodas.
+  corre nueva: el leon del alcazar
+  anda suelto! ojala no lo lamentes...
+
+> oeste
+[batalla contra bucar   honra 6/7]
+  playa erizada de tiendas moras.
+  bucar te reta. jeronimo pide lid.
+  sin espada cennida no hay victoria.
+  --
+  (vas a batalla contra bucar)
+
+> oeste
+[playa de valencia   honra 6/7]
+  la playa. velas en el horizonte:
+  la flota de bucar viene a vengarse.
+  --
+  (vas a playa de valencia)
+
+> oeste
+[alcazar de valencia   honra 6/7]
+  el alcazar, ya tuyo.
+  del mirador se ve la mar.
+  un leon dormita en su jaula.
+  --
+  (vas a alcazar de valencia)
+
+> doma leon
+[alcazar de valencia   honra 7/7]
+  el alcazar, ya tuyo.
+  del mirador se ve la mar.
+  un leon dormita en su jaula.
+  --
+  te alzas sin armas, tomas al leon
+  por la melena y lo llevas manso a la
+  jaula. la corte se maravilla. los
+  infantes, blancos de verguenza, no
+  lo olvidaran.
+
+> este
+[playa de valencia   honra 7/7]
+  la playa. velas en el horizonte:
+  la flota de bucar viene a vengarse.
+  --
+  (vas a playa de valencia)
+
+> este
+[batalla contra bucar   honra 7/7]
+  playa erizada de tiendas moras.
+  bucar te reta. jeronimo pide lid.
+  sin espada cennida no hay victoria.
+  --
+  (vas a batalla contra bucar)
+
+> este
+[vega del tajo y bodas   honra 7/7]
+  la vega del tajo. el rey alfonso
+  te perdona y pide a tus hijas.
+  --
+  (vas a vega del tajo y bodas)
+
+> este
+[robledo de corpes   honra 7/7]
+  el robledo de corpes, oscuro.
+  afrentaron a tus hijas, jirones.
+  --
+  (vas a robledo de corpes)
+  ves: jirones cinchas
+
+> coge jirones
+[robledo de corpes   honra 7/7]
+  el robledo de corpes, oscuro.
+  afrentaron a tus hijas, jirones.
+  --
+  coges jirones.
+  ves: cinchas
+
+> coge cinchas
+[robledo de corpes   honra 7/7]
+  el robledo de corpes, oscuro.
+  afrentaron a tus hijas, jirones.
+  --
+  coges cinchas.
+
+> abajo
+[fuente de corpes   honra 7/7]
+  una fuente en lo hondo del robledo.
+  alli yacen elvira y sol, sin
+  sentido.
+  --
+  (vas a fuente de corpes)
+  ves: agua
+
+> coge agua
+[fuente de corpes   honra 7/7]
+  una fuente en lo hondo del robledo.
+  alli yacen elvira y sol, sin
+  sentido.
+  --
+  coges agua.
+
+> socorre hijas
+[fuente de corpes   honra 7/7]
+  una fuente en lo hondo del robledo.
+  alli yacen elvira y sol, sin
+  sentido.
+  --
+  socorres a tiempo a tus hijas y con
+  el agua de la fuente vuelven en si.
+  felez munoz las pone a salvo.
+  viviran, y veran justicia.
+
+> sube
+[robledo de corpes   honra 7/7]
+  el robledo de corpes, oscuro.
+  afrentaron a tus hijas, jirones.
+  --
+  (vas a robledo de corpes)
+
+> este
+[cortes de toledo   honra 7/7]
+  cortes de toledo. el rey preside.
+  alli, palidos, los infantes de
+  carrion.
+  --
+  (vas a cortes de toledo)
+
+> ata barba
+[cortes de toledo   honra 7/7]
+  cortes de toledo. el rey preside.
+  alli, palidos, los infantes de
+  carrion.
+  --
+  atas tu barba con un cordon. por
+  aquesta barba que nadie no messo!
+  asi entras a las cortes, intocado y
+  firme.
+
+> exige espadas
+[cortes de toledo   honra 7/7]
+  cortes de toledo. el rey preside.
+  alli, palidos, los infantes de
+  carrion.
+  --
+  exiges en justicia tizona y colada,
+  que diste a los infantes. el rey
+  manda que te las devuelvan. recobras
+  tus espadas!
+
+> muestra jirones
+[cortes de toledo   honra 7/7]
+  cortes de toledo. el rey preside.
+  alli, palidos, los infantes de
+  carrion.
+  --
+  muestras a las cortes el manto roto
+  y las cinchas. un murmullo de horror
+  recorre la sala. la afrenta queda
+  probada.
+
+> reta infantes
+[cortes de toledo   honra 7/7]
+  cortes de toledo. el rey preside.
+  alli, palidos, los infantes de
+  carrion.
+  --
+  retas a riepto a los infantes de
+  carrion. pero bermudez, antolinez y
+  muno gustioz seran tus campeones. al
+  palenque!
+
+> sube
+[palenque de los duelos   honra 7/7]
+  el palenque de carrion.
+  tus campeones contra los traidores.
+  lidia por tu honra.
+  --
+  (vas a palenque de los duelos)
+
+> da tizona
+[palenque de los duelos   honra 7/7]
+  el palenque de carrion.
+  tus campeones contra los traidores.
+  lidia por tu honra.
+  --
+  das tizona a pero bermudez. con ella
+  derribara a fernando, que clamara
+  vencido.
+
+> da colada
+[palenque de los duelos   honra 7/7]
+  el palenque de carrion.
+  tus campeones contra los traidores.
+  lidia por tu honra.
+  --
+  das colada a martin antolinez. con
+  ella derribara a diego gonzalez en
+  el palenque.
+
+> lidia
+[palenque de los duelos   honra 7/7]
+  el palenque de carrion.
+  tus campeones contra los traidores.
+  lidia por tu honra.
+  --
+  tus tres campeones vencen: pero a
+  fernando, antolinez a diego, muno a
+  asur. los de carrion quedan por
+  traidores. tu honra resplandece!
+
+> este
+[triunfo del campeador   honra 7/7]
+  valencia engalanada. tus hijas casan
+  con navarra y aragon. triunfo, cid!
+  --
+  (vas a triunfo del campeador)
+
+> acepta
+[triunfo del campeador   honra 7/7]
+  valencia engalanada. tus hijas casan
+  con navarra y aragon. triunfo, cid!
+  --
+  aceptas las nuevas bodas: tus hijas,
+  antes afrentadas, casan con navarra
+  y aragon, y seran reinas. victoria,
+  campeador!
+
+*** VICTORIA ***

@@ -1,5 +1,7 @@
 # EL CID CAMPEADOR — aventura conversacional para Commodore 64
 
+[![CI](https://github.com/Tombatossals-Softworks-LLC/elCID/actions/workflows/ci.yml/badge.svg)](https://github.com/Tombatossals-Softworks-LLC/elCID/actions/workflows/ci.yml)
+
 A dense, illustrated **Spanish text adventure** (*aventura conversacional*) about
 Rodrigo Díaz de Vivar, **El Cid**, faithful to the *Cantar de Mio Cid* — built for
 a real **Commodore 64** in **BASIC v2.0**, in the spirit of the 1980s
@@ -109,7 +111,7 @@ better on every C64, including flash-cart users, who mount `.d64` images anyway.
 To rebuild and re-prove everything in one command:
 
 ```sh
-python3 build/verify.py          # 13 checks; --fast skips the disk rebuild
+python3 build/verify.py          # 14 checks; --fast skips the disk rebuild
 ```
 
 Two builds come from the **one** generator (game logic is identical; only the
@@ -394,13 +396,67 @@ of truth in [`build/`](build):
    [`WALKTHROUGH.txt`](WALKTHROUGH.txt) is that exact path, order and numbering
    included, so a change to the puzzle chain cannot leave the published
    walkthrough describing a game that no longer exists.
-10. **`verify.py`** runs all of it in dependency order, and builds everything a
-    second time to prove the output is deterministic.
+10. **`playtest.py`** — four kinds of *player*, described below.
+11. **`verify.py`** runs all of it in dependency order, and builds everything a
+    second time to prove the output is deterministic. It is what
+    [CI](.github/workflows/ci.yml) runs on every push, and it also fails the
+    build if the committed `.bas`/`.d64`/`.PRG` are not what the current source
+    produces — a stale disk image is invisible in review, because the diff of a
+    `.d64` is unreadable.
 
 So: *the logic is proven winnable, the generated data provably equals the proven
 spec, the BASIC is provably legal v2.0, it provably fits in RAM, nothing in
 the world is unreachable, and the published solution is the proven one.* The screenshots above come from the same simulator
 that models the layout, so they verify it too (no overflow, no scroll).
+
+### Players who actually play it
+
+Everything above proves a property of the *artefact*. None of it sits down and
+plays. [`build/playtest.py`](build/playtest.py) runs four players who do, and
+all four drive **both engines in lockstep** — the reference model and the
+`basemu` re-implementation reading the shipped BASIC's own `DATA` — comparing
+room, flags, inventory **and which rule fired** after every single command.
+That last one is the point: `difftest2` compares *state*, so two rules with the
+same effect and different prose are indistinguishable to it, and the game could
+answer you with another room's sentence unnoticed.
+
+* **The explorer** — tries everything, seeded from the solution corridor.
+  Breadth-first from Vivar is the wrong search here: the game is a 107-step
+  gated chain, so 100 s of pure BFS reaches 12 rooms of 32. Seeded instead from
+  the 108 states the proven solution passes through and expanded outwards, it
+  reaches **all 32 rooms and fires 81 of 82 rules in 16 s**, and hands every
+  piece of content it finds to a witness session that is replayed in lockstep —
+  187 sessions, ~11 000 commands, where `difftest2` only ever walks the one
+  path. `--deep` goes one step further out: **82/82 rules, 47 467 states**. The
+  one rule that needs the deeper radius is the alternate well purge — squeezing
+  the bitter *cidra* instead of casting in the relic — which the canonical
+  solution can never reach, because it always carries the relic.
+* **The spoiler** — tries to ruin its own game, and is the reason the file
+  exists. At every step of the solution it takes *every* action available, then
+  plays the rest of the solution and asks whether it still wins. **951 distinct
+  deviations, 0 softlocks**: every one is harmless (844), an announced death
+  (9), or undoable in a single move (98). A softlock — alive, but the victory
+  quietly gone — is the classic unwinnable-save bug of the genre, and no other
+  check here can see one.
+* **The monkey** — types nonsense: seeded random sessions of real commands, bare
+  directions and words the vocabulary never heard. 60 000 commands in about a
+  second, and a failure prints the seed that reproduces it (`--replay 421`).
+* **The transcripts** — [`build/transcripts/`](build/transcripts) holds the
+  golden record of five sessions, laid out by the game's own `wrap()` exactly as
+  the 40-column screen lays them out, so a change to the prose arrives as a
+  reviewable diff instead of shipping silently.
+
+Two things the players found, both worth knowing:
+
+* **The Duero gate asks for the wrong thing in its own words.** Crossing east
+  from room 11 requires the *enseña*, and the death text reads *"cruzas el duero
+  sin guía ni **montura**"* — which names the saddle, the item it does not check.
+* **Six gestas are flags; the seventh is an item you hold.** `honra` is otherwise
+  monotonic — a flag is never cleared — but the visigothic coin counts by being
+  in your inventory, so `DEJA MONEDA` hands back an honour the game already paid
+  you for with a gold border flash and an arpeggio. Whether that is right is a
+  design call, so the monkey asserts the precise invariant (honour never falls
+  for any *other* reason) and reports this one rather than hiding it.
 
 What none of this can do is **run** the game — Debian and Ubuntu ship VICE
 without the ROMs. [`build/fullcycle.py`](build/fullcycle.py) plays the whole

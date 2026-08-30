@@ -1,0 +1,91 @@
+> este
+[camino de burgos   honra 0/7]
+  camino a burgos. las gentes lloran:
+  dios, que buen vassallo!
+  --
+  (vas a camino de burgos)
+
+> este
+[puerta de burgos   honra 0/7]
+  burgos cerrada so pena de los ojos.
+  tu ensena ondea. sale una nina.
+  quien la fuerce pierde la honra.
+  --
+  (vas a puerta de burgos)
+  ves: ensena
+
+> este
+[plaza de burgos   honra 0/7]
+  la plaza, hostil. solo antolinez
+  se acerca con pan y un ardid.
+  --
+  (vas a plaza de burgos)
+  ves: pan vino
+
+> mira antolinez
+[plaza de burgos   honra 0/7]
+  la plaza, hostil. solo antolinez
+  se acerca con pan y un ardid.
+  --
+  antolinez te ensena el ardid: llena
+  dos arcas de arena, sellalas como
+  oro y empenalas a raquel e vidas por
+  marcos.
+  ves: pan vino
+
+> sur
+[glera del arlanzon   honra 0/7]
+  el arenal del arlanzon. arena fina
+  en monton: buen lugar de ardid.
+  --
+  (vas a glera del arlanzon)
+  ves: arena tienda
+
+> coge arena
+[glera del arlanzon   honra 0/7]
+  el arenal del arlanzon. arena fina
+  en monton: buen lugar de ardid.
+  --
+  coges arena.
+  ves: tienda
+
+> oeste
+[casa de raquel e vidas   honra 0/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  (vas a casa de raquel e vidas)
+  ves: arcas
+
+> llena arcas
+[casa de raquel e vidas   honra 0/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  llenas las dos arcas de arena hasta
+  los bordes. pesan como si fueran de
+  oro macizo.
+  ves: arcas
+
+> sella arcas
+[casa de raquel e vidas   honra 0/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  sellas y clavas las arcas. nadie
+  diria que no guardan un tesoro. el
+  ardid esta listo.
+  ves: arcas
+
+> abre arcas
+[casa de raquel e vidas   honra 0/7]
+  raquel e vidas cuentan oro.
+  dos arcas de roble, vacias, esperan.
+  --
+  abres las arcas ante los
+  prestamistas y descubren la arena.
+  corre la voz de tu engano y nadie te
+  fia ya. el destierro te ahoga. fin.
+  ves: arcas
+
+*** DERROTA ***
