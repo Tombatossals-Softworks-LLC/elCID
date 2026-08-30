@@ -101,8 +101,8 @@ assert res == 1, "CRITICAL PATH DID NOT WIN"
 
 # prove the LEGENDARY ending is reachable (honra computed from final state,
 # mirroring the BASIC end-screen: flags 24/26/27/28/29/30 + moneda item 29).
-ho = ((24 in g.flags) + (26 in g.flags) + (27 in g.flags)
-      + (g.loc.get(29) == -1) + (28 in g.flags) + (29 in g.flags) + (30 in g.flags))
+ho = ((22 in g.flags) + (24 in g.flags) + (26 in g.flags) + (27 in g.flags)
+      + (28 in g.flags) + (29 in g.flags) + (30 in g.flags))
 print("HONRA (deeds): %d of 7 -> %s" % (ho, "LEGENDARY ending" if ho >= 6 else "standard ending"))
 assert ho >= 6, "CRITICAL PATH DID NOT REACH LEGENDARY ENDING (ho=%d)" % ho
 

@@ -171,11 +171,14 @@ def emu_response(g):
 SIM_OVER = {-1: "LOSE", 1: "WIN", 0: "OK"}
 EMU_OVER = {2: "LOSE", 1: "WIN", 0: "OK"}
 MAXFLAG = 31
-HONRA_FLAGS = (24, 26, 27, 28, 29, 30)
-MONEDA = 29                            # item; carried == the seventh gesta
+# All seven gestas are flags, so honour is monotonic: a flag is never cleared,
+# and nothing you do afterwards can take a deed back.  The coin used to be
+# counted by being in your inventory, which made DEJA MONEDA hand back an
+# honour the game had already paid you for.
+HONRA_FLAGS = (22, 24, 26, 27, 28, 29, 30)
 
-def honra(flags, carried):
-    return sum(f in flags for f in HONRA_FLAGS) + (MONEDA in carried)
+def honra(flags, carried=None):
+    return sum(f in flags for f in HONRA_FLAGS)
 
 class Table:
     """Both engines, fed the same commands, compared after each one."""

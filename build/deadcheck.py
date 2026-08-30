@@ -155,7 +155,7 @@ for i, it in sorted(S.ITEMS.items()):
 set_flags = {f for r in S.R for f in r["setf"]}
 read_flags = ({f for r in S.R for f in r["need"] + r["forbid"]} |
               {f for g in S.GATE.values() for f in g["needf"]})
-HONRA = {24, 26, 27, 28, 29, 30}          # counted on the ending screen
+HONRA = {22, 24, 26, 27, 28, 29, 30}      # counted on the ending screen
 for f in sorted(set_flags - read_flags - HONRA):
     note("nit", "flag %d is set but never tested" % f)
 for f in sorted(read_flags - set_flags):

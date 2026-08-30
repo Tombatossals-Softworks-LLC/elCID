@@ -360,16 +360,6 @@ def run_spoiler(args):
 # ---------------------------------------------------------------------------
 #  player 3 -- the monkey
 # ---------------------------------------------------------------------------
-# Six of the seven gestas are flags, and a flag is never cleared, so honour once
-# earned is permanent.  The seventh is not a flag: it is "be holding the
-# visigothic coin" (item 29), which the ending screen reads straight off the
-# inventory.  So DEJA MONEDA hands back an honour the game has already paid you
-# for -- the gold border flashed, the arpeggio played and the badge ticked up
-# when you dug it out.  Whether that is right is a design call, not a test's, so
-# the monkey asserts the precise invariant (honra never falls for any OTHER
-# reason) and counts this one instead of hiding it.
-MONEDA_IS_AN_ITEM = """the seventh gesta is an item you hold, not a flag you
-earned, so dropping it takes the honour back"""
 
 NOISE = ["zorro", "gato", "flux", "pepino", "xyzzyx", "asdf", "molino", "queso",
          "norteo", "cid", "rey", "", "abre abre", "coge coge coge"]
@@ -391,14 +381,14 @@ def run_monkey(args):
     print("PLAYER 3 -- the monkey (%d seeded sessions x %d commands)"
           % (args.sessions, args.length))
     print("=" * 62)
-    bad = cmds = coin_drops = 0
+    bad = cmds = 0
     ends = collections.Counter()
     rules_hit = set()
     t0 = time.time()
     for seed in range(args.sessions):
         rng = random.Random(seed)
         t = P.Table()
-        prev_flags, prev_honra, prev_carried = frozenset(), 0, frozenset()
+        prev_flags, prev_honra = frozenset(), 0
         for step in range(args.length):
             c = monkey_command(rng)
             problems, resp = t.do(c)
@@ -414,14 +404,10 @@ def run_monkey(args):
                     problems = ["a flag was cleared: %s" % sorted(prev_flags - v[2])]
                 elif h > 7:
                     problems = ["honra above 7: %d" % h]
-                elif h < prev_honra and P.MONEDA in prev_carried and P.MONEDA not in v[3]:
-                    # Six gestas are flags and can never come undone.  The
-                    # seventh is "be holding the visigothic coin", so putting it
-                    # down takes the honour back -- see MONEDA_IS_AN_ITEM.
-                    coin_drops += 1
                 elif h < prev_honra:
+                    # All seven gestas are flags, so this can never happen.
                     problems = ["honra went down: %d -> %d" % (prev_honra, h)]
-                prev_flags, prev_honra, prev_carried = v[2], h, v[3]
+                prev_flags, prev_honra = v[2], h
             if problems:
                 bad += 1
                 if bad <= 8:
@@ -433,9 +419,6 @@ def run_monkey(args):
         ends[{0: "alive", 1: "won", -1: "died"}[t.over()]] += 1
     print("  %d commands in %.1fs | endings: %s" % (cmds, time.time() - t0, dict(ends)))
     print("  rules fired by pure chance: %d/%d" % (len(rules_hit), len(S.R)))
-    if coin_drops:
-        print("  note: honra fell %d time(s) by putting the moneda down -- %s"
-              % (coin_drops, MONEDA_IS_AN_ITEM.strip().replace("\n", " ")))
     print("  divergences / broken invariants: %d" % bad)
     return bad
 

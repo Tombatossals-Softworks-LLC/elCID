@@ -47,10 +47,12 @@ a real **Commodore 64** in **BASIC v2.0**, in the spirit of the 1980s
   `DA VIANDA`, *show mercy* to the Moorish farmers on the road to Levante — and
   **tame the escaped lion of the alcázar** (`DOMA LEON`: the Cantar's most famous
   episode, playable at last, with the infantes hiding under the bench) — all
-  count toward your honour. Win with all of them and the standard victory becomes
-  a **legendary ending** that closes on the *Cantar*'s own coda — *"oy los reyes
-  d'España sos parientes son."* Every secret now changes the ending; nothing is an
-  inert trophy, and there is a real reason to play again.
+  count toward your honour, and every one of them is a **deed you did, not a
+  thing you hold**: once earned it can never come undone. Win with all of them
+  and the standard victory becomes a **legendary ending** that closes on the
+  *Cantar*'s own coda — *"oy los reyes d'España sos parientes son."* Every secret
+  now changes the ending; nothing is an inert trophy, and there is a real reason
+  to play again.
 * **Partidas guardadas**: `GRABA` writes the full game state to disk through the
   drive's error channel (so a missing disk answers in prose, not a crash);
   `RECUPERA` restores it and repaints.
@@ -446,17 +448,16 @@ answer you with another room's sentence unnoticed.
   the 40-column screen lays them out, so a change to the prose arrives as a
   reviewable diff instead of shipping silently.
 
-Two things the players found, both worth knowing:
-
-* **The Duero gate asks for the wrong thing in its own words.** Crossing east
-  from room 11 requires the *enseña*, and the death text reads *"cruzas el duero
-  sin guía ni **montura**"* — which names the saddle, the item it does not check.
-* **Six gestas are flags; the seventh is an item you hold.** `honra` is otherwise
-  monotonic — a flag is never cleared — but the visigothic coin counts by being
-  in your inventory, so `DEJA MONEDA` hands back an honour the game already paid
-  you for with a gold border flash and an arpeggio. Whether that is right is a
-  design call, so the monkey asserts the precise invariant (honour never falls
-  for any *other* reason) and reports this one rather than hiding it.
+What the monkey found on its first run, and what changed because of it: six of
+the seven *gestas* were flags, and a flag is never cleared, but the seventh was
+not — the visigothic coin counted by sitting in your inventory. So `DEJA MONEDA`
+handed back an honour the game had already paid you for, with a gold border
+flash and a rising arpeggio, and could quietly cost you the legendary ending 80
+moves later. Digging the coin out now sets a deed flag like the other six, and
+the three places the BASIC tallied `honra` — the name-bar badge, the ending
+screen and the reward tick — all read the same seven flags. **Honour is
+monotonic**, and the monkey asserts exactly that, with no exceptions to write
+down.
 
 What none of this can do is **run** the game — Debian and Ubuntu ship VICE
 without the ROMs. [`build/fullcycle.py`](build/fullcycle.py) plays the whole

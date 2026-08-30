@@ -199,7 +199,7 @@ rule(3,8,3,msg="vender a babieca? jamas. ni tras tu muerte volvera nadie a monta
 rule(4,1,102,msg="la nina de nueve anos te habla: cid, el rey nos veda acogerte so pena de los ojos. id, y dios os valga. lloras y partes.")
 rule(4,41,119,kind=1,msg="forzar la puerta? danar a esta villa? un campeador no hace tal. tus propios caballeros volverian la cara. sin honra no hay cid. fin.")
 rule(5,1,103,setf=[1],msg="antolinez te ensena el ardid: llena dos arcas de arena, sellalas como oro y empenalas a raquel e vidas por marcos.")
-rule(7,44,0,give=29,msg="cavas en la arena y bajo el sauce hallas una moneda de oro visigoda. guino secreto al heredero de los godos!")
+rule(7,44,0,give=29,setf=[22],msg="cavas en la arena y bajo el sauce hallas una moneda de oro visigoda. guino secreto al heredero de los godos!")
 rule(7,1,104,msg="arena fina y humeda se amontona en la glera bajo el sauce. tierra suelta: buen lugar para cavar.")
 rule(6,22,8,need=[1],forbid=[2],setf=[2],take=9,needi=9,msg="llenas las dos arcas de arena hasta los bordes. pesan como si fueran de oro macizo.")
 rule(6,23,8,need=[2],forbid=[3],setf=[3],msg="sellas y clavas las arcas. nadie diria que no guardan un tesoro. el ardid esta listo.")
