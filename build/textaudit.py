@@ -4,10 +4,17 @@
 and flag every string that would overflow or be truncated on the 40x25 screen.
 
 Screen layout (from build_bas.py):
-  row 10      room name           left$(rn$,38)         -> max 38 chars
-  rows 12-20  description/message  wrap w=36, dl=12 dz=20 -> max 9 lines; >9 TRUNCATED
-  row 21      "salidas: "+exits    left$(...,38)         -> max 38 chars
-  row 22      "ves: "+items        left$(...,38)         -> max 38 chars
+  row 10      room name + honra badge, reverse video  -> name kept to 29 chars
+  rows 11-14  description   wrap w=36, dl=11 dz=14     -> max 4 lines; >4 TRUNCATED
+  row 15      rule
+  rows 16-20  message       wrap w=36, dl=16 dz=20     -> max 5 lines; >5 TRUNCATED
+  row 21      "salidas: "+exits    left$(...,38)       -> max 38 chars
+  row 22      "ves: "+items        left$(...,38)       -> max 38 chars
+  row 24      hint bar (static)
+
+The description block is smaller than the message block on purpose: the
+description now PERSISTS while you play, so it has to share the screen with
+whatever the game answers, instead of being overwritten by it.
 """
 import sys, re, json
 import cidspec as S
@@ -34,9 +41,12 @@ def wrap_lines(t, w=36):
         out.append(line)
     return [x for x in out if x != ""]
 
-MAXROWS = 9       # rows 12..20 inclusive
-WRAPW   = 36
-NAMEW   = 38
+DESCROWS = 4      # rows 11..14 inclusive -- the persistent description
+MSGROWS  = 5      # rows 16..20 inclusive -- the per-command answer
+MAXROWS  = MSGROWS
+WRAPW    = 36
+NAMEW    = 38
+NAMEBADGE = 29    # left$(rn$+bl$,29) before the honra badge is appended
 
 problems = []
 warn = []
@@ -54,15 +64,16 @@ def check_block(label, text, maxrows=MAXROWS):
     return lines
 
 # ---- room names (row 10, <=38) ----
-RM = {r["id"]: r for r in json.load(open('canon.json'))["rooms"]}
+RM = {r["id"]: r for r in S.RM}
 for rid in range(1, S.NR+1):
     nm = norm(RM[rid]["name"])
-    if len(nm) > NAMEW:
-        problems.append("ROOMNAME>%d (%d): room %d %r" % (NAMEW, len(nm), rid, nm))
+    if len(nm) > NAMEBADGE:
+        problems.append("ROOMNAME>%d (%d) -- the honra badge would eat it: room %d %r"
+                        % (NAMEBADGE, len(nm), rid, nm))
 
-# ---- descriptions (rows 12-20) ----
+# ---- descriptions (rows 11-14) ----
 for rid in range(1, S.NR+1):
-    check_block("desc room %d (%s)" % (rid, RM[rid]["name"]), S.DESC[rid])
+    check_block("desc room %d (%s)" % (rid, RM[rid]["name"]), S.DESC[rid], DESCROWS)
 
 # ---- item exam texts (MIRA <item>) ----
 for i in S.ITEMS:
@@ -113,6 +124,14 @@ print()
 counts = {}
 for r in S.R:
     n = len(wrap_lines(r["msg"])); counts[n] = counts.get(n,0)+1
-print("rule-message line-count distribution:", dict(sorted(counts.items())))
+print("rule-message line-count distribution:", dict(sorted(counts.items())),
+      "(message area holds %d)" % MSGROWS)
+dcounts = {}
+for rid in range(1, S.NR+1):
+    n = len(wrap_lines(S.DESC[rid])); dcounts[n] = dcounts.get(n,0)+1
+print("description line-count distribution:", dict(sorted(dcounts.items())),
+      "(description area holds %d)" % DESCROWS)
 longest = max(S.R, key=lambda r: len(wrap_lines(r["msg"])))
 print("longest rule message: %d lines (room %d) — %r" % (len(wrap_lines(longest["msg"])), longest["room"], longest["msg"][:60]+"..."))
+# a truncated line is a shipped bug, so say so with the exit code too
+import sys; sys.exit(1 if problems else 0)

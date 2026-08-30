@@ -12,7 +12,7 @@ longer fits 38 KB. The disk build is strictly better on every C64.)
 Both builds keep ALL 32 hand-drawn scenes resident as a packed 19.2 KB
 blob (rooms.packed_blob) and paint a room with one ~10 ms machine-code blit
 (rooms.ml128/ml64, poked from DATA at boot) — a room change never touches the
-disk.  On the C128 the blob is appended to the game PRG itself at $8400 (bank 0,
+disk.  On the C128 the blob is appended to the game PRG itself at $A000 (bank 0,
 above the program; variables live in bank 1).  On the C64 it is bulk-LOADed once
 at boot into RAM the interpreter cannot reach ($A000/$E000 under the ROMs and
 $C100), so the game *gains* BASIC memory versus the lean build."""
@@ -32,7 +32,6 @@ else:
     ML_ORG = rooms.ML64
 
 # ---------- text helpers ----------
-ACC = str.maketrans("aaaeeiiooouuunAEIOUN","aaaeeiiooouuunaeioun")
 def norm(t):
     t = t.replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u")
     t = t.replace("ñ","n").replace("ü","u").replace("Á","a").replace("¡","").replace("¿","")
@@ -55,6 +54,14 @@ def wrap(t, w=36):
 def q(s): return '"' + s.replace('"', "") + '"'
 
 NR, NI, NU = S.NR, S.NI, len(S.R)
+NOTAKE = [i for i in sorted(S.ITEMS) if not S.ITEMS[i][3]]   # babieca, arcas, tienda
+
+# Seven optional deeds of honour; the legendary ending needs all but one.
+# Both the victory *text* (line 71) and the C128 story *card* (line 89) key off
+# this one number -- they used to disagree, and a 5-deed run got the standard
+# ending followed by the LEYENDA card.
+HONRA_DEEDS = 7
+LEGEND_AT   = HONRA_DEEDS - 1
 
 # ---------- build noun table (word -> code) ----------
 NOUNTAB = []
@@ -70,15 +77,19 @@ VERBTAB = sorted(set((norm(w), c) for w, c in S.VERB.items()))
 
 
 # ---------- prune vocabulary to fit C64 memory ----------
-KEEPV=set("lee coge mira baja monta sube este oeste norte sur arriba abajo da llena sella empena reza duerme espera asalta ataca finge convida envia echa asoma cine vence casa socorre ata exige muestra reta lidia acepta cava mueve fuerza abre bebe deja inventario i ve usa ayuda habla besa purga".split())
-KEEPN=set("manto carta babieca silla ensena pan vino arcas arena tienda reliquia vianda cuerda oro botin parias colada salvo cidra gala tizona espadab espbucar tiendab mantor cinchas agua corona moneda coronag corneja nina antolinez sauce altar jimena abad mirador pozo mar atril jeronimo barba infantes rey minaya pero berenguer puerta dones espadas hijas jirones conde bodas moros flota".split())
-def prune_tab(tab, keep, per):
+KEEPV=set("lee coge mira baja monta sube este oeste norte sur arriba abajo da llena sella empena reza duerme espera asalta ataca finge convida envia echa asoma cine vence casa socorre ata exige muestra reta lidia acepta cava mueve empuja fuerza abre bebe deja inventario i ve usa ayuda habla examina lucha doma besa purga".split())
+KEEPN=set("manto carta babieca silla ensena pan vino arcas arena tienda reliquia vianda cuerda oro botin parias colada salvo cidra gala tizona alfanje cimitarra pabellon cinchas agua corona moneda joya corneja nina antolinez sauce altar jimena abad mirador pozo mar atril jeronimo barba infantes rey minaya pero berenguer puerta dones jirones conde bodas moros flota".split())
+ITEMNAME = {i: norm(S.ITEMS[i][0]) for i in S.ITEMS}
+def prune_tab(tab, keep, per, names=None):
     from collections import defaultdict
     by=defaultdict(list)
     for w,c in tab: by[c].append(w)
     out=[]
     for c,ws in by.items():
         kept=[w for w in ws if w in keep]
+        # never prune away the word the player can actually see on screen
+        if names and c in names and names[c] in ws and names[c] not in kept:
+            kept.insert(0, names[c])
         for w in sorted(ws,key=len):
             if len(kept)>=per: break
             if w not in kept: kept.append(w)
@@ -86,7 +97,7 @@ def prune_tab(tab, keep, per):
             if w in kept: out.append((w,c))
     return out
 VERBTAB=prune_tab(VERBTAB,KEEPV,3)
-NOUNTAB=prune_tab(NOUNTAB,KEEPN,3)
+NOUNTAB=prune_tab(NOUNTAB,KEEPN,3,ITEMNAME)
 # Sort by first character so same-initial words are contiguous: the runtime
 # parser builds a first-char index (vs%/ns%) and scans only that bucket
 # (~4 words) instead of the whole 74-verb / 98-noun table -> ~15x fewer
@@ -103,10 +114,10 @@ L(3,'rem  (c) 2026 tombatossals softworks llc')
 # hot-variable pre-pass: creation order = lookup order (linear scan per
 # reference, far-fetched on the C128 where it dominated the profile at
 # ~70 ms/statement). Echo-loop + parser + draw vars first, cold vars last.
-L(4,'j=0:a$="":cx=0:sc=0:ka=0:ic=0:kc=0:co=0:sb=0:cb=0:dn$="":rt$="":bl$="":cl$="":s$="":dx=0:dy=0:w$="":fc=0:sp=0:c$="":i=0:op=0')
-L(5,'tt$="":dl=0:dz=0:p1=0:mg$="":rx=0:hd=0:va=0:ob=0:dv=0:dr=0:sq=0:w1$="":w2$="":w3$="":rm=0:nx=0:rn$="":rd$="":io$="":xt$="":kf=0:o=0:x=0:y=0:r=0:d=0:v=0:z$="":s=0:hs=0:t9=0:tk=0:en=0:ev=0:ew=0:em$=""')
+L(4,'ri=0:t=0:j=0:cu=0:a$="":cx=0:sc=0:ka=0:ic=0:kc=0:co=0:ho=0:hp=0:he=0:z9=0:l8=0:sb=0:cb=0:dn$="":rt$="":bl$="":cl$="":s$="":dx=0:dy=0:w$="":fc=0:sp=0:c$=""')
+L(5,'tt$="":dl=0:dz=0:p1=0:mg$="":rx=0:hd=0:va=0:ob=0:dv=0:dr=0:sq=0:w1$="":w2$="":w3$="":rm=0:nx=0:rn$="":rd$="":io$="":xt$="":kf=0:x=0:r=0:d=0:v=0:z$="":s=0:hs=0:t9=0:tk=0:en=0:ev=0:ew=0:em$=""')
 L(6,'poke53280,0:poke53281,0:printchr$(147);chr$(154);')
-L(19,'sb=1024:cb=55296:gw=0:l9=9:ic=sb+920:kc=cb+920:cx=2:poke54296,15:poke54277,9:poke54278,0:poke54273,50')
+L(19,'sb=1024:cb=55296:gw=0:l9=9:ic=sb+920:kc=cb+920:cx=2:poke54295,0:poke54296,15:poke54272,0:poke54279,0:poke54277,9:poke54278,0:poke54273,50')
 if DETAIL:
     # C128: run the whole DATA-parsing boot at 2 MHz (VIC blanks; SLOW is
     # restored at line 40 just before the title paints) -> boot ~2x faster.
@@ -128,16 +139,16 @@ L(7,'dn$="":for j=1 to 24:dn$=dn$+chr$(17):next:bl$=""')
 L(8,'rt$="":for j=1 to 39:rt$=rt$+chr$(29):next:for j=1 to 40:bl$=bl$+" ":next')
 L(9,'cl$=chr$(144)+chr$(5)+chr$(28)+chr$(159)+chr$(156)+chr$(30)+chr$(31)+chr$(158)+chr$(129)+chr$(149)+chr$(150)+chr$(151)+chr$(152)+chr$(153)+chr$(154)+chr$(155)')
 L(10,'restore:read nr,ni,nu')
-L(11,'dimvb$(%d),vk%%(%d),vs%%(90),no$(%d),nk%%(%d),ns%%(90),ru%%(nu,12),rs%%(nr),ex%%(nr,6),il%%(ni),it%%(ni),fl%%(31),in$(ni),nn$(nr),dd$(nr),ms$(ni+nu)'
+L(11,'dimvb$(%d),vk%%(%d),vs%%(26),no$(%d),nk%%(%d),ns%%(26),ru%%(nu,7),rs%%(nr),ex%%(nr,2),il%%(ni),fl%%(30),in$(ni),nn$(nr),dd$(nr),ms$(ni+nu)'
       % (len(VERBTAB), len(VERBTAB), len(NOUNTAB), len(NOUNTAB)) )
 # cache every room name/desc and message once: lookups become array reads
 # (READ strings cost only 3-byte descriptors on the C64: they point into the
 #  program's own DATA text; the C128 copies them to roomy bank-1 string RAM)
 L(12,'for j=1 to nr:read nn$(j),dd$(j):next:for j=1 to ni+nu:read ms$(j):next')
 L(13,'for j=1 to ni:read in$(j):next')
-L(14,'for j=1 to nr:for d=1 to 6:read ex%(j,d):next d:next j')
-L(15,'for j=1 to ni:read il%(j),it%(j):next')
-L(16,'for j=0 to nu-1:for d=0 to 12:read ru%(j,d):next d:next j')
+L(14,'for j=1 to nr:for d=0 to 2:read ex%(j,d):next d:next j')
+L(15,'for j=1 to ni:read il%(j):next')
+L(16,'for j=0 to nu-1:for d=0 to 7:read ru%(j,d):next d:next j')
 L(17,'for j=1 to nr:read rs%(j):next')
 # read the ML blitter (from DATA, where the art table used to be) and arm the
 # RAM NMI stub so RESTORE during a banked blit lands on an RTI.
@@ -154,8 +165,8 @@ L(32,'read cd:nv=nv+1:vb$(nv)=z$:vk%(nv)=cd:goto 31')
 L(34,'nw=0')
 L(35,'read z$:if z$="*" then 37')
 L(36,'read cd:nw=nw+1:no$(nw)=z$:nk%(nw)=cd:goto 35')
-L(37,'for j=1 to nv:kf=asc(vb$(j)):if vs%(kf)=0 then vs%(kf)=j')
-L(38,'next:for j=1 to nw:kf=asc(no$(j)):if ns%(kf)=0 then ns%(kf)=j')
+L(37,'for j=1 to nv:kf=asc(vb$(j))-64:if vs%(kf)=0 then vs%(kf)=j')
+L(38,'next:for j=1 to nw:kf=asc(no$(j))-64:if ns%(kf)=0 then ns%(kf)=j')
 L(39,'next')
 L(40,'slow:gosub 995:gosub 970:rm=1' if DETAIL else 'gosub 995:gosub 970:rm=1')  # strings first: the title music tick reads tm$
 L(49,'rem ===== main loop =====')
@@ -175,53 +186,57 @@ if DETAIL:
     # Each loader (cv/cl/cd) shows a GRAPHIC-3 bitmap, waits for FIRE/key, then
     # dloads the game again (play-again). gw=2 death first; ho>=5 legendary; else
     # standard victory.  ho was set by the victory subroutine (61) for gw=1.
+    # LEGEND_AT must match the threshold the victory text uses at line 71.
     # TRAP 87: run standalone (no disk / no card files) the dload error ends
     # the game cleanly instead of aborting with ?FILE NOT FOUND.
     L(87,'run')   # standalone C128 (no cards on disk): replay instead of READY
     L(88,'trap 87:if gw=2 then dload"cd"')
-    L(89,'if ho>=5 then dload"cl"')
+    L(89,'if ho>=%d then dload"cl"' % LEGEND_AT)
     L(90,'dload"cv"')
 # ----- victory end-screen (computes honra from existing flags/items; legendary at 5+/6) -----
 # honra = count of the 6 deeds, via C64 idiom ((x)=-1 when true) -> one line
 L(61,'ho=-(fl%(24)=1)-(fl%(26)=1)-(fl%(27)=1)-(il%(29)=-1)-(fl%(28)=1)-(fl%(29)=1)-(fl%(30)=1)')
 L(68,'rm=32:gosub 240')
 L(69,'gosub 874:dx=15:dy=11:co=7:s$="victoria!":gosub 200')
-L(70,'dx=7:dy=12:co=1:s$="valencia es del campeador":gosub 200')
-L(71,'if ho>=6 then 77')
-L(72,'dx=4:dy=15:co=3:s$="honra del cid: "+chr$(48+ho)+" de 7":gosub 200')
-L(73,'dx=3:dy=17:co=12:s$="(restan secretos y gestas por hallar)":gosub 200')
+L(70,'dx=7:dy=12:co=15:s$="valencia es del campeador":gosub 200')
+L(71,'if ho>=%d then 76' % LEGEND_AT)
+L(72,'dx=9:dy=15:co=15:s$="honra del cid: "+chr$(48+ho)+" de %d":gosub 200' % HONRA_DEEDS)
+L(73,'dx=1:dy=17:co=11:s$="(restan secretos y gestas por hallar)":gosub 200')
 L(74,'return')
-L(77,'dx=6:dy=14:co=13:s$="la leyenda del campeador":gosub 200')
+L(76,'dx=9:dy=13:co=15:s$="honra del cid: "+chr$(48+ho)+" de %d":gosub 200' % HONRA_DEEDS)
+L(77,'dx=8:dy=14:co=7:s$="la leyenda del campeador":gosub 200')
 L(78,'dx=2:dy=16:co=15:s$="hallaste los tesoros de los godos y":gosub 200')
 L(79,'dx=2:dy=17:co=15:s$="amparaste a moros y a cristianos.":gosub 200')
 L(80,'dx=2:dy=19:co=7:s$="tus hijas, reinas; de su sangre, dice":gosub 200')
 L(81,'dx=2:dy=20:co=7:s$="el cantar, naceran reyes de espanna:":gosub 200')
-L(82,'dx=7:dy=22:co=13:s$="oy los reyes de espanna":gosub 200')
-L(83,'dx=9:dy=23:co=13:s$="sos parientes son.":gosub 200:return')
+L(82,'dx=8:dy=22:co=13:s$="oy los reyes de espanna":gosub 200')
+L(83,'dx=11:dy=23:co=13:s$="sos parientes son.":gosub 200:return')
 # ----- death end-screen (somber, black) -----
-L(84,'gosub 872:dx=9:dy=10:co=2:s$="has caido, campeador.":gosub 200')
-L(85,'dx=2:dy=12:co=15:s$="mas tu leyenda no muere con tu cuerpo.":gosub 200')
-L(86,'dx=4:dy=14:co=7:s$="el que en buen hora cinxo espada.":gosub 200:return')
+L(84,'gosub 240:gosub 872:dx=9:dy=11:co=2:s$="has caido, campeador.":gosub 200')
+L(85,'dx=1:dy=13:co=15:s$="mas tu leyenda no muere con tu cuerpo.":gosub 200')
+L(86,'dx=3:dy=15:co=7:s$="el que en buen hora cinxo espada.":gosub 200:return')
 L(99,'rem ===== draw room rm =====')
 L(100,'printchr$(147);')
 L(101,'gosub 240:gosub 870')
-L(102,'gosub 950')
-L(103,'gosub 106:gosub 210:gosub 280:return')
-L(106,'dx=1:dy=10:co=7:ho=fl%(24)+fl%(26)+fl%(27)+fl%(28)+fl%(29)+fl%(30)-(il%(29)=-1):s$=left$(rn$+bl$,38)')
-L(107,'if ho>0 then s$=left$(s$,28)+" honra "+chr$(48+ho)+"/7"')
-L(108,'gosub 200:hp=ho:return')
+L(102,'gosub 950:gosub 920')
+L(103,'gosub 106:gosub 210:gosub 280:gosub 104:return')
+L(104,'dx=0:dy=24:co=11:s$="ayuda=verbos  i=objetos  graba/recupera":gosub 200:return')
+L(106,'ho=fl%(24)+fl%(26)+fl%(27)+fl%(28)+fl%(29)+fl%(30)-(il%(29)=-1)')
+L(107,'s$=left$(rn$+bl$,29)+"honra "+chr$(48+ho)+"/%d"' % HONRA_DEEDS)
+L(108,'dx=0:dy=10:co=7:s$=chr$(18)+s$:gosub 200:hp=ho:return')
 L(199,'rem pstr: print s$ at dx,dy colour co (home+cursor moves+petscii colour char; all-rom, zero pokes, portable c64/c128)')
-L(200,'print chr$(19);left$(dn$,dy);left$(rt$,dx);mid$(cl$,co+1,1);s$;:return')
+L(200,'print chr$(19);left$(dn$,dy);left$(rt$,dx);mid$(cl$,co+1,1);s$;chr$(146);:return')
 L(209,'rem show desc rd$ from row 12')
-L(210,'tt$=rd$:dl=12:dz=20:co=15:gosub 320:return')
+L(210,'tt$=rd$:dl=11:dz=14:co=15:gosub 320:l9=5:return')
 L(279,'rem status: exits + items')
-L(280,'gosub 920:dx=1:dy=21:co=3:s$=left$("salidas: "+xt$+"                       ",38):gosub 200')
+L(280,'dx=1:dy=21:co=3:s$=left$("salidas: "+xt$+"                       ",38):gosub 200')
 L(281,'gosub 930:dx=1:dy=22:co=13:s$=left$(io$+"                                     ",38):gosub 200:return')
 L(299,'rem show message mg$ (rows 12-20) + status')
 L(300,'ho=fl%(24)+fl%(26)+fl%(27)+fl%(28)+fl%(29)+fl%(30)-(il%(29)=-1):he=(ho>hp)')
-L(301,'tt$=mg$:dl=12:dz=20:gosub 315:dl=12:co=7:gosub 320:gosub 280')
-L(302,'if he then gosub 866:gosub 106')
-L(303,'return')
+L(301,'tt$=mg$:dl=16:dz=20:gosub 315:dl=16:co=1:gosub 320:gosub 280')
+L(302,'if ho=hp then return')
+L(303,'if he then gosub 866')
+L(304,'gosub 106:return')
 L(314,'rem clear text rows dl..dz (print blank lines via rom editor; ~90x faster than poke loop)')
 L(315,'print chr$(19);left$(dn$,dl);:z9=dl+l9-1:if z9>dz then z9=dz')
 L(316,'for r=dl to z9:print bl$;:next:return')
@@ -237,35 +252,36 @@ L(325,'dx=1:dy=dl:gosub 200:dl=dl+1')
 L(326,'if sp=0 then l9=dl-l8:return')
 L(327,'if dl>dz then l9=dl-l8:return')
 L(328,'p1=sp+1:goto 321')
-L(399,'rem input -> c$ row 23 (echo by direct poke, no string garbage)')
+L(397,'rem input -> c$ row 23 (echo by direct poke, no string garbage)')
 # C128: SLOW here (screen back on) - every path funnels into the input draw;
 # FAST at 501 the moment a command is taken -> the whole response runs at 2 MHz
-L(400,('slow:' if DETAIL else '')+'co=14:ic=sb+920:kc=cb+920:print chr$(19);left$(dn$,23);mid$(cl$,co+1,1);">";left$(bl$,38);:cx=2')
+L(400,('slow:' if DETAIL else '')+'cu=1:co=15:ic=sb+920:kc=cb+920:print chr$(19);left$(dn$,23);mid$(cl$,co+1,1);">";left$(bl$,38);:cx=2')
 # animation tick: every ~12 jiffies the ML flutters pennants / marches the
 # water sparkle for the current room, and the prompt cursor blinks
-L(398,'if ti<t9 then return')
-L(399,'t9=ti+12:tk=1-tk:poke ic+cx,32+128*tk:poke kc+cx,co:poke251,rm:poke252,tk:sys'+str(ANIM_SYS)+':return')
-L(402,'get a$:if a$="" then gosub 398:goto 402')
+L(396,'if ti<t9 then return')
+L(397,'t9=ti+12:tk=1-tk:if cu=1 then poke ic+cx,32+128*tk:poke kc+cx,co')
+L(398,'poke251,rm:poke252,tk:sys'+str(ANIM_SYS)+':return')
+L(402,'get a$:if a$="" then gosub 396:goto 402')
 L(403,'if a$=chr$(13) then 410')
-L(404,'if a$=chr$(20) and cx>2 then cx=cx-1:poke ic+cx,32')
+L(404,'if a$=chr$(20) and cx>2 then poke ic+cx,32:cx=cx-1:poke ic+cx,32')
 L(405,'if a$=chr$(20) then 402')
 L(406,'if asc(a$)<32 or asc(a$)>95 or cx>35 then 402')
 L(407,'ka=asc(a$):sc=ka:if ka>63 then sc=ka-64')
 L(408,'poke ic+cx,sc:poke kc+cx,co:cx=cx+1:poke54276,17:poke54276,16:goto 402')
-L(410,'c$="":if cx<3 then return')
+L(410,'poke ic+cx,32:c$="":if cx<3 then return')
 L(411,'for j=2 to cx-1:sc=peek(ic+j):ka=sc:if sc<32 then ka=sc+64')
 L(412,'c$=c$+chr$(ka):next:return')
 L(499,'rem parse + dispatch')
 L(500,'gosub 400:if c$="" then return')
-L(501,('fast:' if DETAIL else '')+'sp=0:for j=1 to len(c$):if mid$(c$,j,1)=" " and sp=0 then sp=j')
+L(501,('fast:' if DETAIL else '')+'sp=0:for j=1 to len(c$):if mid$(c$,j,1)=" " then sp=j:j=len(c$)')
 L(502,'next')
 L(503,'if sp=0 then w1$=c$:w2$=""')
 L(504,'if sp>0 then w1$=left$(c$,sp-1):w3$=mid$(c$,sp+1)')
 L(505,'if sp=0 then 508')
-L(506,'sq=0:for j=1 to len(w3$):if mid$(w3$,j,1)=" " and sq=0 then sq=j')
+L(506,'sq=0:for j=1 to len(w3$):if mid$(w3$,j,1)=" " then sq=j:j=len(w3$)')
 L(507,'next:w2$=w3$:if sq>0 then w2$=left$(w3$,sq-1)')
 L(508,'w$=w1$:gosub 910:va=fc')
-L(509,'w$=w2$:gosub 915:ob=fc')
+L(509,'w$=w2$:gosub 940:ob=fc')
 L(510,'dv=0:w$=w1$:gosub 900:dv=dr')
 L(511,'if va=5 then w$=w2$:gosub 900:dv=dr')
 L(512,'gosub 700:if hd=1 then return')
@@ -275,25 +291,27 @@ L(515,'if va=2 then gosub 620:return')
 L(516,'if va=3 then gosub 640:return')
 L(517,'if va=4 then gosub 660:return')
 L(518,'if va=12 then mg$=ha$+hb$:gosub 300:return')
-L(519,'if va=0 then mg$="ese verbo no lo conozco. di ayuda.":gosub 300:return')
+L(519,'if va=0 then mg$="ese verbo no lo conozco. di ayuda.":gosub 300:gosub 867:return')
 L(520,'if va=46 then gosub 850:return')
 L(521,'if va=47 then gosub 860:return')
 # --- global easter eggs (state-neutral jokes; CANTA gets a SID flourish) ---
 L(522,'if va=48 then mg$="eso funcionaba en otra cueva, forastero. aqui se reza.":gosub 300:return')
-L(523,'if va=49 then mg$="de los sos ojos tan fuertemientre llorando... el juglar, maravillado, te cede la palabra.":gosub 300:gosub 874:return')
+L(523,'if va=49 then mg$="de los sos ojos tan fuertemientre llorando... el juglar, maravillado, te cede la palabra.":gosub 300:gosub 868:return')
 L(524,'if va=50 then mg$="bailas una estampida castellana. babieca marca el compas con el casco.":gosub 300:return')
 L(525,'if va=51 then mg$="salve, campeador! toda castilla responde al saludo.":gosub 300:return')
-L(526,'mg$="eso no puedes hacerlo aqui, cid.":gosub 300:return')
+L(526,'mg$="eso no puedes hacerlo aqui, cid.":gosub 300:gosub 867:return')
 # ----- save / load (GRABA / RECUPERA): state = room + flags + item places.
 # The drive's error channel (15) makes both robust: a missing file or absent
 # drive reports en>19 and we answer in prose instead of crashing. -----
 # ----- SID: step / dirge / fanfare / title motif (voice 1) -----
+L(867,'poke54273,6:poke54276,33:for x=1 to 45:next:poke54276,32:return')
+L(868,'for j=1 to 3:poke54273,18+j*13:poke54276,17:for x=1 to 45:next:poke54276,16:next:return')
 L(866,'poke53280,7:for j=1 to 6:poke54273,28+j*11:poke54276,17:for x=1 to 22:next:poke54276,16:next:poke53280,0:return')
-L(870,'poke54273,4+(rm and 7):poke54276,33:poke54276,32:return')
+L(870,'poke54273,10:poke54276,33:for x=1 to 12:next:poke54276,32:poke54273,7:poke54276,33:for x=1 to 12:next:poke54276,32:return')
 L(872,'for j=30 to 4 step-2:poke53280,2:poke54273,j:poke54276,33:for x=1 to 15:next:poke53280,0:for x=1 to 15:next:next:poke54276,32:return')
-L(874,'for j=1 to 6:poke53280,7:poke54273,asc(mid$("aeiror",j,1))-48:poke54280,7:poke54276,17:poke54283,33:for x=1 to 55:next:poke53280,0:poke54276,16:poke54283,32:next:return'
+L(874,'for j=1 to 6:poke53280,1:poke54273,asc(mid$("aeiror",j,1))-48:poke54280,7:poke54276,17:poke54283,33:for x=1 to 55:next:poke53280,0:poke54276,16:poke54283,32:next:return'
   if DETAIL else
-  'for j=1 to 6:poke53280,7:poke54273,asc(mid$("aeiror",j,1))-48:poke54276,17:for x=1 to 55:next:poke53280,0:poke54276,16:next:return')
+  'for j=1 to 6:poke53280,1:poke54273,asc(mid$("aeiror",j,1))-48:poke54276,17:for x=1 to 55:next:poke53280,0:poke54276,16:next:return')
 L(850,'open15,8,15:open2,8,2,"@0:partida,s,w"')
 L(851,'print#2,rm:for j=0 to 31:print#2,fl%(j):next:for j=1 to ni:print#2,il%(j):next')
 L(852,'close2:input#15,en,em$,ev,ew:close15:mg$="partida grabada en disco."')
@@ -306,46 +324,58 @@ L(863,'close2:close15:gosub 100:mg$="partida recuperada. adelante, campeador.":g
 L(599,'rem look')
 L(600,'if ob=0 then gosub 100:return')
 L(601,'if ob>=1 and ob<=ni then 605')
-L(602,'mg$="nada de particular hay en ello.":gosub 300:return')
+L(602,'mg$="nada de particular hay en ello.":gosub 300:gosub 867:return')
 L(605,'if il%(ob)=rm or il%(ob)=-1 then rx=ob:gosub 960:gosub 300:return')
-L(606,'mg$="eso no lo ves por aqui.":gosub 300:return')
+L(606,'mg$="eso no lo ves por aqui.":gosub 300:gosub 867:return')
 L(619,'rem take')
 L(620,'if ob<1 or ob>ni then mg$="coger, que cosa?":gosub 300:return')
 L(621,'if il%(ob)=-1 then mg$="ya lo llevas contigo.":gosub 300:return')
-L(622,'if il%(ob)<>rm then mg$="eso no lo ves por aqui.":gosub 300:return')
-L(623,'if it%(ob)=0 then mg$="eso no has de llevarlo.":gosub 300:return')
+L(622,'if il%(ob)<>rm then mg$="eso no lo ves por aqui.":gosub 300:gosub 867:return')
+L(623,'if %s then mg$="eso no has de llevarlo.":gosub 300:gosub 867:return' % " or ".join("ob=%d" % i for i in NOTAKE))
 L(624,'il%(ob)=-1:mg$="tomas "+in$(ob)+".":gosub 300:return')
 L(639,'rem drop')
 L(640,'if ob<1 or ob>ni then mg$="dejar, que cosa?":gosub 300:return')
 L(641,'if il%(ob)<>-1 then mg$="eso no lo llevas.":gosub 300:return')
 L(642,'il%(ob)=rm:mg$="dejas "+in$(ob)+".":gosub 300:return')
 L(659,'rem inventory')
-L(660,'iv$="":for j=1 to ni:if il%(j)=-1 then iv$=iv$+in$(j)+" "')
+L(660,'mg$="llevas:":for j=1 to ni:if il%(j)=-1 and len(mg$)<160 then mg$=mg$+" "+in$(j)')
 L(661,'next')
-L(662,'if iv$="" then mg$="nada llevas contigo, campeador.":gosub 300:return')
-L(663,'mg$="llevas: "+iv$:gosub 300:return')
+L(662,'if mg$="llevas:" then mg$="nada llevas contigo, campeador."')
+L(663,'gosub 300:return')
 L(679,'rem move dir dr (with gates)')
 L(680,'if rm=11 and dr=3 then if fl%(5)=0 or il%(5)<>-1 then mg$=gd$:gosub 300:gw=2:return')
 L(681,'if rm=17 and dr=3 then if fl%(10)=0 then mg$=gl$:gosub 300:return')
-L(682,'nx=ex%(rm,dr):if nx=0 then mg$="por ahi no hay camino, cid.":gosub 300:return')
-L(683,'rm=nx:gosub 100:return')
+L(682,'t=ex%(rm,int((dr-1)/2)):nx=t and 63:if dr=2*int(dr/2) then nx=int(t/64)')
+L(683,'if nx=0 then mg$="por ahi no hay camino, cid.":gosub 300:gosub 867:return')
+L(684,'rm=nx:gosub 100:return')
+# ru% columns: 0 room  1 verb  2 object  3 needed-flags (packed base 32)
+#              4 forbidden flag + set flag (packed base 32)
+#              5 items given (packed base 32)
+#              6 item taken + item required in hand (packed base 32)
+#              7 kind (0 / lose / win)
+# The three "needed flag" slots and the two "give" slots were separate columns
+# once, but only 4 of 76 rules need a second flag and only 1 gives a second
+# item, so 5 of 13 columns were zero for almost every rule -- 462 bytes of a
+# build with a few hundred bytes of string heap to its name.  Packing them
+# base-32 (flags and items are both <= 30, so three fit in 15 bits) is also
+# *faster*: the common case is now one array read and one test where it used
+# to be five of each.
 L(699,'rem ===== rule interpreter -> hd =====')
 L(700,'hd=0:for ri=rs%(rm) to nu-1')
 L(701,'if ru%(ri,0)<>rm then 716')
 L(702,'if ru%(ri,1)<>va then 720')
 L(703,'if ru%(ri,2)<>0 and ru%(ri,2)<>ob then 720')
-L(704,'t=ru%(ri,3):if t>0 then if fl%(t)=0 then 720')
-L(705,'t=ru%(ri,4):if t>0 then if fl%(t)=0 then 720')
-L(706,'t=ru%(ri,5):if t>0 then if fl%(t)=0 then 720')
-L(707,'t=ru%(ri,6):if t>0 then if fl%(t)=1 then 720')
-L(708,'t=ru%(ri,11):if t>0 then if il%(t)<>-1 then 720')
-L(709,'t=ru%(ri,7):if t>0 then fl%(t)=1')
-L(710,'t=ru%(ri,8):if t>0 then il%(t)=-1')
-L(711,'t=ru%(ri,9):if t>0 then il%(t)=-1')
-L(712,'t=ru%(ri,10):if t>0 then il%(t)=0')
+L(704,'t=ru%(ri,3)')
+L(705,'if t>0 then if fl%(t and 31)=0 then 720')
+L(706,'if t>31 then t=int(t/32):goto 705')
+L(707,'t=ru%(ri,4) and 31:if t>0 then if fl%(t)=1 then 720')
+L(708,'t=int(ru%(ri,6)/32):if t>0 then if il%(t)<>-1 then 720')
+L(709,'t=int(ru%(ri,4)/32):if t>0 then fl%(t)=1')
+L(710,'t=ru%(ri,5):if t>0 then il%(t and 31)=-1:if t>31 then il%(int(t/32))=-1')
+L(711,'t=ru%(ri,6) and 31:if t>0 then il%(t)=0')
 L(713,'rx=200+ri:gosub 960:gosub 300:hd=1')
-L(714,'if ru%(ri,12)=1 then gw=2')
-L(715,'if ru%(ri,12)=2 then gw=1')
+L(714,'if ru%(ri,7)=1 then gw=2')
+L(715,'if ru%(ri,7)=2 then gw=1')
 L(716,'ri=nu')
 L(720,'next ri:return')
 L(899,'rem dirof w$ -> dr')
@@ -357,31 +387,40 @@ L(904,'if w$="o" or w$="oeste" then dr=4')
 L(905,'if w$="sube" or w$="arriba" then dr=5')
 L(906,'if w$="baja" or w$="abajo" then dr=6')
 L(907,'return')
-L(909,'rem findverb w$->fc (scan only the first-char bucket vs%(asc w$)..)')
+# findverb / findnoun: the vocabulary is emitted sorted by first letter, so a
+# lookup scans only the ~4 words sharing that initial (vs%/ns% hold the first
+# index for each letter) instead of the whole 126-verb / 130-noun table.
+# The bucket arrays are indexed by LETTER ORDINAL (asc-64, 1..26), not by the
+# raw PETSCII code: dimensioning them to 90 left 128 cells permanently unused,
+# 256 bytes the C64 build cannot spare.  Anything that is not a letter cannot
+# start a known word, so it returns 0 before the subtraction can go negative.
+L(909,'rem findverb w$->fc')
 L(910,'fc=0:if w$="" then return')
-L(911,'kf=asc(w$):j=vs%(kf):if j=0 then return')
-L(912,'if w$=vb$(j) then fc=vk%(j):return')
-L(913,'j=j+1:if j<=nv then if asc(vb$(j))=kf then 912')
-L(914,'return')
-L(915,'fc=0:if w$="" then return')
-L(916,'kf=asc(w$):j=ns%(kf):if j=0 then return')
-L(917,'if w$=no$(j) then fc=nk%(j):return')
-L(918,'j=j+1:if j<=nw then if asc(no$(j))=kf then 917')
-L(919,'return')
-L(920,'xt$=""')
-L(921,'if ex%(rm,1)>0 then xt$=xt$+"norte "')
-L(922,'if ex%(rm,2)>0 then xt$=xt$+"sur "')
-L(923,'if ex%(rm,3)>0 then xt$=xt$+"este "')
-L(924,'if ex%(rm,4)>0 then xt$=xt$+"oeste "')
-L(925,'if ex%(rm,5)>0 then xt$=xt$+"arriba "')
-L(926,'if ex%(rm,6)>0 then xt$=xt$+"abajo "')
+L(911,'kf=asc(w$):if kf<65 or kf>90 then return')
+L(912,'j=vs%(kf-64):if j=0 then return')
+L(913,'if w$=vb$(j) then fc=vk%(j):return')
+L(914,'j=j+1:if j<=nv then if asc(vb$(j))=kf then 913')
+L(915,'return')
+L(939,'rem findnoun w$->fc')
+L(940,'fc=0:if w$="" then return')
+L(941,'kf=asc(w$):if kf<65 or kf>90 then return')
+L(942,'j=ns%(kf-64):if j=0 then return')
+L(943,'if w$=no$(j) then fc=nk%(j):return')
+L(944,'j=j+1:if j<=nw then if asc(no$(j))=kf then 943')
+L(945,'return')
+
+L(920,'xt$="":t=ex%(rm,0):if t and 63 then xt$="norte "')
+L(921,'if t>63 then xt$=xt$+"sur "')
+L(922,'t=ex%(rm,1):if t and 63 then xt$=xt$+"este "')
+L(923,'if t>63 then xt$=xt$+"oeste "')
+L(924,'t=ex%(rm,2):if t and 63 then xt$=xt$+"arriba "')
+L(925,'if t>63 then xt$=xt$+"abajo "')
 L(927,'if xt$="" then xt$="ninguna"')
 L(928,'return')
 L(929,'rem build items-here string io$')
 L(930,'io$="":for j=1 to ni:if il%(j)=rm then io$=io$+in$(j)+" "')
 L(931,'next')
-L(932,'if io$="" then io$=""')
-L(933,'if io$<>"" then io$="ves: "+io$')
+L(932,'if io$<>"" then io$="ves: "+io$')
 L(934,'return')
 L(949,'rem read room rm name->rn$ desc->rd$')
 L(950,'rn$=nn$(rm):rd$=dd$(rm):return')
@@ -392,7 +431,8 @@ L(969,'rem title screen + help/gate strings')
 L(970,'gosub 980:return')
 # title screen draws art of room 32 then title text
 L(980,'rm=1:gosub 240')
-L(978,'dx=11:dy=1:co=7:s$="e l   c i d":gosub 200:dx=9:dy=2:co=7:s$="c a m p e a d o r":gosub 200:return')
+L(977,'dx=0:co=0:dy=1:s$=chr$(18)+left$(bl$,40):gosub 200:dy=2:s$=chr$(18)+left$(bl$,40):gosub 200:return')
+L(978,'gosub 977:dx=14:dy=1:co=7:s$="e l   c i d":gosub 200:dx=11:dy=2:co=7:s$="c a m p e a d o r":gosub 200:return')
 L(981,'gosub 978')
 L(982,'dx=4:dy=11:co=1:s$="de los sos ojos tan fuertemientre":gosub 200')
 L(983,'dx=4:dy=12:co=1:s$="llorando, tornava la cabeza e":gosub 200')
@@ -410,20 +450,13 @@ L(880,'poke54273,asc(mid$(tm$,mu,1))-48:poke54276,16:poke54276,17')
 L(881,'if (mu and 3)=1 then poke54283,32:poke54283,33')
 L(882,'return')
 L(883,'a9=a9+1:if a9>7 then a9=0')
-L(884,'rm=asc(mid$("148;?dlp",a9+1,1))-48:gosub 240:gosub 978:return')
-L(992,'mu=0:t8=0:a9=0:poke54280,5:poke54284,9:poke54285,0')
-L(993,'get a$:if a$="" then gosub 398:gosub 878:goto 993')
+L(884,'rm=asc(mid$("148;?dfp",a9+1,1))-48:gosub 240:gosub 978:return')
+L(992,'cu=0:mu=0:t8=0:a9=0:poke54280,5:poke54284,9:poke54285,0')
+L(993,'get a$:if a$="" then gosub 396:gosub 878:goto 993')
 L(994,'poke54276,16:poke54283,16:return')
 # NOTE: a tokenised BASIC line must stay under 256 bytes — the C128 relinker
 # scans lines with an 8-bit index and hangs forever past that (found the
 # hard way). Long strings are built in two lines.
-L(995,'ha$=' + q(wrap("verbos: mira coge deja da ve habla abre monta llena echa reza cava asoma cine finge sella empena convida envia socorre ata exige muestra reta acepta casa vence lidia doma.")))
-L(996,'hb$=' + q("/" + wrap("graba/recupera: partida. n s e o arriba abajo. i inv.")))
-L(997,'gd$=' + q(wrap("cruzas el duero sin guia ni montura. la hueste se dispersa por los caminos y mueres olvidado en el yermo. fin.")))
-L(997,'gl$=' + q(wrap("aun no es tiempo de ir a levante. despacha antes las parias al rey por mano de minaya.")))
-# put hl$/gd$/gl$ before first use: they are read at runtime only; ensure set before main loop
-L(41,'gosub 995:gosub 996b' if False else 'rem')
-
 # ---------- DATA generation ----------
 D = []
 # counts
@@ -464,23 +497,36 @@ itn = [norm(S.ITEMS[i][0]) for i in range(1, NI+1)]
 blk, ln = emit_strings(itn, ln)
 D += blk
 # exits
+# two exits per cell, six bits each: north|south, east|west, up|down
 ex_nums = []
 for r in range(1, NR+1):
     e = S.EXITS[r]
-    ex_nums += [e.get("n",0), e.get("s",0), e.get("e",0), e.get("o",0), e.get("u",0), e.get("d",0)]
+    for lo, hi in (("n","s"), ("e","o"), ("u","d")):
+        a, b = e.get(lo,0), e.get(hi,0)
+        assert a < 64 and b < 64, (r, lo, hi)
+        ex_nums.append(a + 64*b)
 # item start+take
-it_nums = []
-for i in range(1, NI+1):
-    st = S.ITEMS[i][2]; tk = S.ITEMS[i][3]
-    it_nums += [st, tk]
+# only the start room now: takeability is three room numbers the build inlines
+# into line 623, which is 44 bytes cheaper than a 31-cell array.
+it_nums = [S.ITEMS[i][2] for i in range(1, NI+1)]
 # rules numeric
 ru_nums = []
+PACK = 32                      # flags are 1..31 and items 1..30, so 5 bits each
 for r in (S.R[i] for i in RULE_ORDER):
-    nd = r["need"] + [0,0,0]
+    nd = r["need"]
     fb = (r["forbid"] + [0])[0]
     sf = (r["setf"] + [0])[0]
-    assert len(r["need"]) <= 3 and len(r["forbid"]) <= 1 and len(r["setf"]) <= 1, r
-    ru_nums += [r["room"], r["v"], r["o"], nd[0], nd[1], nd[2], fb, sf, r["give"], r["give2"], r["take"], r["needi"], r["kind"]]
+    assert len(nd) <= 3 and len(r["forbid"]) <= 1 and len(r["setf"]) <= 1, r
+    assert all(0 < f < PACK for f in nd), ("need flag out of pack range", r)
+    assert r["give2"] == 0 or r["give"] != 0, ("give2 without give", r)
+    assert r["give"] < PACK and r["give2"] < PACK, ("give out of pack range", r)
+    assert fb < PACK and sf < PACK and r["take"] < PACK and r["needi"] < PACK, r
+    need = sum(f * PACK**k for k, f in enumerate(nd))          # base-32 little end
+    give = r["give"] + PACK * r["give2"]
+    flag = fb + PACK * sf                  # forbidden flag, then the flag set
+    item = r["take"] + PACK * r["needi"]   # item consumed, then item required
+    assert max(need, give, flag, item) < 32768
+    ru_nums += [r["room"], r["v"], r["o"], need, flag, give, item, r["kind"]]
 # pack a flat number list into DATA lines (<=~70 chars)
 def emit_nums(nums, start_ln, tag=""):
     out = []; n = start_ln; i = 0
@@ -522,15 +568,10 @@ nlines.append((n, s)); n += 1
 nlines.append((n, 'data "*"')); n += 1
 D += nlines
 
-# ---------- need to set hl$/gd$/gl$ before main loop: add init gosub ----------
-# they are defined at 995-997 (just assignments). call them at init line 42.
-E = [e for e in E if e[0] != 41]
-# make 995..997 end with return
-E = [(n, c) for (n, c) in E if n not in (995,996,997,998)]
 # NOTE: a tokenised BASIC line must stay under 256 bytes — the C128 relinker
 # scans lines with an 8-bit index and hangs forever past that (found the
 # hard way). Long strings are built in two lines.
-L(995,'ha$=' + q(wrap("verbos: mira coge deja da ve habla abre monta llena echa reza cava asoma cine finge sella empena convida envia socorre ata exige muestra reta acepta casa vence lidia doma.")))
+L(995,'ha$=' + q(wrap("verbos: mira habla coge deja da ve lee abre monta llena echa reza cava mueve espera asoma cine finge sella empena convida envia socorre ata exige muestra reta acepta casa vence lidia doma bebe.")))
 L(996,'hb$=' + q("/" + wrap("graba/recupera: partida. n s e o arriba abajo. i inv.")))
 L(997,'tm$="eefhmhfehhmquqmhmuqmhfee":gd$=' + q(wrap("cruzas el duero sin guia ni montura. la hueste se dispersa por los caminos y mueres olvidado en el yermo. fin.")))
 L(998,'gl$=' + q(wrap("aun no es tiempo de ir a levante. despacha antes las parias al rey por mano de minaya.")) + ':return')

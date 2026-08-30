@@ -99,7 +99,8 @@ def vivar():
     s.rect(0,0,40,2,FULL,4)
     s.rect(2,0,40,2,FULL,10)
     s.rect(4,0,40,2,FULL,8)
-    s.rect(6,0,40,4,FULL,0)
+    s.rect(6,0,40,2,FULL,9)                              # the near fields
+    s.rect(8,0,40,2,FULL,11)                             # the road out of Vivar
     # --- the sun-dome on the horizon, right of centre ---
     for w,rr in ((7,3),(9,4),(11,5)):                    # stacked dome rows
         s.rect(rr,30-(w//2),w,1,FULL,7)
@@ -188,7 +189,8 @@ def corpes():
     si.rect(5,34,3,1); si.rect(4,32,2,1)
     si.rect(4,0,1,8); si.rect(4,78,2,8)                  # edge trunks
     si.disc(11,22,2); si.disc(11,52,2)                   # understory bushes
-    si.rect(12,0,80,8)                                   # forest floor darkness
+    s.rect(8,0,40,2,FULL,11)                             # cold moonlit ground
+    si.rect(12,0,80,2)                                   # forest floor darkness
     si.apply(s)
     # --- dona Elvira y dona Sol, pale at the great oak's foot ---
     s.mset(12,34,1)                                      # Elvira: head
@@ -211,7 +213,7 @@ def cardena():
     # --- dawn bands: violet, rose, a seam of gold at the horizon ---
     s.rect(0,0,40,2,FULL,4)
     s.rect(2,0,40,1,FULL,10)
-    s.rect(3,0,40,1,FULL,8)
+    s.rect(3,0,40,3,FULL,8)
     # --- the sun rising in the clear sky, right of the church ---
     for w,rr in ((7,1),(9,2)):
         s.rect(rr,32-(w//2),w,1,FULL,7)
@@ -272,7 +274,7 @@ def duero():
     s=HiresScene(10,40,0)
     # --- dusk sky: violet into rose over the far bank ---
     s.rect(0,0,40,2,FULL,4)
-    s.rect(2,0,40,2,FULL,10)
+    s.rect(2,0,40,3,FULL,10)
     # --- the low sun resting on the horizon, centre ---
     for w,rr in ((9,1),(11,2),(11,3)):
         s.rect(rr,20-(w//2),w,1,FULL,7)
@@ -424,11 +426,11 @@ def merlontop(s,r,c,w,col=12,sky=14):
     for i in range(0,w,2): glint(s,r,c+i)
 
 def road_burgos():   # 2
-    s=H(); sky(s,5,14); sun(s,0,4); cloud(s,1,26)
+    s=H(); sky(s,7,14); sun(s,0,4); cloud(s,1,26)
     ground(s,7,9,8)
     # receding road (perspective) to the distant walls
     for i,r in enumerate(range(7,10)):
-        w=6+i*8; s.rect(r,20-w//2,w,1,FULL,8)
+        w=6+i*8; s.rect(r,20-w//2,w,1,FULL,15)
     # distant Burgos walls on the horizon
     stonewall(s,5,10,20,2,12); merlontop(s,4,10,20,12,14)
     tower_h=4
@@ -453,9 +455,9 @@ def stable():        # 3
     s.rect(8,8,20,2,FULL,9); s.vline(7,8,3,VL,8); s.vline(7,27,3,VL,8)  # door + posts
     for c in range(11,27,3): s.vline(8,c,2,VL,0)     # plank shadows
     # Babieca looking out over the door — a great bay head and neck
-    s.rect(4,15,4,3,FULL,9); s.hline(4,15,4,LOW,8)   # thick neck, lit crest
-    s.cell(5,14,FULL,9); s.cell(6,15,FULL,9)         # neck curving to the head
-    s.rect(3,11,4,2,FULL,9)                          # the long face / jaw
+    s.rect(4,15,4,3,FULL,8); s.hline(4,15,4,LOW,15)  # thick neck, lit crest
+    s.cell(5,14,FULL,8); s.cell(6,15,FULL,8)         # neck curving to the head
+    s.rect(3,11,4,2,FULL,8)                          # the long face / jaw
     s.cell(4,10,DTL,9); s.cell(3,10,FULL,9); s.cell(4,9,BALL,9)    # muzzle + nose
     s.cell(2,13,VL,9); s.cell(2,14,VL,9)             # two pricked ears
     s.cell(3,12,BALL,1)                              # the eye, a pale glint
@@ -505,7 +507,7 @@ def plateau():       # 12 frontier plateau, watchtowers
     for x in (6,22,33):                             # watchtowers on the ridge
         s.rect(2,x,3,4,FULL,11); merlontop(s,1,x,3,11,14); s.cell(3,x+1,VSLIT,11)
     ground(s,6,8,10)
-    for c in range(2,38,4): s.cell(6,c,DTR,9); s.cell(8,c+2,DTL,9)  # scrub
+    for c in range(2,38,4): s.cell(6,c,DTR,13); s.cell(8,c+2,DTL,13)  # scrub
     return s
 
 def castejon():      # 13 Castejon dawn
@@ -549,8 +551,8 @@ def raquel_vidas():  # 6
     candle throws its light on the two heavy chests and the money-lenders
     leaning greedily in; all else is swallowed in the dark."""
     s=H()
-    s.rect(0,0,40,10,FULL,0)                         # the dark room
-    for c in range(0,40,7): s.vline(0,c,8,VL,11)     # dim timber posts
+    s.rect(0,0,40,8,FULL,11)                         # grey plaster walls
+    for c in range(0,40,7): s.vline(0,c,8,VL,0)      # black timber posts
     s.rect(8,0,40,2,FULL,9); s.hline(8,0,40,UP,0)   # plank floor
     for c in range(2,38,5): s.cell(9,c,VSLIT,0)      # floorboards
     # a shuttered night window, a scrap of moonlight
@@ -575,7 +577,7 @@ def chapel():        # 9
     s.rect(0,0,40,8,FULL,0)                          # the dark nave
     s.vline(0,0,8,RH,11); s.vline(0,39,8,LH,11)      # faint side walls
     # the apse arch behind the altar
-    s.rect(1,15,10,5,FULL,11)
+    s.rect(1,15,10,5,FULL,6)
     for i in range(4): s.rect(1+i,15+i,10-2*i,1,FULL,0)     # dark arch void
     s.cell(2,18,FULL,6); s.cell(2,19,FULL,2); s.cell(2,20,FULL,4); s.cell(3,19,FULL,7)  # stained glass
     s.rect(0,19,2,1,FULL,7)                          # keystone catches light
@@ -603,8 +605,8 @@ def cellar():        # 10
     s.cell(1,35,BALL,7); s.cell(2,35,DTL,8); s.vline(2,36,2,VL,9)
     # rows of tinajas (great jars), lit warm on the torch side
     for jx in (5,10,15):
-        s.rect(4,jx,3,3,FULL,9); s.vline(4,jx,3,RH,8); s.cell(3,jx+1,LOW,8)
-        s.cell(4,jx,ARL,9); s.cell(4,jx+2,ARR,9); s.cell(5,jx+1,VSLIT,0)
+        s.rect(4,jx,3,3,FULL,12); s.vline(4,jx,3,RH,15); s.cell(3,jx+1,LOW,15)
+        s.cell(4,jx,ARL,12); s.cell(4,jx+2,ARR,12); s.cell(5,jx+1,VSLIT,0)
     # a barrel
     s.rect(4,28,4,3,FULL,9); s.vline(4,28,3,RH,10); s.hline(5,28,4,HL,8); s.hline(6,28,4,HL,8)
     # sacks of grain
@@ -644,14 +646,14 @@ def treasury():      # 25
     shields, the arcas brimming with gold, all lit by two torches in the
     deep dark of the vault."""
     s=H()
-    s.rect(0,0,40,8,FULL,0)                          # the dark vault
+    s.rect(0,0,40,8,FULL,11)                         # the grey vault
     s.vline(0,0,8,RH,11); s.vline(0,39,8,LH,11)      # faint side walls
     s.rect(8,0,40,2,FULL,9); s.hline(8,0,40,UP,0)   # stone floor
     # two torches, warm pools of light
     s.cell(1,4,BALL,7); s.cell(2,4,DTR,8)
     s.cell(1,35,BALL,7); s.cell(2,35,DTL,8)
     # Tizona mounted, the blade catching the torchlight
-    s.cell(0,20,DTR,15); s.vline(1,20,4,VL,15)       # point + blade
+    s.cell(0,20,DTR,1); s.vline(1,20,4,VL,1)        # point + blade
     s.hline(4,19,3,HL,7); s.cell(5,20,FULL,7); s.cell(6,20,BALL,9)  # guard, grip, pommel
     # shields flanking the sword
     s.rect(2,14,3,3,FULL,2); s.vline(2,14,3,RH,10); s.cell(1,15,DTR,7); s.cell(3,15,BALL,7)
@@ -712,7 +714,7 @@ def loot():          # 14
     """The spoils of Castejon heaped in the open field — gold spilling from
     an arca, stacked silver, bolts of Moorish silk, a rack of captured lances
     and the richly caparisoned corcel; the Cid's fifth set apart for the king."""
-    s=H(); sky(s,3,14); sun(s,0,4); cloud(s,1,28)
+    s=H(); sky(s,4,14); sun(s,0,4); cloud(s,1,28)
     ground(s,4,5,13)                                # green field the spoils are heaped on
     banner(s,1,35,2)
     # the captured Moorish horse, richly caparisoned, right of the heap
@@ -769,10 +771,10 @@ def fariz_galve():   # 16
     lances, banners high, the riders clashing in the churning dust."""
     s=H()
     # --- blood-red dust sky ---
-    s.rect(0,0,40,4,FULL,2)
-    sun(s,0,3,10)                                        # a wan sun low in the dust
+    s.rect(0,0,40,4,FULL,10)
+    sun(s,0,3,7)                                        # a wan sun low in the dust
     # --- the dusty battlefield fills the lower half so silhouettes read ---
-    s.rect(4,0,40,6,FULL,8); s.hline(4,0,40,LOW,10)     # ochre dust field
+    s.rect(4,0,40,6,FULL,10); s.hline(4,0,40,LOW,15)     # dust field, lifted
     for c in range(0,40,3): s.cell(9,c,CHK,9)           # churned earth
     # --- the enemy host on the right: black mass, lances, green banners ---
     s.rect(5,27,13,2,FULL,0)
@@ -802,8 +804,9 @@ def tevar():         # 17
     pw=Sil()
     for px,ph in ((6,7),(15,6),(24,7),(33,5),(46,7),(58,6),(70,7)):
         pw.tri(9-ph,px,10,ph); pw.rect(10,px,1,3)       # crown + trunk
-    pw.rect(12,0,80,8)                                  # dark forest floor
+    pw.rect(12,0,80,2)                                  # dark forest floor
     pw.apply(s)
+    s.rect(8,0,40,2,FULL,9)                             # needle-strewn ground
     for c in range(2,38,7): s.cell(9,c,DTR,9)          # needle litter
     # --- the count of Barcelona, gold-robed, taken among the trees ---
     s.cell(3,18,LOW,7); s.cell(4,18,BALL,8)            # crowned head
@@ -814,7 +817,7 @@ def tevar():         # 17
     return s
 
 def camp():          # 21
-    s=H(); sky(s,4,14); sun(s,0,34); cloud(s,1,10)
+    s=H(); sky(s,7,14); sun(s,0,34); cloud(s,1,10)
     ground(s,7,5,13)
     # rows of the Cid's tents
     for (tx,c) in ((3,1),(11,7),(27,1),(34,6)):
@@ -827,9 +830,9 @@ def camp():          # 21
     return s
 
 def bucar_camp():    # 26
-    s=H(); sky(s,3,14); sun(s,0,4)
+    s=H(); sky(s,4,14); sun(s,0,4)
     s.rect(3,0,40,1,FULL,6); s.hline(3,0,40,UP,14)  # sea
-    s.rect(4,0,40,1,FULL,8)                          # beach sand
+    s.rect(4,0,40,3,FULL,8)                          # beach sand
     ground(s,7,8,15)
     # rows of Moorish tents (green & crimson, crescents)
     for (tx,c) in ((4,5),(12,2),(22,5),(31,2)):
@@ -843,7 +846,7 @@ def palm(s,r,c,tc=9):
     s.cell(r,c,FULL,5); s.cell(r,c-1,DTL,5); s.cell(r,c+1,DTR,5); s.cell(r-1,c,BALL,5)
 
 def valencia_huerta():  # 19
-    s=H(); sky(s,3,14); sun(s,0,34); cloud(s,0,10)
+    s=H(); sky(s,4,14); sun(s,0,34); cloud(s,0,10)
     ground(s,4,5,13)                                # lush green huerta
     # irrigation channel (acequia) across the front
     s.rect(8,0,40,2,FULL,6); s.hline(8,0,40,UP,14)
@@ -894,7 +897,7 @@ def beach_fleet():      # 23
     # --- dawn over the sea: violet, rose, a seam of gold ---
     s.rect(0,0,40,2,FULL,4)
     s.rect(2,0,40,1,FULL,10)
-    s.rect(3,0,40,1,FULL,8)
+    s.rect(3,0,40,2,FULL,8)
     for w,rr in ((7,1),(9,2)): s.rect(rr,6-(w//2),w,1,FULL,7)   # rising sun, left
     s.mclear(2,6); s.mclear(2,17)
     # --- the fleet: black lateen sails in silhouette on the horizon ---
@@ -921,8 +924,8 @@ def tajo_meadow():      # 27
     s.rect(3,0,40,1,FULL,6); s.hline(3,0,40,UP,14)
     # the grand royal pavilion
     tx=15
-    for i,rr in enumerate(range(2,7)): s.rect(rr,tx+4-i,1+i*2,1,FULL,4)   # purple royal tent
-    s.rect(6,tx+1,8,2,FULL,4); s.hline(6,tx+1,8,LOW,7)  # tent base + gold trim
+    for i,rr in enumerate(range(2,7)): s.rect(rr,tx+4-i,1+i*2,1,FULL,2)   # crimson royal tent
+    s.rect(6,tx+1,8,2,FULL,2); s.hline(6,tx+1,8,LOW,7)  # tent base + gold trim
     s.rect(4,tx+2,4,2,FULL,7); s.rect(5,tx+3,2,1,FULL,0)  # gold-draped entrance
     s.vline(0,tx+4,2,VL,1); s.cell(0,tx+5,FULL,7)         # royal standard
     # flanking banners
@@ -971,7 +974,7 @@ def triumph():          # 32
     s.rect(4,0,40,1,FULL,8)
     # --- the city skyline, black against the gold ---
     si=Sil()
-    si.rect(10,0,80,6)                                   # wall base to the sea
+    si.rect(10,0,80,2)                                   # wall base to the sea
     for sx in range(1,80,6): si.rect(9,sx,2,1)           # merlons bite the ember
     si.rect(3,34,12,7)                                   # the great keep
     for k in (0,5,10): si.rect(1,34+k,2,2)               # keep crenellations
@@ -981,6 +984,8 @@ def triumph():          # 32
     for k in (0,6): si.rect(3,58+k,2,1)
     si.disc(8,26,3); si.disc(8,50,3)                     # mosque domes
     si.apply(s)
+    s.rect(6,0,40,2,FULL,9)                              # the lit quay below
+    s.rect(8,0,40,2,FULL,6)                              # the burning sea
     # --- the standards: black poles, bold cloth ---
     s.cell(0,19,VSLIT,2); s.cell(0,20,FULL,7)            # gold over the keep
     s.cell(1,6,VSLIT,7); s.cell(1,7,FULL,2)              # crimson, west tower
@@ -1358,7 +1363,43 @@ def c64_art_files():
     assert C64_C + len(parts[2][1]) <= 0xD000
     return [(addr, bytes([addr & 255, addr >> 8]) + data) for addr, data in parts]
 
+def montage(path="montage.png", cols=4):
+    """Render all 32 scenes as one PNG, straight from the shipped art.
+
+    The repo's preview images used to come from the compact art of the retired
+    lite build -- so the pictures in the README were not the art the game paints.
+    They come from here now, which is the same 19 200-byte blob the C64 and C128
+    blitters read."""
+    from c64 import PAL, glyph, write_png
+    gap, cw, ch = 8, 320, 80
+    rows = (32 + cols - 1) // cols
+    W, H = cols*cw + (cols+1)*gap, rows*ch + (rows+1)*gap
+    px = bytearray(b'\x1e' * (W*H*3))
+    for n in range(1, 33):
+        g = ROOMS[n]().grid
+        c, r = (n-1) % cols, (n-1)//cols
+        ox, oy = gap + c*(cw+gap), gap + r*(ch+gap)
+        for rr in range(10):
+            for cc in range(40):
+                sc, co = g[rr][cc]
+                bm = glyph(sc & 255); col = PAL[co & 15]
+                for yy in range(8):
+                    b = bm[yy]
+                    for xx in range(8):
+                        if b & (0x80 >> xx):
+                            X, Y = ox + cc*8 + xx, oy + rr*8 + yy
+                            o = (Y*W + X)*3; px[o:o+3] = bytes(col)
+    write_png(path, px, W, H)
+    return path, W, H
+
+
 if __name__ == "__main__":
+    import sys
+    if "--montage" in sys.argv:
+        i = sys.argv.index("--montage")
+        out = sys.argv[i+1] if len(sys.argv) > i+1 else "montage.png"
+        print("wrote %s (%d x %d)" % montage(out))
+        raise SystemExit
     blob = packed_blob()
     c, nmi = ml128()
     c64, nmi64, blit64 = ml64()

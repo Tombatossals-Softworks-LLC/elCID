@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+# build scratch: cards.py / rooms.py / build_blit.py write their previews and
+# chunk files into the cwd when run standalone (mkdisk*.py use a temp dir).
+build/*.prg
+build/card_*.png
+build/montage.png

@@ -116,8 +116,10 @@ allok = True
 allok &= check("forzar puerta burgos", "baja|monta babieca|sube|este|este|fuerza puerta".split("|"), -1)
 allok &= check("cruzar duero sin babieca",
    "este|este|coge ensena|este|sur|este|sur|este".split("|"), -1)
-allok &= check("abrir arcas (engano)",
-   "este|este|este|mira antolinez|sur|coge arena|oeste|abre arcas".split("|"), -1)
+allok &= check("abrir arcas selladas (engano)",
+   "este|este|este|mira antolinez|sur|coge arena|oeste|llena arcas|sella arcas|abre arcas".split("|"), -1)
+allok &= check("abrir arcas vacias (ya no mata)",
+   "este|este|este|mira antolinez|sur|coge arena|oeste|abre arcas".split("|"), 0)
 allok &= check("beber pozo emponzonado (need reach r19; just verify rule)",
    None, None) if False else True
 # direct: reach huerta and drink unpurged well -> lose (use a minimal valid path)

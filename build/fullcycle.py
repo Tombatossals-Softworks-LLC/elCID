@@ -1,14 +1,22 @@
 """Full legendary playthrough on a real C64: play all 107 critical-path
 commands, watch for OOM/errors at every step, count the 7 gesta rewards, and
 capture the legendary ending — then press a key and confirm the replay loop
-returns to the title."""
+returns to the title.
+
+Unlike everything else in build/, this one needs a VICE with real C64 ROMs
+(Debian/Ubuntu ship VICE without them) plus xvfb-run.  When ROMs are absent the
+static chain — verify.py — is what proves the game instead.
+
+usage:  python3 fullcycle.py ../elcid.d64 6510
+"""
 import socket,time,subprocess,os,sys,re,signal,glob
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import cidsim, functools
 print=functools.partial(print, flush=True)
+if len(sys.argv) < 3: raise SystemExit(__doc__.strip().splitlines()[-1])
 DISK=sys.argv[1]; PORT=int(sys.argv[2])
 signal.signal(signal.SIGALRM,lambda *a:(subprocess.run(["pkill","-9","-x","x64sc"]),print("TIMEOUT"),os._exit(0)))
-signal.alarm(1500); os.environ["HOME"]="/root"
+signal.alarm(1500)
 def drain(s):
     b=b""
     try:

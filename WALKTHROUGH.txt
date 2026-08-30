@@ -7,6 +7,7 @@ norte sur este oeste arriba abajo (o n s e o, y arriba/abajo).
 Esta solucion logra el FINAL LEGENDARIO: gana la guerra Y
 recoge las siete gestas de honra (marcadas con *).
 GRABA guarda la partida en disco; RECUPERA la retoma.
+La barra de la sala muestra siempre tu HONRA n/7.
 
 
 --- CANTAR I - EL DESTIERRO ---
@@ -130,9 +131,9 @@ Tras ACEPTA en el triunfo, con las siete gestas (*):
 "oy los reyes de espanna sos parientes son."
 
 Con 6+ de 7 hay final legendario; con menos igual se gana, y el final muestra
-tu HONRA (de 6) y te invita a buscar lo que falta.
+tu HONRA (de 7) y te invita a buscar lo que falta.
 
-LAS SEIS GESTAS DE HONRA (final legendario):
+LAS SIETE GESTAS DE HONRA (final legendario con 6 o mas):
 108. CAVA en la glera del Arlanzon -> moneda visigoda.
 109. MIRA ALTAR en la capilla      -> reliquia de san pedro.
 110. DUERME en el vado del Duero    -> sueno del angel.
@@ -140,8 +141,15 @@ LAS SEIS GESTAS DE HONRA (final legendario):
 112. DA VIANDA en el real del Cid   -> provisiones a la hueste.
 113. CONVIDA MOROS en la senda      -> clemencia (moros y
      cristianos te bendicen).
+114. DOMA LEON en el alcazar        -> el leon suelto tras
+     las bodas (vuelve al alcazar cuando corra la nueva).
 
-Muertes: cruzar el duero sin babieca y ensena; lidiar a pie;
-beber del pozo sin purgarlo; bucar sin tizona; forzar la
-puerta de burgos; abrir las arcas ante los prestamistas;
-retar en las cortes sin recobrar las espadas.
+Muertes (seis, todas anunciadas antes por la sala):
+  - cruzar el duero sin babieca y sin ensena
+  - beber del pozo de la huerta sin purgarlo
+  - enfrentar a bucar sin cenir tizona
+  - forzar la puerta de burgos
+  - abrir las arcas YA SELLADAS ante los prestamistas
+    (abrirlas vacias no mata: solo te miran mal)
+  - retar en las cortes sin recobrar las espadas
+    (retar antes de socorrer a tus hijas solo te avisa)

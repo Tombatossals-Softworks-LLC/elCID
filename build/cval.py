@@ -22,7 +22,7 @@ def fail(m):
 def strip(body):
     # remove quoted strings and trailing rem
     b = re.sub(r'"[^"]*"', '""', body)
-    b = re.split(r'\brem\b', b, 1)[0]
+    b = re.split(r'\brem\b', b, maxsplit=1)[0]
     return b
 
 # 1. lowercase only
@@ -94,7 +94,7 @@ for n, b in T.items():
     if b.lstrip().startswith("rem"): continue
     if b.lstrip().startswith("data"): continue
     s = re.sub(r'"[^"]*"', ' ', b)
-    s = re.split(r'\brem\b', s, 1)[0]
+    s = re.split(r'\brem\b', s, maxsplit=1)[0]
     for m in re.finditer(r'[a-z][a-z0-9]*[$%]?', s):
         tok = peel(m.group(0))
         if not tok or not tok[0].isalpha(): continue

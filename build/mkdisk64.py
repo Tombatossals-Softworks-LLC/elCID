@@ -6,12 +6,14 @@ Contents:
   aa, ab, ac     the packed art blob split into the three regions the game
                  bulk-LOADs once at boot: rooms 1-13 -> $A000 (RAM under the
                  BASIC ROM), 14-26 -> $E000 (RAM under the KERNAL), 27-32 ->
-                 $C100 (KERNAL LOAD writes through the ROMs into RAM)
+                 $C1E0 (KERNAL LOAD writes through the ROMs into RAM)
 
 After that one boot load a room paint is a single ~10 ms ML blit that banks
 the ROMs out to read the art (NMI-safe: the RAM NMI vector points at an RTI),
-so a room change never touches the disk again.  The single-file ELCID.PRG
-(compact resident art) is unchanged and still ships as the lite version.
+so a room change never touches the disk again.  This disk is the only C64
+deliverable: the old single-file build with compact resident art was retired
+(the full game no longer fits in the C64's 38 KB of BASIC RAM alongside a
+resident art table).
 
 Run from build/:  python3 mkdisk64.py [../elcid.d64]
 """

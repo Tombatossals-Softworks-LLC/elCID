@@ -18,6 +18,7 @@ needs Pillow.  Neither is required by the game build."""
 import sys, os, re, json, glob
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rooms
+from c64 import glyph, text_glyph
 import cidspec as S
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -61,7 +62,7 @@ def txt_sc(ch):
     if '0'<=ch<='9': return ord(ch)
     return {'.':46,',':44,'!':33,'?':63,':':58,'/':47,'-':45,"'":39,'(':40,')':41,'>':62}.get(ch,32)
 
-def build(rid, text, kind="msg", items=None, cmd=""):
+def build(rid, text, kind="msg", items=None, cmd="", honra=0):
     """Returns (cells 25x40 of (screencode,colour), overflow_lines)."""
     cells=[[(32,0)]*40 for _ in range(25)]
     def put(row,col,s,co):
@@ -70,39 +71,61 @@ def build(rid, text, kind="msg", items=None, cmd=""):
     g=rooms.ROOMS[rid]().grid
     for r in range(10):
         for c in range(40): cells[r][c]=g[r][c]
-    put(10,1,norm(RM[rid]["name"])[:38],7)
-    lines=wrap_lines(text); overflow=lines[9:]
-    co=15 if kind=="desc" else 7
-    for i,l in enumerate(lines[:9]): put(12+i,1,l,co)
+    # row 10: reverse-video name bar with the honra badge (build_bas L106-108)
+    bar=(norm(RM[rid]["name"])+" "*40)[:29]+"honra %d/7"%honra
+    put(10,0,bar[:39],7)
+    for c in range(39): cells[10][c]=(cells[10][c][0]|128, cells[10][c][1])
+    # rows 11-14 description (persistent, grey), rows 16-20 message (white)
+    for i,l in enumerate(wrap_lines(S.DESC[rid])[:4]): put(11+i,1,l,15)
+    overflow = wrap_lines(S.DESC[rid])[4:]
+    if kind != "desc":
+        lines = wrap_lines(text); overflow += lines[5:]
+        for i,l in enumerate(lines[:5]): put(16+i,1,l,1)
     DIRW={"n":"norte ","s":"sur ","e":"este ","o":"oeste ","u":"arriba ","d":"abajo "}
     ex="".join(DIRW[k] for k in ("n","s","e","o","u","d") if k in RM[rid]["exits"])
     put(21,1,("salidas: "+ex)[:38],3)
     if items is None: items=[S.ITEMS[i][0] for i in S.ROOMITEMS.get(rid,[])]
     if items: put(22,1,("ves: "+" ".join(items))[:38],13)
-    put(23,1,">"+cmd,14)
+    put(23,0,">"+cmd,15)
+    put(24,0,"ayuda=verbos  i=objetos  graba/recupera",11)
     return cells, overflow
 
+def _bitmap(sc):
+    """8 rows for a screen code: the real chargen ROM if one is installed,
+    else the hand-authored glyph table in c64.py, so previews can be rendered
+    on a machine with no C64 ROMs (which is every machine this repo builds on)."""
+    rev = sc & 128
+    base = sc & 127
+    if CH:
+        bm = CH[base*8:base*8+8]
+    elif base <= 63:                       # letters, digits, punctuation
+        bm = text_glyph(base)
+    else:                                  # PETSCII block graphics (the art)
+        bm = glyph(base)
+    return [(b ^ 255) & 255 for b in bm] if rev else list(bm)
+
 def render(cells, path, K=3):
-    assert CH, "no C64 chargen ROM found; cannot render"
-    from PIL import Image
-    W,H=40*8*K,25*8*K; img=Image.new("RGB",(W,H)); px=img.load()
+    from c64 import write_png
+    W,H=40*8*K,25*8*K
+    px=bytearray(W*H*3)
     for r in range(25):
         for c in range(40):
-            sc,co=cells[r][c]; bm=CH[sc*8:sc*8+8]
+            sc,co=cells[r][c]; bm=_bitmap(sc)
             for yy in range(8):
                 for xx in range(8):
-                    rgb=PAL[co] if bm[yy]&(0x80>>xx) else PAL[0]
+                    rgb=PAL[co & 15] if bm[yy]&(0x80>>xx) else PAL[0]
                     for a in range(K):
-                        for b in range(K): px[(c*8+xx)*K+b,(r*8+yy)*K+a]=rgb
-    img.save(path)
+                        for b in range(K):
+                            X=(c*8+xx)*K+b; Y=(r*8+yy)*K+a
+                            o=(Y*W+X)*3; px[o:o+3]=bytes(rgb)
+    write_png(path, px, W, H)
 
 def render_all(outdir="/tmp/elcid_screens"):
     os.makedirs(outdir, exist_ok=True); bad=0
     for rid in range(1, S.NR+1):
         cells,ov=build(rid, S.DESC[rid], "desc")
-        if CH:
-            try: render(cells, os.path.join(outdir, "room_%02d.png"%rid), 2)
-            except Exception as e: print("render skip:", e); return
+        try: render(cells, os.path.join(outdir, "room_%02d.png"%rid), 2)
+        except Exception as e: print("render skip:", e); return
         if ov: print("OVERFLOW room %d: lost %r"%(rid, ov)); bad+=1
     print("rendered %d room screens to %s (overflows: %d)"%(S.NR, outdir, bad))
 

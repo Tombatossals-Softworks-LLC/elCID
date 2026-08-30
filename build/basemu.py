@@ -1,8 +1,10 @@
-import re, cidspec as S
+import re, os, cidspec as S
+
+BAS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'elcid-c64d.bas')
 
 # ---- parse ALL data from elcid.bas exactly as the BASIC READs it ----
 order=[]  # list of (lineno, [tokens]) preserving DATA order
-for raw in open('../elcid-c64d.bas'):
+for raw in open(BAS):
     s=raw.strip()
     m=re.match(r'^(\d+)\s+data\s+(.*)$', s, re.I)
     if m:
@@ -48,20 +50,37 @@ nr=rdn(); ni=rdn(); nu=rdn()
 for _ in range(nr*2+ni+nu): rds()
 # line 13: item names in$(1..ni)
 inm=[None]+[rds() for _ in range(ni)]
-# line 14: exits ex%(j,1..6)
+# line 14: exits ex%(j,0..2) -- two directions packed six bits each per cell,
+# in the order north|south, east|west, up|down (BASIC lines 682 and 920-925)
 ex={}
 for j in range(1,nr+1):
-    for d in range(1,7):
-        ex[(j,d)]=rdn()
-# line 15: il%(j),it%(j)
-il={}; it={}
+    for c in range(0,3):
+        v=rdn()
+        ex[(j,2*c+1)]=v & 63
+        ex[(j,2*c+2)]=v >> 6
+# line 15: il%(j) -- start room only.  Takeability is no longer a table: the
+# build inlines the three non-takeable item numbers into line 623, so read them
+# back out of the generated BASIC the same way everything else here is read.
+il={}
 for j in range(1,ni+1):
-    il[j]=rdn(); it[j]=rdn()
-# line 16: rules ru%(0..nu-1, 0..12)  (emitted stable-sorted by room)
-ru={}
-for j in range(0,nu):
-    for d in range(0,13):
-        ru[(j,d)]=rdn()
+    il[j]=rdn()
+NOTAKE=set()
+for raw in open(BAS):
+    m=re.match(r'^623 (.*?) then mg\$="eso no has de llevarlo', raw.strip())
+    if m: NOTAKE={int(x) for x in re.findall(r'ob=(\d+)', m.group(1))}
+assert NOTAKE, "could not read the non-takeable items back from line 623"
+# line 16: rules ru%(0..nu-1, 0..7)  (emitted stable-sorted by room)
+# columns: 0 room 1 verb 2 object 3 needed flags (packed base 32)
+#          4 forbidden flag + set flag (packed) 5 items given (packed)
+#          6 item taken + item required (packed) 7 kind
+RW=8
+RU=[tuple(rdn() for d in range(0,RW)) for j in range(0,nu)]
+ru={(j,d):RU[j][d] for j in range(nu) for d in range(RW)}   # legacy 2-D view
+# The BASIC scans only the current room's block (the rs% index); grouping the
+# rows the same way here keeps first-match order identical and turns the hot
+# loop from 76 dict lookups per command into a walk of ~3 tuples.
+BYROOM={}
+for j,row in enumerate(RU): BYROOM.setdefault(row[0],[]).append((j,row))
 # line 17: rs%(1..nr) first-rule-of-room index (consume; scan order is already
 # the DATA order here, so the index changes nothing for the emulator)
 for j in range(0,nr):
@@ -105,35 +124,29 @@ class B:
         va=vb.get(w1,0); ob=no.get(w2,0)
         dv=self.dirof(w1)
         if va==5: dv=self.dirof(w2)
-        # rule interpreter (700)
-        hd=0
-        for ri in range(0,nu):
-            if ru[(ri,0)]!=self.rm: continue
-            if ru[(ri,1)]!=va: continue
-            if ru[(ri,2)]!=0 and ru[(ri,2)]!=ob: continue
-            t=ru[(ri,3)]
-            if t>0 and self.fl[t]==0: continue
-            t=ru[(ri,4)]
-            if t>0 and self.fl[t]==0: continue
-            t=ru[(ri,5)]
-            if t>0 and self.fl[t]==0: continue
-            t=ru[(ri,6)]
-            if t>0 and self.fl[t]==1: continue
-            t=ru[(ri,11)]
-            if t>0 and self.il.get(t)!=-1: continue
-            t=ru[(ri,7)]
-            if t>0: self.fl[t]=1
-            t=ru[(ri,8)]
-            if t>0: self.il[t]=-1
-            t=ru[(ri,9)]
-            if t>0: self.il[t]=-1
-            t=ru[(ri,10)]
-            if t>0: self.il[t]=0
-            self.last='RULE%d'%ri; hd=1
-            if ru[(ri,12)]==1: self.gw=2
-            if ru[(ri,12)]==2: self.gw=1
-            break
-        if hd==1: return
+        # rule interpreter (700).  The needed-flag and give columns are packed
+        # base 32 exactly as BASIC lines 704-706 and 710 unpack them.
+        fl=self.fl; il=self.il
+        for ri,row in BYROOM.get(self.rm,()):
+            if row[1]!=va: continue
+            if row[2]!=0 and row[2]!=ob: continue
+            t=row[3]; ok=True
+            while t:
+                if fl[t & 31]==0: ok=False; break
+                t = t>>5 if t>31 else 0
+            if not ok: continue
+            if row[4] & 31 and fl[row[4] & 31]==1: continue
+            if row[6]>>5 and il.get(row[6]>>5)!=-1: continue
+            if row[4]>>5: fl[row[4]>>5]=1
+            t=row[5]
+            if t>0:
+                il[t & 31]=-1
+                if t>31: il[t>>5]=-1
+            if row[6] & 31: il[row[6] & 31]=0
+            self.last='RULE%d'%ri
+            if row[7]==1: self.gw=2
+            elif row[7]==2: self.gw=1
+            return
         # movement (680) with gates
         if dv>0:
             dr=dv
@@ -157,7 +170,7 @@ class B:
             if ob<1 or ob>ni: self.last='coger que?'; return
             if self.il.get(ob)==-1: self.last='ya lo llevas.'; return
             if self.il.get(ob)!=self.rm: self.last='no ves eso aqui.'; return
-            if it[ob]==0: self.last='no puedes llevarte eso.'; return
+            if ob in NOTAKE: self.last='no puedes llevarte eso.'; return
             self.il[ob]=-1; self.last='coges'; return
         if va==3:
             if ob<1 or ob>ni or self.il.get(ob)!=-1: self.last='no llevas eso.'; return
@@ -169,7 +182,8 @@ class B:
         self.last='no puedo hacer eso ahora.'
 
 # ---- run critical path through BASIC emu ----
-path=[c.strip() for c in S.__dict__ and __import__('cidsim').CRITPATH if c.strip()]
+import cidsim as C
+path=[c.strip() for c in C.CRITPATH if c.strip()]
 g=B()
 for c in path:
     g.do(c)
@@ -184,11 +198,11 @@ def runB(cmds):
         g.do(c)
         if g.gw: break
     return g
-import cidsim as C
 tests={
  'forzar puerta': "baja|monta babieca|sube|este|este|fuerza puerta".split('|'),
  'cruzar duero sin babieca': "este|este|coge ensena|este|sur|este|sur|este".split('|'),
- 'abrir arcas': "este|este|este|mira antolinez|sur|coge arena|oeste|abre arcas".split('|'),
+ 'abrir arcas selladas': "este|este|este|mira antolinez|sur|coge arena|oeste|llena arcas|sella arcas|abre arcas".split('|'),
+ 'abrir arcas vacias': "este|este|este|mira antolinez|sur|coge arena|oeste|abre arcas".split('|'),
 }
 for n,c in tests.items():
     g=runB(c)

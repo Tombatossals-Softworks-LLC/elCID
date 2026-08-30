@@ -9,8 +9,8 @@ Flags are integer indices 1..63. Items 1..NI. Scenery nouns = 100+."""
 VERB = {}
 def vset(code, *ws):
     for w in ws: VERB[w] = code
-vset(1,"mira","examina","ex","observa","ver","mirar","registra","inspecciona")
-vset(2,"coge","toma","tomar","agarra","recoge","coger","copa")
+vset(1,"mira","habla","hablar","examina","ex","observa","ver","mirar","registra","inspecciona")
+vset(2,"coge","toma","tomar","agarra","recoge","coger")
 vset(3,"deja","suelta","soltar","tira","dejar")
 vset(4,"inventario","inv","i","objetos","bolsa")
 vset(5,"ve","ir","anda","camina","cabalga","vete","cruza","cruzar","entra","sal")
@@ -31,7 +31,7 @@ vset(27,"finge","fingir","simula","retira")
 vset(28,"convida","invita","libera","perdona")  # courtesy to Berenguer
 vset(29,"echa","purga","purgar","vierte","arroja")
 vset(30,"asoma","otea","alza")  # subir al mirador (asoma to avoid dir clash)
-vset(31,"cine","cinne","cina","ardes")  # cenir tizona
+vset(31,"cine","cinne","cina","cennir")  # cenir tizona
 vset(32,"casa","casar","desposa")
 vset(33,"rescata","auxilia")  # socorrer (socorre maps below too)
 vset(33,"socorre","socorrer","salva","salvar")
@@ -56,7 +56,7 @@ vset(49,"canta","cantar","recita")
 vset(50,"baila","bailar","danza")
 vset(51,"saluda","hola","salve")
 vset(52,"mesa","mesar")
-vset(45,"bebe","beber")
+vset(53,"bebe","beber","sorbe")   # beber (era codigo 45: chocaba con doma)
 
 # ----- items: id: (name, [syn], start_room, takeable, exam) -----
 ITEMS = {
@@ -69,27 +69,27 @@ ITEMS = {
  7:("vino",["odre"],5,1,"un odre del buen vino de castilla, para el largo camino."),
  8:("arcas",["arcas","cofres","cajas"],6,0,"dos arcas de roble, herradas y vacias. el ardid las llenara."),
  9:("arena",["arena","tierra"],7,1,"arena fina y humeda de la glera del arlanzon."),
- 10:("tienda",["tienda","jaima"],7,0,"tu tienda de campana, que ha visto cien fronteras."),
+ 10:("tienda",["tienda","jaima"],7,0,"tu tienda de campanna, que ha visto cien fronteras."),
  11:("reliquia",["reliquia","hueso"],0,1,"reliquia de san pedro, santa y secreta. purifica las aguas danadas."),
  12:("vianda",["comida","provision"],10,1,"vianda y grano para la hueste, que ha de comer antes del cerco."),
- 13:("cuerda",["soga","maroma"],10,1,"recia cuerda de canamo. buena para escalar un muro."),
+ 13:("cuerda",["soga","maroma"],10,1,"recia cuerda de cannamo. buena para escalar un muro."),
  14:("oro",["cofre","marcos","dinero","seiscientos"],0,1,"seiscientos marcos en un cofre, prestados sobre las arcas."),
  15:("botin",["botin","despojos"],14,1,"rico botin de castejon: oro, panos y armas moras."),
  16:("parias",["parias","tributo"],0,1,"las parias para el rey alfonso, presente que ablanda su ira."),
  17:("colada",["colada"],0,1,"colada, ganada al conde de barcelona en el pinar de tevar."),
- 18:("aval",["salvoconducto","carta2","salvo"],0,1,"el salvoconducto del rey para traer a los tuyos a valencia."),
+ 18:("aval",["salvoconducto","salvo"],0,1,"el salvoconducto del rey para traer a los tuyos a valencia."),
  19:("cidra",["cidra","fruta","limon"],19,1,"una cidra amarga. su zumo purga el agua emponzonada."),
- 20:("gala",["bodas","manto2"],24,1,"el manto de bodas, todo de oro, para elvira y sol."),
+ 20:("gala",["bodas","boda"],24,1,"el manto de bodas, todo de oro, para elvira y sol."),
  21:("tizona",["tizona","espada"],25,1,"tizona, que vale mas que mil marcos de oro. su hoja arroja lumbre."),
- 22:("alfanje",["botin2","espadab"],0,1,"rico alfanje, despojo de fariz en el campo de alcocer."),
- 23:("cimitarra",["alfanje2","espbucar","dones","presente"],0,1,"la cimitarra del rey bucar, don digno de un rey."),
- 24:("pabellon",["tienda2","tiendab"],0,1,"el pabellon de bucar, de oro y seda, tomado en la playa."),
- 25:("jirones",["manto3","mantor"],28,1,"el manto roto en corpes: prueba de la afrenta de los infantes."),
+ 22:("alfanje",["cimitarra2","despojo"],0,1,"rico alfanje, despojo de fariz en el campo de alcocer."),
+ 23:("cimitarra",["dones","presente"],0,1,"la cimitarra del rey bucar, don digno de un rey."),
+ 24:("pabellon",["seda"],0,1,"el pabellon de bucar, de oro y seda, tomado en la playa."),
+ 25:("jirones",["jiron","roto"],28,1,"el manto roto en corpes: prueba de la afrenta de los infantes."),
  26:("cinchas",["cinchas","correas"],28,1,"las cinchas con que azotaron a tus hijas. la afrenta clama."),
  27:("agua",["agua"],30,1,"agua de la fuente del robledo, para volver en si a tus hijas."),
  28:("corona",["corona"],0,1,"corona de navarra: tus hijas seran reinas."),
  29:("moneda",["moneda"],0,1,"moneda de oro visigoda, hallada en la arena. guino a los godos."),
- 30:("joya",["coronag","atril2"],0,1,"corona votiva visigoda, de oro y esmeraldas. tesoro secreto."),
+ 30:("joya",["votiva"],0,1,"corona votiva visigoda, de oro y esmeraldas. tesoro secreto."),
 }
 NI = max(ITEMS)
 INAME = {i: ITEMS[i][0] for i in ITEMS}
@@ -99,14 +99,14 @@ SCEN = {}
 def sset(code,*ws):
     for w in ws: SCEN[w]=code
 sset(101,"corneja","ave","pajaro")
-sset(102,"nina","ninna","ninia")
+sset(102,"nina","ninna")
 sset(103,"antolinez","martin","burgales")
 sset(104,"sauce","arenal","glera")
 sset(105,"altar","cristo")
 sset(106,"jimena","esposa","dona")
 sset(107,"abad","sancho","monje")
 sset(108,"mirador","torre","ventana")
-sset(109,"pozo","fuente2","agua2")
+sset(109,"pozo","brocal")
 sset(110,"mar","playa","olas")
 sset(111,"atril","facistol")
 sset(112,"jeronimo","obispo")
@@ -123,43 +123,45 @@ sset(122,"flota","velas","naves","armada")          # playa, flota de bucar (r23
 
 # ----- room descriptions (tight, '/'-separated lines, no accents) -----
 # (name, desc, exits dict, start items list, scene-key)
-import json
-RM = json.load(open("canon.json"))["rooms"]
+import json, os
+_HERE = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(_HERE, "canon.json")) as _f:
+    RM = json.load(_f)["rooms"]
 DESC = {}
 def setdesc(rid, d): DESC[rid]=d
 # terse 2-line descriptions
 setdesc(1,"tu casa, vacia, el hogar frio./una corneja: mal aguero. partes.")
 setdesc(2,"camino a burgos. las gentes lloran:/dios, que buen vassallo!")
 setdesc(3,"cuadra umbria. en el pesebre,/babieca, tu bayo de mil batallas.")
-setdesc(4,"burgos cerrada so pena de los ojos./tu ensena ondea. sale una nina.")
+setdesc(4,"burgos cerrada so pena de los ojos./tu ensena ondea. sale una nina./quien la fuerce pierde la honra.")
 setdesc(5,"la plaza, hostil. solo antolinez/se acerca con pan y un ardid.")
 setdesc(6,"raquel e vidas cuentan oro./dos arcas de roble, vacias, esperan.")
 setdesc(7,"el arenal del arlanzon. arena fina/en monton: buen lugar de ardid.")
 setdesc(8,"san pedro de cardena. el abad./aqui dejas a jimena y a tus hijas.")
 setdesc(9,"capilla en penumbra. jimena ora/ante un cristo de marfil. cirios.")
 setdesc(10,"bodega bajo el monasterio. tinajas,/grano y herramientas. frescor.")
-setdesc(11,"el ancho duero, raya del reino./mas alla, tierra de moros. cruza.")
+setdesc(11,"el ancho duero, raya del reino./mas alla, tierra de moros./sin bayo ni ensena no pases al este.")
 setdesc(12,"paramo de frontera. atalayas moras/en los cerros. caminos al sol.")
 setdesc(13,"castejon duerme al alba. sus puertas/se abriran al mercado. minaya espera.")
 setdesc(14,"castejon es tuya. oro, panos, armas./en el corral piafan corceles moros.")
 setdesc(15,"alcocer, fuerte villa amurallada./el asalto frontal seria locura.")
 setdesc(16,"campo abierto. fariz y galve forman./tres mil contra tus seiscientos.")
 setdesc(17,"el pinar de tevar. el conde berenguer/te cerca, soberbio. habra lid.")
-setdesc(18,"senda a levante. huele a azahar/y a mar. valencia te aguarda.")
+setdesc(18,"senda a levante. huele a azahar/y a mar. labradores moros huyen./valencia te aguarda.")
 setdesc(19,"la huerta, vergel de palmas. un pozo/de marmol. dicen que el agua es mala.")
 setdesc(20,"las murallas de valencia, altas/y blancas. un cerco las rinde.")
-setdesc(21,"el real del cid, mar de tiendas./minaya vuelve con nuevas del rey.")
-setdesc(22,"el alcazar, ya tuyo. del mirador se ve/la mar. un leon dormita en su jaula.")
+setdesc(21,"el real del cid, mar de tiendas./minaya vuelve con nuevas del rey./la hueste aguarda vianda.")
+setdesc(22,"el alcazar, ya tuyo./del mirador se ve la mar./un leon dormita en su jaula.")
 setdesc(23,"la playa. velas en el horizonte:/la flota de bucar viene a vengarse.")
 setdesc(24,"camara de elvira y sol. arcas y/un manto de bodas de oro. risas.")
 setdesc(25,"el tesoro del alcazar. arcas, un/atril, y en la pared: tizona!")
-setdesc(26,"playa erizada de tiendas moras./bucar te reta. jeronimo pide lid.")
+setdesc(26,"playa erizada de tiendas moras./bucar te reta. jeronimo pide lid./sin espada cennida no hay victoria.")
 setdesc(27,"la vega del tajo. el rey alfonso/te perdona y pide a tus hijas.")
 setdesc(28,"el robledo de corpes, oscuro./afrentaron a tus hijas, jirones.")
-setdesc(29,"las cortes de toledo. el rey preside./alli, palidos, los infantes.")
+setdesc(29,"cortes de toledo. el rey preside./alli, palidos, los infantes de carrion.")
 setdesc(30,"una fuente en lo hondo del robledo./alli yacen elvira y sol, sin sentido.")
-setdesc(31,"el palenque de carrion. tus campeones/contra los traidores. lidia por tu honra.")
-setdesc(32,"valencia engalanada. tus hijas casan/con navarra y aragon. triunfo del cid!")
+setdesc(31,"el palenque de carrion./tus campeones contra los traidores./lidia por tu honra.")
+setdesc(32,"valencia engalanada. tus hijas casan/con navarra y aragon. triunfo, cid!")
 
 SCENE = {r["id"]: r.get("scene","") for r in RM}
 EXITS = {r["id"]: r.get("exits",{}) for r in RM}
@@ -198,10 +200,11 @@ rule(4,1,102,msg="la nina de nueve anos te habla: cid, el rey nos veda acogerte 
 rule(4,41,119,kind=1,msg="forzar la puerta? danar a esta villa? un campeador no hace tal. tus propios caballeros volverian la cara. sin honra no hay cid. fin.")
 rule(5,1,103,setf=[1],msg="antolinez te ensena el ardid: llena dos arcas de arena, sellalas como oro y empenalas a raquel e vidas por marcos.")
 rule(7,44,0,give=29,msg="cavas en la arena y bajo el sauce hallas una moneda de oro visigoda. guino secreto al heredero de los godos!")
-rule(7,1,104,msg="la arena fina y humeda se amontona en la glera. justo lo que pide el ardid de antolinez.")
+rule(7,1,104,msg="arena fina y humeda se amontona en la glera bajo el sauce. tierra suelta: buen lugar para cavar.")
 rule(6,22,8,need=[1],forbid=[2],setf=[2],take=9,needi=9,msg="llenas las dos arcas de arena hasta los bordes. pesan como si fueran de oro macizo.")
 rule(6,23,8,need=[2],forbid=[3],setf=[3],msg="sellas y clavas las arcas. nadie diria que no guardan un tesoro. el ardid esta listo.")
 rule(6,24,8,need=[3],forbid=[25],setf=[25],give=14,msg="raquel e vidas prestan seiscientos marcos sobre las arcas, y aun un manto. juran no abrirlas en un anno. tienes oro!")
+rule(6,6,8,forbid=[3],msg="las arcas estan vacias aun. antolinez te dira que hacer con ellas.")
 rule(6,6,8,kind=1,msg="abres las arcas ante los prestamistas y descubren la arena. corre la voz de tu engano y nadie te fia ya. el destierro te ahoga. fin.")
 rule(8,8,14,forbid=[4],setf=[4],take=14,needi=14,msg="das los marcos al abad don sancho para dotar el monasterio. jimena y tus hijas quedan a salvo. dios te lo pague.")
 rule(8,1,106,msg="jimena llora y reza: merced, cid, en buen hora cinxiestes espada! te abraza como la una de la carne.")
@@ -215,7 +218,7 @@ rule(15,27,0,forbid=[7],msg="finges la huida y levantas el campo. los de alcocer
 rule(15,26,0,forbid=[7],setf=[7],msg="vuelves grupas de golpe y asaltas alcocer por sorpresa. la villa es tuya. fariz y galve acuden iracundos.")
 rule(16,8,5,forbid=[23],setf=[23],needi=5,msg="das la ensena a pero bermudez: tenedla, mas no la metais en lid sin mi mandado. el la clava en las haces moras.")
 rule(16,26,0,need=[5,23],forbid=[8],setf=[8],give=22,msg="montado en babieca y con tu ensena al frente, cargas. fariz y galve huyen vencidos! gran botin, y parias para el rey.")
-rule(16,26,0,forbid=[5],kind=1,msg="cargar a pie contra tres mil moros? te cercan y caes. murio el cid sin caballo, no torno a castilla. fin.")
+rule(16,26,0,forbid=[23],msg="cargar sin ensena delantera? da antes tu pendon a pero bermudez, que el la clave en las haces moras.")
 rule(17,28,0,forbid=[9],setf=[9],give=17,msg="vences al conde berenguer mas lo sueltas con cortesia y le devuelves sus tierras. agradecido, te cede colada!")
 rule(17,26,0,forbid=[9],setf=[9],give=17,msg="derrotas al soberbio conde de barcelona y, magnanimo, lo liberas. te deja su espada colada. asi la gano el cid en tevar.")
 rule(12,40,16,need=[8],forbid=[10],setf=[10],take=15,needi=15,msg="envias las parias al rey alfonso por mano de minaya. el favor del rey empieza a tornar hacia ti.")
@@ -225,13 +228,13 @@ rule(18,28,121,forbid=[29],setf=[29],msg="labradores moros huyen de tu hueste. e
 rule(21,1,116,need=[10],forbid=[13],setf=[13],give=18,msg="minaya vuelve de castilla: el rey, ablandado por las parias, concede salvoconducto para traer a tu familia a valencia.")
 # real del cid: repartir vianda a la mesnada (honra; el cid provee a los suyos para el cerco)
 rule(21,8,12,forbid=[28],setf=[28],take=12,needi=12,msg="repartes la vianda entre la hueste. comen y bendicen al cid: en buen hora nascio! te siguen al cerco con nuevo brio.")
-rule(19,45,109,forbid=[11],kind=1,msg="bebes del pozo emponzonado y las calenturas te abrasan antes de la boda. fin.")
-rule(19,29,11,forbid=[11],setf=[11],take=11,needi=11,msg="echas la reliquia de san pedro al pozo y el agua se aclara, dulce y sana. el cerco tendra de beber.")
-rule(19,29,109,forbid=[11],setf=[11],take=11,needi=11,msg="echas la reliquia de san pedro al pozo y el agua se aclara, dulce y sana. el cerco tendra de beber.")
-rule(19,29,19,forbid=[11],setf=[11],take=19,needi=19,msg="exprimes la cidra amarga en el pozo. su zumo purga el agua danada. el cerco tendra agua limpia.")
-rule(19,29,109,forbid=[11],setf=[11],take=19,needi=19,msg="exprimes la cidra amarga en el pozo. su zumo purga el agua danada. el cerco tendra agua limpia.")
+rule(19,53,109,forbid=[11],kind=1,msg="bebes del pozo emponzonado y las calenturas te abrasan antes de la boda. fin.")
+rule(19,29,0,forbid=[11],setf=[11],take=11,needi=11,msg="echas la reliquia de san pedro al pozo y el agua se aclara, dulce y sana. el cerco tendra de beber.")
+rule(19,29,0,forbid=[11],setf=[11],take=19,needi=19,msg="exprimes la cidra amarga en el pozo. su zumo purga el agua danada. el cerco tendra agua limpia.")
 rule(20,26,0,need=[11],forbid=[12],setf=[12],msg="asedias valencia mes tras mes hasta que el hambre la rinde. pero bermudez clava tu ensena en la torre. valencia es tuya, cid!")
 rule(20,26,0,forbid=[12],msg="sin agua sana, el cerco enferma y se deshace. purga antes el pozo de la huerta.")
+rule(22,1,108,msg="un mirador sobre la mar y el camino de castilla. asomate y otea quien viene.")
+rule(22,30,108,forbid=[13],msg="sin salvoconducto del rey no vendran los tuyos. minaya lo trae al real del cid.")
 rule(22,30,108,need=[12,13],forbid=[14],setf=[14],msg="desde el mirador ves llegar a jimena y a tus hijas. a vos, mugier ondrada, valencia por morada! lloras de gozo.")
 # --- el leon del alcazar (episodio del cantar; 7a gesta de honra) ---
 rule(22,1,120,need=[30],msg="la fiera duerme ya en su jaula. toda valencia recuerda como la tomaste por la melena, sin armas.")
@@ -251,25 +254,30 @@ rule(25,43,111,forbid=[27],setf=[27],give=30,msg="mueves el atril y tras el hall
 rule(23,1,122,msg="las velas de bucar cubren la mar: cincuenta mil vienen a cobrar valencia. el cid no tiembla; aprieta el puno sobre tizona.")
 rule(26,1,112,msg="el obispo don jeronimo te pide la primera herida: esta lid yo la quiero por mi alma! y bendice a la hueste.")
 rule(26,31,21,needi=21,msg="cines tizona al cinto. su hoja arroja lumbre. ahora si: que venga bucar.")
-rule(26,26,0,need=[5],forbid=[15],setf=[15],give=23,needi=21,msg="con tizona en mano y babieca al galope, alcanzas a bucar en la huida: tornate, bucar! lo derribas. su cimitarra es tuya, don para el rey.")
+rule(26,26,0,need=[5],forbid=[15],setf=[15],give=23,give2=24,needi=21,msg="con tizona en mano y babieca al galope: tornate, bucar! lo derribas y le ganas tizon, y su pabellon de oro y seda. la cimitarra sera don para el rey.")
 rule(26,26,0,forbid=[15],kind=1,msg="enfrentas a bucar sin cenir tizona y el moro te derriba. valencia cae en manos almoravides. fin.")
 rule(27,8,23,need=[15],forbid=[16],setf=[16],take=23,needi=23,msg="presentas al rey la cimitarra de bucar. alfonso, contento, te otorga su perdon entero. eres su vassallo y su amigo.")
 rule(27,42,115,need=[15],forbid=[16],setf=[16],msg="besas la mano del rey en senal de vassallaje. el te alza y te perdona ante toda la corte.")
-rule(27,32,0,need=[16],forbid=[17],setf=[17],take=20,needi=20,msg="casas a elvira y a sol con los infantes de carrion, como pide el rey, y das el manto de bodas. ojala no lo lamentes...")
+rule(27,8,3,msg="ofreces babieca al rey. alfonso lo rehusa: si tal fiziesse, el cavallo non serie tan bien colodrado. quedese con vos, cid.")
+rule(27,32,0,forbid=[16],msg="el rey no te ha perdonado aun. vence a bucar y traele su cimitarra en don.")
+rule(27,32,0,need=[16],forbid=[17],setf=[17],take=20,needi=20,msg="casas a elvira y a sol con los infantes, y das el manto de bodas. corre nueva: el leon del alcazar anda suelto! ojala no lo lamentes...")
 # --- cantar 3: corpes y cortes ---
 rule(28,1,114,need=[17],msg="los infantes huyeron tras azotar y abandonar a tus hijas. recoge la prueba: el manto roto y las cinchas.")
 rule(30,33,0,need=[17],forbid=[18],setf=[18],needi=27,msg="socorres a tiempo a tus hijas y con el agua de la fuente vuelven en si. felez munoz las pone a salvo. viviran, y veran justicia.")
 rule(30,8,27,need=[17],forbid=[18],setf=[18],take=27,needi=27,msg="das agua de la fuente a tus hijas desmayadas. abren los ojos. las salvas de una muerte segura en el monte.")
+rule(29,1,113,msg="tu barba, crecida en el destierro, jamas fue mesada de nadie. es tu honra hecha carne.")
 rule(29,34,113,forbid=[21],setf=[21],msg="atas tu barba con un cordon. por aquesta barba que nadie no messo! asi entras a las cortes, intocado y firme.")
 rule(29,35,0,need=[18],forbid=[19],setf=[19],give=21,give2=17,msg="exiges en justicia tizona y colada, que diste a los infantes. el rey manda que te las devuelvan. recobras tus espadas!")
 rule(29,36,25,need=[19],needi=25,msg="muestras a las cortes el manto roto y las cinchas. un murmullo de horror recorre la sala. la afrenta queda probada.")
 rule(29,37,114,need=[18,19],msg="retas a riepto a los infantes de carrion. pero bermudez, antolinez y muno gustioz seran tus campeones. al palenque!")
-rule(29,37,114,forbid=[19],kind=1,msg="retar sin haber recobrado las espadas ni mostrado la prueba? los jueces te tienen por loco. pierdes el pleito y tu honra. fin.")
+rule(29,37,114,forbid=[18],msg="tus hijas aun yacen en corpes. baja al robledo y socorrelas antes.")
+rule(29,37,114,need=[18],forbid=[19],kind=1,msg="retar sin haber recobrado las espadas ni mostrado la prueba? los jueces te tienen por loco. pierdes el pleito y tu honra. fin.")
 rule(31,8,21,need=[19],needi=21,msg="das tizona a pero bermudez. con ella derribara a fernando, que clamara vencido.")
 rule(31,8,17,need=[19],needi=17,msg="das colada a martin antolinez. con ella derribara a diego gonzalez en el palenque.")
 rule(31,26,0,need=[19],forbid=[20],setf=[20],msg="tus tres campeones vencen: pero a fernando, antolinez a diego, muno a asur. los de carrion quedan por traidores. tu honra resplandece!")
 rule(31,26,0,forbid=[19],msg="al palenque sin las espadas recobradas, tus campeones flaquean. recobralas antes en las cortes.")
 rule(32,38,0,need=[12,14,20],give=28,kind=2,msg="aceptas las nuevas bodas: tus hijas, antes afrentadas, casan con navarra y aragon, y seran reinas. victoria, campeador!")
+rule(32,38,0,msg="aun no, campeador: falta ganar valencia, traer a los tuyos y vencer en el palenque.")
 
 # --- contextual MIRA on scenery: two gameplay hints only.  The C64 build is
 #     at its BASIC-RAM edge (~1.1 KB free); each rule costs ~150 bytes of the
