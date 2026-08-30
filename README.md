@@ -477,8 +477,25 @@ loop returns to the title.
 title.*
 
 All 107 commands, no crash, `honra 7/7` counted by the game itself, the ending
-reached and the replay loop back at the title. Two things worth knowing if you
-run it yourself:
+reached and the replay loop back at the title — locally and, with a ROM set in
+the `VICE_ROMS_B64` secret, [in CI](.github/workflows/ci.yml) on every manual
+run of the `emulator` job.
+
+[`build/c128check.py`](build/c128check.py) does the C128 side: boots the disk in
+**native** BASIC 7.0, types `DLOAD"ELCID"`, runs it, and proves the Koala cover
+is actually on screen. Three traps there, each of which fails *quietly*:
+
+* `-autostart` uses the 64's `LOAD"…",8,1` idiom and drops x128 into **C64
+  mode**, where the BASIC 7.0 loader cannot run and just falls through to
+  `READY.` — so the disk is attached with `-8` and `DLOAD` typed instead.
+* The C128 keyboard buffer is at **`$034A`** with its count at **`$D0`**; poking
+  the 64's `$0277`/`$C6` does nothing at all, and says nothing about it.
+* `GRAPHIC 3` is a **bitmap**, so `$0400` keeps whatever text was there before.
+  A text-screen dump of a perfectly working cover is indistinguishable from a
+  machine sitting at `READY.` What settles it is VIC `$D011` bit 5 and real
+  content in the bitmap at `$2000`.
+
+Two things worth knowing if you run any of this yourself:
 
 * `-drive8type 1541` is **not optional** on a Debian or Ubuntu VICE. Its default
   drive is a type whose ROM the distribution does not ship, so autostart's own
