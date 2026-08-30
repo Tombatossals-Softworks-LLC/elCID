@@ -88,7 +88,12 @@ def snap(path):
     return scr
 PATH=[c.strip() for c in cidsim.CRITPATH if c.strip()]
 subprocess.run(["pkill","-9","-x","x64sc"],stderr=subprocess.DEVNULL);time.sleep(1)
-subprocess.Popen(["xvfb-run","-a","x64sc","-warp","-remotemonitor","-remotemonitoraddress","ip4://127.0.0.1:%d"%PORT,"-autostart",DISK+":elcid"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+# -drive8type 1541 is not optional: this VICE's default unit is a type whose
+# ROM Debian does not ship, so autostart's own attempt to switch the drive to
+# match the image fails ("Failed to set drive type"), leaves no device on the
+# IEC bus, and the machine answers ?DEVICE NOT PRESENT while the harness types
+# the walkthrough into a BASIC prompt.
+subprocess.Popen(["xvfb-run","-a","x64sc","-warp","-drive8type","1541","-remotemonitor","-remotemonitoraddress","ip4://127.0.0.1:%d"%PORT,"-autostart",DISK+":elcid"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 time.sleep(38)
 inject_chunk([32]); time.sleep(5)
 honra=0; crash=None

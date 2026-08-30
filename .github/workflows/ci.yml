@@ -124,4 +124,4 @@ jobs:
 
       - name: play the critical path on an emulated C64
         if: env.SKIP == '0'
-        run: xvfb-run -a python3 build/fullcycle.py elcid.d64 6510
+        run: python3 build/fullcycle.py elcid.d64 6510

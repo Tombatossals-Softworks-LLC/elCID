@@ -184,9 +184,9 @@ machine-code blit and a room change **never touches the disk**:
 below) are the ready-to-run disks. Every path was verified in VICE with real
 ROMs: both machines render Burgos **byte-for-byte** (800/800 cells) against the
 authored scenes, driven in-game from Vivar; the C64 disk also boots correctly
-under true-drive emulation. (Those emulator runs predate the layout and art
-pass in this revision and want re-running wherever real ROMs are available;
-everything static — `build/verify.py` — is green.)
+under true-drive emulation. The C64 disk build has since been played end to end
+on an emulated 64 again, in this revision — see
+[On real hardware](#on-real-hardware).
 
 ### Ending story cards (C128)
 
@@ -349,9 +349,10 @@ single test.
 
 ## How it was built (and why it is correct)
 
-This environment has no C64 ROMs, so the game could not be *run* during
-development — every part is **statically verified** instead, from a single source
-of truth in [`build/`](build):
+The game is **statically verified** from a single source of truth in
+[`build/`](build) — none of which needs a Commodore ROM, so it all runs on any
+machine and in CI. (It is *also* played on an emulated 64 now; see
+[On real hardware](#on-real-hardware).)
 
 1. **`cidspec.py`** — the whole world as data: rooms, items, a Spanish
    vocabulary, and a **data-driven rule table** (room + verb + object + required
@@ -459,12 +460,33 @@ screen and the reward tick — all read the same seven flags. **Honour is
 monotonic**, and the monkey asserts exactly that, with no exceptions to write
 down.
 
-What none of this can do is **run** the game — Debian and Ubuntu ship VICE
-without the ROMs. [`build/fullcycle.py`](build/fullcycle.py) plays the whole
-critical path on a real emulated C64 and remains the last word wherever ROMs
-exist. One class of bug stays invisible to every static check here: a new line
-number landing inside an existing fall-through chain, because `basemu.py`
-re-implements the BASIC's *semantics*, not its line order.
+### On real hardware
+
+None of the above *runs* the game, and one class of bug stays invisible to all
+of it: a new line number landing inside an existing fall-through chain, because
+`basemu.py` re-implements the BASIC's *semantics*, not its line order. So
+[`build/fullcycle.py`](build/fullcycle.py) plays the whole critical path on an
+emulated 64 with real ROMs, watching for `?OUT OF MEMORY` and `?SYNTAX ERROR` at
+every step, counting the honour rewards off the screen and confirming the replay
+loop returns to the title.
+
+![the legendary ending, captured from an emulated C64](screen-c64-legendary.png)
+
+*The legendary ending, read straight out of screen RAM on an emulated 64 running
+`elcid.d64` — the last screen of a 107-command playthrough that started at the
+title.*
+
+All 107 commands, no crash, `honra 7/7` counted by the game itself, the ending
+reached and the replay loop back at the title. Two things worth knowing if you
+run it yourself:
+
+* `-drive8type 1541` is **not optional** on a Debian or Ubuntu VICE. Its default
+  drive is a type whose ROM the distribution does not ship, so autostart's own
+  attempt to match the image fails with *"Failed to set drive type"*, leaves no
+  device on the IEC bus, and the machine answers `?DEVICE NOT PRESENT` — while a
+  test harness happily types the whole walkthrough into a BASIC prompt and
+  collects a screenful of `?SYNTAX ERROR`. `fullcycle.py` passes the flag.
+* The ROMs are the part this repository cannot give you; see below.
 
 ### Running it on real ROMs
 
