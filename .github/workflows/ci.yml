@@ -77,32 +77,51 @@ jobs:
           sudo apt-get install -y --no-install-recommends vice xvfb
 
       # Debian and Ubuntu ship VICE without the Commodore ROMs -- they are
-      # copyrighted, so this repository does not carry them and this workflow
-      # does not fetch them.  Point the VICE_ROMS secret at an archive you are
-      # licensed to use and the emulator run becomes real; leave it unset and
-      # this job says so and passes, rather than pretending the game was tested
-      # on hardware it never touched.
-      - name: fetch ROMs, if this repository has been given any
+      # copyrighted, so this repository neither carries them nor fetches them
+      # from anywhere.  Supply them yourself and this job becomes a real run on
+      # an emulated machine; supply nothing and it says so and passes, rather
+      # than pretending the game was tested on hardware it never touched.
+      #
+      # Set EITHER repository secret (see README, "Running it on real ROMs"):
+      #   VICE_ROMS_URL  a URL to a .tar.gz -- private release asset, presigned
+      #                  S3 link, anything curl can fetch
+      #   VICE_ROMS_B64  the same .tar.gz, base64 -d ready, pasted straight in;
+      #                  simplest, but a GitHub secret caps at 48 KB
+      #
+      # The archive must hold the files VICE looks for, by these exact names:
+      #   C64/kernal-901227-03.bin
+      #   C64/basic-901226-01.bin
+      #   C64/chargen-901225-01.bin
+      #   DRIVES/dos1541-325302-01+901229-05.bin
+      - name: install ROMs, if this repository has been given any
         env:
-          VICE_ROMS: ${{ secrets.VICE_ROMS }}
+          VICE_ROMS_URL: ${{ secrets.VICE_ROMS_URL }}
+          VICE_ROMS_B64: ${{ secrets.VICE_ROMS_B64 }}
         run: |
-          if [ -z "$VICE_ROMS" ]; then
-            echo "::notice::no VICE_ROMS secret set -- skipping the emulator run."
+          set -euo pipefail
+          if [ -n "${VICE_ROMS_URL:-}" ]; then
+            curl -fsSL "$VICE_ROMS_URL" -o /tmp/roms.tar.gz
+          elif [ -n "${VICE_ROMS_B64:-}" ]; then
+            printf '%s' "$VICE_ROMS_B64" | base64 -d > /tmp/roms.tar.gz
+          else
+            echo "::notice::neither VICE_ROMS_URL nor VICE_ROMS_B64 is set -- skipping the emulator run."
             echo "SKIP=1" >> "$GITHUB_ENV"
             exit 0
           fi
-          mkdir -p ~/.local/share/vice
-          curl -fsSL "$VICE_ROMS" -o /tmp/roms.tar.gz
-          tar -xzf /tmp/roms.tar.gz -C ~/.local/share/vice
+          # /usr/share/vice is VICE's compiled-in data directory on Debian and
+          # Ubuntu -- the same place default.vrs already lives -- so dropping the
+          # ROMs in beside it needs no resource fiddling.
+          sudo tar -xzf /tmp/roms.tar.gz -C /usr/share/vice
+          missing=0
+          for f in C64/kernal-901227-03.bin C64/basic-901226-01.bin \
+                   C64/chargen-901225-01.bin "DRIVES/dos1541-325302-01+901229-05.bin"; do
+            if [ ! -s "/usr/share/vice/$f" ]; then
+              echo "::error::the archive is missing $f"; missing=1
+            fi
+          done
+          [ "$missing" = 0 ] || exit 1
           echo "SKIP=0" >> "$GITHUB_ENV"
 
-      # fullcycle.py plays all 107 critical-path commands on the emulated
-      # machine, watching for OOM and errors at every step, counting the seven
-      # gesta rewards and confirming the ending's replay loop returns to the
-      # title.  It wants the disk and a free monitor port.
-      - name: build the disks
-        if: env.SKIP == '0'
-        run: python3 build/verify.py
       - name: play the critical path on an emulated C64
         if: env.SKIP == '0'
         run: xvfb-run -a python3 build/fullcycle.py elcid.d64 6510

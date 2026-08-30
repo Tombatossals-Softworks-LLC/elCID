@@ -466,4 +466,68 @@ exist. One class of bug stays invisible to every static check here: a new line
 number landing inside an existing fall-through chain, because `basemu.py`
 re-implements the BASIC's *semantics*, not its line order.
 
+### Running it on real ROMs
+
+Everything above is proof and simulation. To actually *run* the game, VICE needs
+the Commodore ROMs, and Debian and Ubuntu ship VICE without them — they are
+copyrighted, so this repository neither carries them nor downloads them. Three
+ways to hold them legitimately:
+
+1. **VICE's own upstream release.** The VICE project distributes the ROM images
+   with its source and Windows builds (`data/C64/`, `data/DRIVES/`); the Debian
+   and Ubuntu packages strip them out. Downloading VICE from
+   [vice-emu.sourceforge.io](https://vice-emu.sourceforge.io/) gets you both.
+2. **Buy a licensed set.** Cloanto's *C64 Forever* ships ROMs under an explicit
+   licence, which is the unambiguous route for anything commercial or public.
+3. **Dump your own.** If you own the machine, read its ROMs out yourself.
+
+Locally, drop them into VICE's data directory and
+[`build/fullcycle.py`](build/fullcycle.py) will play the whole critical path on
+an emulated C64:
+
+```sh
+sudo cp kernal-901227-03.bin basic-901226-01.bin chargen-901225-01.bin /usr/share/vice/C64/
+sudo cp 'dos1541-325302-01+901229-05.bin' /usr/share/vice/DRIVES/
+python3 build/verify.py                       # build the disks
+xvfb-run -a python3 build/fullcycle.py elcid.d64 6510
+```
+
+In CI, the `emulator` job (Actions → CI → *Run workflow*) does the same once the
+repository has a ROM set. Pack exactly these four files, keeping the directory
+names:
+
+```sh
+mkdir -p roms/C64 roms/DRIVES
+cp kernal-901227-03.bin basic-901226-01.bin chargen-901225-01.bin roms/C64/
+cp 'dos1541-325302-01+901229-05.bin' roms/DRIVES/
+tar -czf roms.tar.gz -C roms .
+```
+
+then set **one** of two repository secrets (Settings → Secrets and variables →
+Actions → *New repository secret*):
+
+| secret | value | when |
+|---|---|---|
+| `VICE_ROMS_B64` | `base64 -w0 roms.tar.gz` | simplest — but a GitHub secret caps at 48 KB, and the four files above are ~36 KB raw, so check `base64 -w0 roms.tar.gz \| wc -c` first |
+| `VICE_ROMS_URL` | a URL `curl` can fetch | when the archive is too big, or you would rather keep it in private storage — a presigned S3 link, a private release asset |
+
+There is nothing to generate: the secret is just the ROMs you already have, in
+one of those two shapes. With neither set the job prints a notice and passes, so
+forks and clones are never broken by its absence.
+
+## Licence
+
+[PolyForm Noncommercial 1.0.0](LICENSE) — play it, copy it, give it away, change
+it and build on it, all freely; just do not sell it or use it commercially. It
+comes as is, with no warranty. Charities, schools, public research bodies and
+government institutions count as noncommercial whatever their funding.
+
+Because commercial use is excluded, this is *source-available* rather than
+"open source" in the OSI sense; the restriction is deliberate. PolyForm rather
+than a Creative Commons NC licence because this is software, and Creative
+Commons themselves recommend against CC for software.
+
+The verses of the *Cantar de Mio Cid* quoted throughout are older than copyright
+and belong to everyone.
+
 *(c) 2026 Tombatossals Softworks — "Estas son las nuevas de mio Cid el Campeador."*
